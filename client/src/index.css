@@ -117,3 +117,9 @@ letter-spacing: normal;
 .userInfo-value {
   margin-left: 10px;
 }
+
+/* ==================== */
+.product-link {
+  text-decoration: none !important;
+  color: black !important;
+}

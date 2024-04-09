@@ -18,11 +18,15 @@ import AdminRoutes from './components/Routes/AdminRoutes';
 import ShelterRoutes from './components/Routes/ShelterRoutes';
 import ShelterDashboard from './pages/Shelter/ShelterDashboard';
 import CreateCategory from './pages/Admin/CreateCategory';
-import CreateProduct from './pages/Admin/CreateProduct';
+import CreateProduct from './pages/Shelter/CreateProduct';
 import Users from './pages/Admin/Users'; // Corrected import
 import Adopt from './pages/user/Adopt';
 import Profile from './pages/user/Profile';
 import Profiles from './pages/Shelter/Profiles';
+import Products from './pages/Products';
+import UpdateProduct from './pages/Shelter/UpdateProduct';
+import Search from './pages/Search';
+import ProductDetails from './pages/ProductDetails';
 
 function App() {
   return (
@@ -30,6 +34,8 @@ function App() {
       <Toaster />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/product/:slug" element={<ProductDetails />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/dashboard" element={<PrivateRoutes />}>
           <Route path="user" element={<Dashboard />} />
           <Route path="user/adopt" element={<Adopt />} />
@@ -38,12 +44,17 @@ function App() {
         <Route path="/dashboard" element={<AdminRoutes />}>
           <Route path="admin" element={<AdminDashboard />} />
           <Route path="admin/create-category" element={<CreateCategory />} />
-          <Route path="admin/create-product" element={<CreateProduct />} />
+          {/* <Route path="admin/create-product" element={<CreateProduct />} />
+          <Route path="admin/product/:slug" element={<UpdateProduct />} />
+          <Route path="admin/products" element={<Products />} /> */}
           <Route path="admin/users" element={<Users />} /> {/* Corrected rendering */}
         </Route>
         <Route path="/dashboard" element={<ShelterRoutes />}>
           <Route path="shelter" element={<ShelterDashboard />} />
-          <Route path="shelter/profile" element={<Profiles />} />
+          <Route path="shelter/create-product" element={<CreateProduct />} />
+          <Route path="shelter/product/:slug" element={<UpdateProduct />} />
+          <Route path="shelter/products" element={<Products />} />
+          <Route path="shelter/profiles" element={<Profiles />} /> 
         </Route>
         <Route path="/choice-page" element={<ChoicePage />} />
         <Route path="/user-info" element={<UserInfo />} />

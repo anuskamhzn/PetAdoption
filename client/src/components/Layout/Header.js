@@ -3,6 +3,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { MdOutlinePets } from "react-icons/md";
 import { useAuth } from "../../context/auth";
 import toast from 'react-hot-toast';
+import SearchInput from "../Form/SearchInput";
 
 const Header = () => {
     const [auth, setAuth] = useAuth();
@@ -25,6 +26,7 @@ const Header = () => {
                     </button>
                     <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
                         <ul className="navbar-nav">
+                            <SearchInput />
                             <li className="nav-item">
                                 <NavLink to="/" className="nav-link active" aria-current="page">Home</NavLink>
                             </li>
@@ -34,10 +36,15 @@ const Header = () => {
                                         {auth?.user?.name}
                                     </NavLink>
                                     <ul className="dropdown-menu">
-                                        <li>
-                                            {/* <NavLink to={`/dashboard/${auth?.user?.role === 1 ? 'admin' : auth?.user?.role === 2 ? 'shelter' : 'user'}`} className="dropdown-item">Dashboard</NavLink> */}
-                                            <NavLink to={auth && auth.user ? `/user-info` : "/login"} className="dropdown-item">Info</NavLink>
-                                        </li>
+                                    <li>
+                                    <NavLink to={`/dashboard/${
+                                        auth?.user?.role === 1 ? "admin": auth?.user?.role === 2 ? "shelter": "user"
+                                    }`}
+                                        className="dropdown-item"
+                                    >
+                                        Dashboard
+                                    </NavLink>
+                      </li>
                                         <li>
                                             <NavLink onClick={handleLogout} to="/login" className="dropdown-item">Logout</NavLink>
                                         </li>

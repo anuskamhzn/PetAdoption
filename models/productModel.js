@@ -14,25 +14,22 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    price: {
+    age: {
       type: Number,
+      required: true,
+    },
+    breed: {
+      type: String,
       required: true,
     },
     category: {
-      type: mongoose.ObjectId,
+      type: String,
       ref: "Category",
-      required: true,
-    },
-    quantity: {
-      type: Number,
       required: true,
     },
     photo: {
       data: Buffer,
       contentType: String,
-    },
-    shipping: {
-      type: Boolean,
     },
   },
   { timestamps: true }

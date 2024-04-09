@@ -4,6 +4,8 @@ import {
     loginController,
     testController,
     forgotPasswordController,
+    updateProfileController,
+    updateSProfileController,
   } from "../controllers/authController.js";
   import { isAdminOrShelter,requireSignIn } from "../middlewares/authMiddleware.js";
 
@@ -36,5 +38,9 @@ router.get("/admin-auth", requireSignIn,isAdminOrShelter, (req,res) => {
 router.get("/shelter-auth", requireSignIn,isAdminOrShelter, (req,res) => {
   res.status(200).send({ok:true});
 });
+
+router.put('/profile',requireSignIn, updateProfileController);
+
+router.put('/profiles',requireSignIn, updateSProfileController);
 
 export default router;
