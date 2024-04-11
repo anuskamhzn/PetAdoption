@@ -45,7 +45,7 @@ router.get("/product-photo/:pid", productPhotoController);
 //delete product
 router.delete("/delete-product/:pid", deleteProductController);
 
-//delete product
+//filter product
 router.post("/product-filters", productFiltersController);
 
 //product count

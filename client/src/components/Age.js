@@ -7,7 +7,7 @@ export const Age = [
     {
       _id: 1,
       name: "1 to 3 years",
-      array: [1, 3],
+      array: [2, 3],
     },
     {
       _id: 2,

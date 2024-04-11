@@ -9,9 +9,9 @@ const ShterMenu = () => {
                     <h4>Shelter Panel</h4>
                 </NavLink>
                     {/* <NavLink to="/dashboard/shelter/profiles" className="list-group-item list-group-item-action">Profile</NavLink> */}
-                    <NavLink to="/dashboard/shelter/create-product" className="list-group-item list-group-item-action">Create Product</NavLink>
-                    <NavLink to="/dashboard/shelter/products" className="list-group-item list-group-item-action">Products</NavLink>
-                    <NavLink to="/dashboard/shelter/profiles" className="list-group-item list-group-item-action">Profile</NavLink>
+                    <NavLink to="/dashboard/shelter/create-product" className="list-group-item list-group-item-action">Pet Info</NavLink>
+                    <NavLink to="/dashboard/shelter/products" className="list-group-item list-group-item-action">Pets</NavLink>
+                    <NavLink to="/dashboard/shelter/profiles" className="list-group-item list-group-item-action">Shelter Profile</NavLink>
                 </div>
             </div>
     );

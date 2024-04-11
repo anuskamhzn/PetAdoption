@@ -175,7 +175,7 @@ export const updateProfileController = async (req, res) => {
   }
 };
 
-//update shelter profile
+//update shelter prfile
 export const updateSProfileController = async (req, res) => {
   try {
     const { name, email, password, address, phone } = req.body;

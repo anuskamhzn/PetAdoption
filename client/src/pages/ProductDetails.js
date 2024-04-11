@@ -65,6 +65,7 @@ const ProductDetails = () => {
             <h6>Name : {product.name}</h6>
             <h6>Description : {product.description}</h6>
             <h6>Age : {product.age}</h6>
+            <h6>Breed : {product?.breed}</h6>
             <h6>Category : {product?.category?.name}</h6>
             <button className="btn btn-primary ms-1" onClick={() => handleAdopt(product._id)}>
               Adopt
