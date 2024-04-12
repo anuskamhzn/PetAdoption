@@ -17,5 +17,8 @@ export const Breeds = {
       "Mini Rex",
       /* add more rabbit breeds */
     ],
+    hamster: [
+      "Chinese hamster",
+    ]
   };
   

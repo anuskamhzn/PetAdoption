@@ -188,24 +188,26 @@ export const updateProductController = async (req, res) => {
 // filters
 export const productFiltersController = async (req, res) => {
   try {
-    const { checked, radio } = req.body;
-    let args = {};
-    if (checked.length > 0) args.category = checked;
-    if (radio.length) args.age = { $gte: radio[0], $lte: radio[1] };
-    const products = await productModel.find(args);
-    res.status(200).send({
-      success: true,
-      products,
-    });
+      const { checked, radio, breeds } = req.body; // Include breeds in the request body
+      let args = {};
+      if (checked.length > 0) args.category = checked;
+      if (radio.length) args.age = { $gte: radio[0], $lte: radio[1] };
+      if (breeds.length) args.breed = { $in: breeds }; // Filter by breeds
+      const products = await productModel.find(args);
+      res.status(200).send({
+          success: true,
+          products,
+      });
   } catch (error) {
-    console.log(error);
-    res.status(400).send({
-      success: false,
-      message: "Error WHile Filtering Products",
-      error,
-    });
+      console.log(error);
+      res.status(400).send({
+          success: false,
+          message: "Error While Filtering Products",
+          error,
+      });
   }
 };
+
 
 // product count
 export const productCountController = async (req, res) => {
@@ -257,8 +259,8 @@ export const searchProductController = async (req, res) => {
     const results = await productModel
       .find({
         $or: [
-          { name: { $regex: keyword, $options: "i" } },
-          { category: keyword }, // Search for products with the specified category ID
+          { name: { $regex: keyword, $options: "i" } }, // Search by name
+          { category: keyword } // Search by category name
         ],
       })
       .select("-photo");
@@ -272,4 +274,5 @@ export const searchProductController = async (req, res) => {
     });
   }
 };
+
 

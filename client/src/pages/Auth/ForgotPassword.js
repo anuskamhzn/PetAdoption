@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 const ForgotPassword = () => {
     const [email, setEmail] = useState("");
     const [newpassword, setNewPassword] = useState("");
-    const [answer, setAnswer] = useState("");
+    const [phone, setPhone] = useState("");
 
     const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ const ForgotPassword = () => {
         e.preventDefault();
         try {
 // Ensure axios post request includes correct field names
-        const res = await axios.post(`/api/v1/auth/forgot-password`, { email, newpassword, answer });
+        const res = await axios.post(`/api/v1/auth/forgot-password`, { email, newpassword, phone });
         if (res.data && res.data.success) {
             toast.success(res.data.message);
             navigate('/login');
@@ -38,7 +38,7 @@ const ForgotPassword = () => {
                         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" id="exampleInputEmail1" placeholder='Enter Email' required />
                     </div>
                     <div className="mb-3">
-                        <input type="text" value={answer} onChange={(e) => setAnswer(e.target.value)} className="form-control" id="exampleInputPassword1" placeholder='Enter favorite color' required />
+                        <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} className="form-control" id="exampleInputPassword1" placeholder='Enter Phone Number' required />
                     </div>
                     <div className="mb-3">
                         <input type="password" value={newpassword} onChange={(e) => setNewPassword(e.target.value)} className="form-control" id="exampleInputPassword1" placeholder='Enter New Password' required />

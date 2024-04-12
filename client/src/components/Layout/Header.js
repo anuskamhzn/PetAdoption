@@ -24,12 +24,25 @@ const Header = () => {
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
+                    
                     <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+                        
+                    <p className="nav-item p-2 pt-3 px-4">
+                                <NavLink to="/firstpage" className="nav-link active" aria-current="page">Home</NavLink>
+                            </p>
+                            <p className="nav-item p-2 pt-3 px-4">
+                                <NavLink to="/" className="nav-link active" aria-current="page">About us</NavLink>
+                            </p>    <p className="nav-item p-2 pt-3 px-4">
+                                <NavLink to="/" className="nav-link active" aria-current="page">Help and Advice</NavLink>
+                            </p>    <p className="nav-item p-2 pt-3 px-4">
+                                <NavLink to="/" className="nav-link active" aria-current="page">Find a Pet</NavLink>
+                            </p>    <p className="nav-item p-2 pt-3 px-4">
+                                <NavLink to="/" className="nav-link active" aria-current="page">Contact us</NavLink>
+                            </p>
+                            
                         <ul className="navbar-nav">
                             <SearchInput />
-                            <li className="nav-item">
-                                <NavLink to="/" className="nav-link active" aria-current="page">Home</NavLink>
-                            </li>
+
                             {auth.user ? (
                                 <li className="nav-item dropdown">
                                     <NavLink className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">

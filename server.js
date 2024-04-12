@@ -7,6 +7,7 @@ import authRoutes from './routes/authRoute.js';
 import cors from 'cors';
 import categoryRouter from './routes/categoryRouter.js';
 import productRoutes from './routes/productRoutes.js';
+import breedRouter from './routes/breedRouter.js';
 
 
 //configure env
@@ -27,6 +28,7 @@ app.use(morgan('dev'));
 app.use("/api/v1/auth",authRoutes);
 app.use("/api/v1/category", categoryRouter);
 app.use('/api/v1/product', productRoutes);
+app.use('/api/v1/breed',breedRouter);
 
 //rest api
 app.get('/', (req,res) => {

@@ -123,3 +123,99 @@ letter-spacing: normal;
   text-decoration: none !important;
   color: black !important;
 }
+
+
+.card-image{
+  height: auto !important;
+}
+.card-body{
+background-color: #f9f9f9;
+}
+.filter-bar{
+  background-color: #ccdef0;
+}
+li{
+  text-decoration: none !important;
+}
+.nav-item{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 100 !important;
+}
+
+.wallpaper-image-2 {
+  z-index: -1;
+}
+.wallpaper-image img {
+  width: 100%;
+  height: 550px;
+}
+@media only screen and (max-width: 963px) {
+  .wallpaper-image img {
+    height: auto;
+  }
+}
+.orange-box {
+  height: 50%;
+  width: 6%;
+  background-color: orange;
+  position: absolute;
+  top: 50%;
+  left: 61%;
+  transform: translate(10%, -50%);
+}
+@media only screen and (max-width: 972px) {
+  .orange-box {
+    left: 5%;
+  }
+}
+.wallpaper-text {
+  color: white;
+  font-size: 40px;
+  position: absolute;
+
+  font-weight: 700;
+  transform: translate(10%, -50%);
+  z-index: 3;
+}
+@media only screen and (max-width: 972px) {
+  .wallpaper-text {
+    left: 10%;
+  }
+}
+@media only screen and (max-width: 720px) {
+  .wallpaper-text {
+    font-size: 30px;
+  }
+}
+.wallpaper-image-2 img {
+  width: 100%;
+  height: 350px;
+  margin-top: -20px;
+  filter: brightness(70%);
+}
+
+.wallpaper-text-2 {
+  color: white;
+  text-align: center;
+}
+@media only screen and (max-width: 1210px) {
+  .wallpaper-image-2 img {
+    height: auto;
+  }
+}
+.wallpaper-text-2 p {
+  margin-left: 20%;
+  margin-right: 20%;
+  text-align: center;
+}
+@media only screen and (max-width: 972px) {
+  .wallpaper-2 {
+    flex-direction: column;
+  }
+}
+@media only screen and (max-width: 972px) {
+  .wallpaper-text-2 {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}

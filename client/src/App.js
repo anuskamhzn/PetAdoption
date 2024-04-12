@@ -17,7 +17,8 @@ import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminRoutes from './components/Routes/AdminRoutes';
 import ShelterRoutes from './components/Routes/ShelterRoutes';
 import ShelterDashboard from './pages/Shelter/ShelterDashboard';
-import CreateCategory from './pages/Admin/CreateCategory';
+import CreateCategory from './pages/Shelter/CreateCategory';
+import CreateBreed from './pages/Shelter/CreateBreed';
 import CreateProduct from './pages/Shelter/CreateProduct';
 import Users from './pages/Admin/Users'; // Corrected import
 import Adopt from './pages/user/Adopt';
@@ -27,6 +28,9 @@ import Products from './pages/Products';
 import UpdateProduct from './pages/Shelter/UpdateProduct';
 import Search from './pages/Search';
 import ProductDetails from './pages/ProductDetails';
+import Firstpage from './pages/firstPage';
+
+
 
 function App() {
   return (
@@ -34,6 +38,8 @@ function App() {
       <Toaster />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/firstpage" element={<Firstpage />} />
+
         <Route path="/product/:slug" element={<ProductDetails />} />
         <Route path="/search" element={<Search />} />
         <Route path="/dashboard" element={<PrivateRoutes />}>
@@ -43,14 +49,16 @@ function App() {
         </Route>
         <Route path="/dashboard" element={<AdminRoutes />}>
           <Route path="admin" element={<AdminDashboard />} />
-          <Route path="admin/create-category" element={<CreateCategory />} />
+          {/* <Route path="admin/create-category" element={<CreateCategory />} /> */}
           {/* <Route path="admin/create-product" element={<CreateProduct />} />
           <Route path="admin/product/:slug" element={<UpdateProduct />} />
           <Route path="admin/products" element={<Products />} /> */}
-          <Route path="admin/users" element={<Users />} /> {/* Corrected rendering */}
+          <Route path="admin/users" element={<Users />} /> 
         </Route>
         <Route path="/dashboard" element={<ShelterRoutes />}>
           <Route path="shelter" element={<ShelterDashboard />} />
+          <Route path="shelter/create-category" element={<CreateCategory />} />
+          <Route path="shelter/create-breed" element={<CreateBreed />} />
           <Route path="shelter/create-product" element={<CreateProduct />} />
           <Route path="shelter/product/:slug" element={<UpdateProduct />} />
           <Route path="shelter/products" element={<Products />} />

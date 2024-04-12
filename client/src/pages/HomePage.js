@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout/Layout";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Checkbox, Radio, Button } from "antd"; // Added Button from Ant Design
+import { Checkbox, Radio } from "antd";
 import { Age } from "../components/Age";
 import { Breeds } from "../components/breeds";
 
@@ -62,65 +62,40 @@ const HomePage = () => {
     const loadMore = () => {
         setPage(page + 1);
     };
-    // Display breeds based on the selected category filter
-useEffect(() => {
-  if (checked.length) {
-      const selectedCategory = categories.find(category => category._id === checked[0]);
-      if (selectedCategory) {
-          const selectedCategoryName = selectedCategory.name.toLowerCase();
-          setBreeds(Breeds[selectedCategoryName] || []);
-      }
-  } else {
-      setBreeds([]);
-  }
-}, [checked, categories]);
 
-// Handle category filter
-const handleFilter = (value, id) => {
-  let all = [...checked];
-  if (value) {
-      // If the category is being selected, add it to the checked array
-      all.push(id);
-  } else {
-      // If the category is being deselected, remove it from the checked array
-      all = all.filter((c) => c !== id);
-  }
-  setChecked(all);
-
-  // Update breeds based on selected categories
-  const selectedBreeds = all.flatMap((categoryId) => {
-    const selectedCategory = categories.find((category) => category._id === categoryId);
-    const categoryBreeds = selectedCategory ? Breeds[selectedCategory.name.toLowerCase()] || [] : [];
-    return categoryBreeds;
-  });
-  setBreeds(selectedBreeds);
-};
-
-    // Display breeds based on the selected category filter
-    useEffect(() => {
-        if (checked.length) {
-            const selectedCategory = categories.find(category => category._id === checked[0]);
-            if (selectedCategory) {
-                const selectedCategoryName = selectedCategory.name.toLowerCase();
-                setBreeds(Breeds[selectedCategoryName] || []);
+    // Handle category filter
+    const handleFilter = (value, id) => {
+        let all = [...checked];
+        if (value) {
+            // If the category is being selected, add it to the checked array
+            if (!all.includes(id)) {
+                all.push(id);
             }
         } else {
-            setBreeds([]);
+            // If the category is being deselected, remove it from the checked array
+            all = all.filter((c) => c !== id);
         }
-    }, [checked, categories]);
+        setChecked(all);
+
+        // Update breeds based on selected categories
+        const selectedBreeds = categories
+            .filter(category => all.includes(category._id))
+            .flatMap(category => Breeds[category.name.toLowerCase()] || []);
+        setBreeds(selectedBreeds);
+    };
 
     // Filter products based on category, breed, and age
     useEffect(() => {
         filterProducts();
     }, [checked, radio]);
 
-    // Filter products based on category, breed, and age
     const filterProducts = async () => {
         try {
             setLoading(true);
             const { data } = await axios.post("/api/v1/product/product-filters", {
                 checked,
                 radio,
+                breeds: breeds.filter(breed => checked.includes(breed)) // Include selected breeds
             });
             setLoading(false);
             setProducts(data?.products);
@@ -130,12 +105,11 @@ const handleFilter = (value, id) => {
         }
     };
 
-
     return (
         <Layout>
             <div className="row mt-3">
-                <div className="col-md-3">
-                    <h4 className="text-center">Filter By Category</h4>
+                <div className="col-md-3 filter-bar">
+                    <h4 className="text-center mb-3">Filter By Category</h4>
                     <div className="d-flex flex-column">
                         {categories?.map((c) => (
                             <Checkbox
@@ -146,15 +120,15 @@ const handleFilter = (value, id) => {
                             </Checkbox>
                         ))}
                     </div>
-                    <h4 className="text-center">Filter By Breed</h4>
+                    <h6 className="mt-3">Filter by Breed</h6>
                     <div className="d-flex flex-column">
                         {breeds.map(breed => (
-                            <Checkbox key={breed} onChange={(e) => console.log(e.target.checked, breed)}>
+                            <Checkbox key={breed} onChange={(e) => handleFilter(e.target.checked, breed)} className="mb-2">
                                 {breed}
                             </Checkbox>
                         ))}
                     </div>
-                    <h4 className="text-center">Filter By Age</h4>
+                    <h4 className="text-center mt-3">Filter By Age</h4>
                     <div className="d-flex flex-column">
                         <Radio.Group onChange={(e) => setRadio(e.target.value)}>
                             {Age?.map((p) => (
@@ -164,28 +138,30 @@ const handleFilter = (value, id) => {
                             ))}
                         </Radio.Group>
                     </div>
-                    <div className="d-flex flex-column">
-                    <button
-              className="btn btn-warning"
-              onClick={() => window.location.reload()}
-            >
-              RESET FILTERS
-            </button>
+                    <div className="d-flex flex-column mt-3">
+                        <button
+                            className="btn btn-warning"
+                            onClick={() => window.location.reload()}
+                        >
+                            RESET FILTERS
+                        </button>
                     </div>
                 </div>
                 <div className="col-md-9">
                     <h1 className="text-center">All Pets</h1>
-                    <div className="d-flex flex-wrap">
+                    <div className="d-flex flex-wrap  justify-content-center">
                         {products?.map((p) => (
-                            <div className="card m-2" style={{ width: "18rem" }} key={p._id}>
+                            <div className="card m-2 " style={{ width: "18rem" }} key={p._id}>
+                                <div className="card-image">
                                 <img
                                     src={`/api/v1/product/product-photo/${p._id}`}
                                     className="card-img-top"
                                     alt={p.name}
                                 />
-                                <div className="card-body">
+                                </div>
+                                <div className="card-body ">
                                     <h5 className="card-title">{p.name}</h5>
-                                    <p className="card-text">{p.description.substring(0,30)}</p>
+                                    {/* <p className="card-text">{p.description.substring(0, 30)}</p> */}
                                     <p className="card-text">Age: {p.age}</p>
                                     <button className="btn btn-primary ms-1" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
                                     <button className="btn btn-secondary ms-1">Adopt</button>

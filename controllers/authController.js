@@ -7,7 +7,7 @@ export const registerController = async (req, res) => {
       const { name, email, password, phone, address, answer } = req.body;
       const role = req.body.role; // Extract role from the request body
       // Validations
-      if (!name || !email || !password || !phone || !address || !answer || !role) {
+      if (!name || !email || !password || !phone || !address || !role) {
         return res.status(400).json({ message: "All fields are required" });
       }
       // Check if the user already exists
@@ -24,7 +24,6 @@ export const registerController = async (req, res) => {
         phone,
         address,
         password: hashedPassword,
-        answer,
         role,
       }).save();
       res.status(201).json({
@@ -94,18 +93,18 @@ export const loginController = async (req, res) => {
 //forgot password controller
 export const forgotPasswordController = async (req, res) => {
   try {
-    const { email, answer, newpassword } = req.body;
+    const { email, phone, newpassword } = req.body;
     if (!email) {
       return res.status(400).send({ message: "Email is required" });
     }
-    if (!answer) {
-      return res.status(400).send({ message: "Answer is required" });
+    if (!phone) {
+      return res.status(400).send({ message: "Phone Number is required" });
     }
     if (!newpassword) {
       return res.status(400).send({ message: "New Password is required" });
     }
     //check user and answer
-    const user = await userModel.findOne({ email, answer });
+    const user = await userModel.findOne({ email, phone });
     //validation
     if (!user) {
       return res.status(404).send({
