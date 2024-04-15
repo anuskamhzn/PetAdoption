@@ -37,10 +37,11 @@
   
   /* Description container */
   .product-description {
-    background-color: #f9f9f9; /* Light gray background */
-    padding: 20px; /* Add padding */
-    border-radius: 8px; /* Add border radius */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    background-color: #eff4f4; /* Light gray background */
+    border-radius: 8px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    padding-top: 20px;
+    padding-left: 100px;
   }
   
   .description-title {
@@ -53,7 +54,7 @@
     line-height: 1.6; /* Increase line height for readability */
   }
   
-  
+  /*Home Page*/
   .text-center {
     padding-top: 50px; /* Adjust the value to your preference */
   }
@@ -66,3 +67,7 @@
   background-color: rgb(255, 255, 255);
 }
 
+.bgColor {
+  background-color: #f2f5f7; /* Adjust the color code as needed */
+  padding: 50px;
+}

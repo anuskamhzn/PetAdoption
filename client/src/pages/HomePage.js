@@ -122,8 +122,9 @@ const HomePage = () => {
             <div className="text-center pt-5" style={{ backgroundColor: "#fffff" }}>
             <h1>Why Choose PetPals ?</h1>
             <h6>Because we enable direct pet adoption, from one good home to another.</h6>
-            <div className="row justify-content-center pt-5">
-    <div className="col-md-4">
+            <div className="row justify-content-center pt-5" >
+    <div className="col-md-4" data-aos="slide-up"
+              data-aos-offset="400">
         <div className="card border" style={{ width: "18rem" }}>
             <div className="card-body">
                 <img className="card-img-top" src={im} alt="Card image cap" style={{ width: "70%", height: "80%" }} />
@@ -137,7 +138,8 @@ const HomePage = () => {
             </div>
         </div>
     </div>
-    <div className="col-md-4">
+    <div className="col-md-4" data-aos="slide-up"
+              data-aos-offset="400">
         <div className="card" style={{ width: "18rem" }}>
             <div className="card-body">
                 <img className="card-img-top" src={img1} alt="Card image cap" style={{ width: "50%", height: "50%" }} />
@@ -150,7 +152,8 @@ const HomePage = () => {
             </div>
         </div>
     </div>
-    <div className="col-md-4">
+    <div className="col-md-4" data-aos="slide-up"
+              data-aos-offset="400">
         <div className="card" style={{ width: "18rem" }}>
             <div className="card-body">
                 <img className="card-img-top" src={img2} alt="Card image cap" style={{ width: "40%", height: "40%" }} />
@@ -166,15 +169,18 @@ const HomePage = () => {
 </div>
 
         </div>
-        <div className="text-center pt-5 pb-5 pl-5 pr-5" > {/* Adding pt-5, pb-5, pl-5, pr-5 for padding on all sides */}
+        <div className="text-center pt-5 pb-5 pl-5 pr-5 container p-4" data-aos="slide-up"
+              data-aos-offset="400" > {/* Adding pt-5, pb-5, pl-5, pr-5 for padding on all sides */}
     <h1>Straightforward Pet Rehoming And Adoption</h1>
-    <p>PetRehomer is a new digital platform with real people behind the scenes. Our platform connects potential adopters with people who need to rehome their pets. This makes it easier for good people to adopt the right pet whilst maximising the chance of pets finding their forever home.</p>
-    <p>We offer a non-judgmental service to rehomers and give them full control of the process.</p>
-    <p>We're also helping to reduce the number of animals going into shelters. This frees up space and resources for the pets who have been abandoned, need immediate help or specialist care.</p>
+    <p className="px-4 mx-5 ">PetPals is a new digital platform with real people behind the scenes. Our platform connects potential adopters with people who need to rehome their pets. This makes it easier for good people to adopt the right pet whilst maximising the chance of pets finding their forever home.</p>
+    <p className="px-4 mx-5 ">We offer a non-judgmental service to rehomers and give them full control of the process.</p>
+    <p className="px-4 mx-5 ">We're also helping to reduce the number of animals going into shelters. This frees up space and resources for the pets who have been abandoned, need immediate help or specialist care.</p>
 </div>
 
 
             <div className="row mt-3">
+            <div className="align-items-center justify-content-center">
+
                 {/* <div className="col-md-3 ps-md-4">
                     <h4 className="text-center mb-3">Filter By Category</h4>
                     <div className="d-flex flex-column">
@@ -214,10 +220,10 @@ const HomePage = () => {
                         </button>
                     </div>
                 </div> */}
-                <div className="col-md-9">
+                <div className=" ">
     <h1 className="text-center">Featured Pets</h1>
     <div className="container">
-    <div className="d-flex justify-content-center flex-wrap" style={{paddingLeft:"150px"}}>
+    <div className="d-flex justify-content-center flex-wrap"    >
         {products?.slice(0, 6).map((p) => (
             <div className="card m-2" style={{ width: "18rem" }} key={p._id}>
                 <img
@@ -238,6 +244,7 @@ const HomePage = () => {
             </div>
         ))}
     </div>
+</div>
 </div>
 
     <div className="m-2 p-3">

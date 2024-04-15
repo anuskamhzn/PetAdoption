@@ -48,39 +48,43 @@ const ProductDetails = () => {
 
   return (
     <Layout>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <div className="row container mt-2">
-<div className="col-md-6" style={{ paddingLeft: '100px' }}>
-  <img
-    src={`/api/v1/product/product-photo/${product._id}`}
-    className="card-img-top"
-    alt={product.name}
-    height="365px"
-    style={{ width: "300px" }}
-  />
-</div>
-          <div className="col-md-6">
-            <h1 className="text-center">Pet Details</h1>
-            <h6>Name : {product.name}</h6>
-            <h6>Age : {product.age}</h6>
-            <h6>Breed : {product?.breed}</h6>
-            <h6>Category : {product?.category?.name}</h6>
-            <button className="btn btn-primary ms-1" onClick={() => handleAdopt(product._id)}>
-              Adopt
-            </button>
-          </div>
-          <div className="product-description">
-            <h1 className="description-title">Description</h1>
-            <p className="description-text">{product.description}</p>
+        {loading ? (
+            <div>Loading...</div>
+        ) : (
+          <div className="bgColor">
+                          <div className="row container mt-2"> {/* Apply the bgColor class here */}
+                <div className="col-md-6" style={{ paddingLeft: '100px' }}>
+                    <img
+                        src={`/api/v1/product/product-photo/${product._id}`}
+                        className="card-img-top"
+                        alt={product.name}
+                        height="365px"
+                        style={{ width: "300px" }}
+                    />
+                </div>
+                <div className="col-md-6">
+                    <h1 className="text-center">Pet Details</h1>
+                    <h6>Name : {product.name}</h6>
+                    <h6>Age : {product.age}</h6>
+                    <h6>Breed : {product?.breed}</h6>
+                    <h6>Category : {product?.category?.name}</h6>
+                    <button className="btn btn-primary ms-1" onClick={() => handleAdopt(product._id)}>
+                        Adopt
+                    </button>
+                </div>
+                <div className="product-description">
+                    <h1 className="description-title">Description</h1>
+                    <p className="description-text">{product.description}</p>
+                </div>
+            </div>
           </div>
 
-        </div>
-      )}
-      <hr />
+        )}
+        <hr />
     </Layout>
-  );
+);
+
+
 };
 
 export default ProductDetails;
