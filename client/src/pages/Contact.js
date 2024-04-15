@@ -28,7 +28,7 @@ const Contact = () => {
           <p className="mt-3">
             <BiSupport /> : 1800-0000-0000 (toll free)
           </p>
-          <Link to="/" className="pnf-btn">
+          <Link to="/homepage" className="pnf-btn">
           Go Back
         </Link>
         </div>

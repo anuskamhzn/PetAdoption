@@ -1,0 +1,68 @@
+/* Product.css */
+
+/* Main container */
+.container {
+    margin-top: 20px;
+  }
+  
+  /* Image container */
+  .product-image {
+    text-align: center; /* Center the image */
+  }
+  
+  .product-image img {
+    max-width: 100%; /* Ensure the image doesn't exceed its container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Add border radius for rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  }
+  
+  /* Pet details container */
+  .pet-details {
+    background-color: #fff; /* White background */
+    padding: 20px; /* Add padding */
+    border-radius: 8px; /* Add border radius */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  }
+  
+  .pet-details h1 {
+    font-size: 24px; /* Title font size */
+    margin-bottom: 15px; /* Add spacing below the title */
+  }
+  
+  .pet-details h6 {
+    font-size: 16px; /* Details font size */
+    margin-bottom: 10px; /* Add spacing below each detail */
+  }
+  
+  /* Description container */
+  .product-description {
+    background-color: #f9f9f9; /* Light gray background */
+    padding: 20px; /* Add padding */
+    border-radius: 8px; /* Add border radius */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  }
+  
+  .description-title {
+    font-size: 20px; /* Title font size */
+    margin-bottom: 15px; /* Add spacing below the title */
+  }
+  
+  .description-text {
+    font-size: 16px; /* Description font size */
+    line-height: 1.6; /* Increase line height for readability */
+  }
+  
+  
+  .text-center {
+    padding-top: 50px; /* Adjust the value to your preference */
+  }
+
+  .bg-color {
+    background-color: #fafafb; /* Change to your desired background color */
+}
+
+.card-body{
+  background-color: rgb(255, 255, 255);
+}
+

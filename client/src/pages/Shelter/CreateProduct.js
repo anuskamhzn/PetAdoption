@@ -153,7 +153,7 @@ const CreateProduct = () => {
 
                             <div className="mb-3">
                                 <button className="btn btn-primary" onClick={handleCreate}>
-                                    CREATE PRODUCT
+                                    Add Pet
                                 </button>
                             </div>
                         </div>

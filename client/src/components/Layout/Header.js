@@ -4,6 +4,7 @@ import { MdOutlinePets } from "react-icons/md";
 import { useAuth } from "../../context/auth";
 import toast from 'react-hot-toast';
 import SearchInput from "../Form/SearchInput";
+import About from "../../pages/About";
 
 const Header = () => {
     const [auth, setAuth] = useAuth();
@@ -28,16 +29,16 @@ const Header = () => {
                     <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
                         
                     <p className="nav-item p-2 pt-3 px-4">
-                                <NavLink to="/firstpage" className="nav-link active" aria-current="page">Home</NavLink>
+                                <NavLink to="/homepage" className="nav-link active" aria-current="page">Home</NavLink>
                             </p>
                             <p className="nav-item p-2 pt-3 px-4">
-                                <NavLink to="/" className="nav-link active" aria-current="page">About us</NavLink>
+                                <NavLink to="/about" className="nav-link active" aria-current="page">About us</NavLink>
                             </p>    <p className="nav-item p-2 pt-3 px-4">
-                                <NavLink to="/" className="nav-link active" aria-current="page">Help and Advice</NavLink>
+                                <NavLink to="/homepage" className="nav-link active" aria-current="page">Help and Advice</NavLink>
                             </p>    <p className="nav-item p-2 pt-3 px-4">
-                                <NavLink to="/" className="nav-link active" aria-current="page">Find a Pet</NavLink>
+                                <NavLink to="/pet" className="nav-link active" aria-current="page">Find a Pet</NavLink>
                             </p>    <p className="nav-item p-2 pt-3 px-4">
-                                <NavLink to="/" className="nav-link active" aria-current="page">Contact us</NavLink>
+                                <NavLink to="/contact" className="nav-link active" aria-current="page">Contact us</NavLink>
                             </p>
                             
                         <ul className="navbar-nav">

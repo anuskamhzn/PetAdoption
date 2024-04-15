@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import Layout from "./../components/Layout/Layout";
 import axios from "axios";
 import { useParams, useNavigate, NavLink } from "react-router-dom";
+import './Style.css'; 
 
 const ProductDetails = () => {
   const params = useParams();
@@ -51,19 +52,18 @@ const ProductDetails = () => {
         <div>Loading...</div>
       ) : (
         <div className="row container mt-2">
-          <div className="col-md-6">
-            <img
-              src={`/api/v1/product/product-photo/${product._id}`}
-              className="card-img-top"
-              alt={product.name}
-              height="380px"
-              style={{ width: "300px" }}
-            />
-          </div>
+<div className="col-md-6" style={{ paddingLeft: '100px' }}>
+  <img
+    src={`/api/v1/product/product-photo/${product._id}`}
+    className="card-img-top"
+    alt={product.name}
+    height="365px"
+    style={{ width: "300px" }}
+  />
+</div>
           <div className="col-md-6">
             <h1 className="text-center">Pet Details</h1>
             <h6>Name : {product.name}</h6>
-            <h6>Description : {product.description}</h6>
             <h6>Age : {product.age}</h6>
             <h6>Breed : {product?.breed}</h6>
             <h6>Category : {product?.category?.name}</h6>
@@ -71,36 +71,14 @@ const ProductDetails = () => {
               Adopt
             </button>
           </div>
+          <div className="product-description">
+            <h1 className="description-title">Description</h1>
+            <p className="description-text">{product.description}</p>
+          </div>
+
         </div>
       )}
       <hr />
-      <div className="row container">
-        <div className="d-flex flex-wrap">
-          {relatedProducts.map((p) => (
-            <div className="card m-2" style={{ width: "18rem" }} key={p._id}>
-                  <NavLink to={`/product/${p.slug}`}>
-                  <img 
-                src={`/api/v1/product/product-photo/${p._id}`}
-                className="card-img-top"
-                alt={p.name}
-              />
-                  </NavLink>
-
-              <div className="card-body" >
-                <h5 className="card-title">{p.name}</h5>
-                <p className="card-text">{p.description.substring(0, 30)}...</p>
-                <p className="card-text"> $ {p.age}</p>
-                <button className="btn btn-primary ms-1" onClick={() => navigate(`/product/${p.slug}`)}>
-                  More Details
-                </button>
-                <button className="btn btn-secondary ms-1" onClick={() => handleAdopt(p._id)}>
-                  Adopt
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
     </Layout>
   );
 };

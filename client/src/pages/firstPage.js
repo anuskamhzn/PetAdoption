@@ -1,32 +1,22 @@
-import wallpaper from "../imag/pet2.jpg";
-import interior from "../imag/pet2.jpg";
-
-import {Link}  from 'react-router-dom';
+import wallpaper from "../imag/pets.jpg";
+import { Link } from 'react-router-dom';
+import HomePage from "./HomePage";
 
 const img1 = wallpaper;
-const img2 = interior;
 
-export default function () {
+export default function Home() {
   return (
-    <>
-      <div className="pt-5 pb-5">
-        <div className="wallpaper">
-          <div className="d-flex position-relative">
-            <div className="wallpaper">
-              <img src={img1} className="img-fluid" alt="" />
-            </div>
-            <div className="d-flex align-item-center justify-content-center">
-            <div className="card-home ">
-                <p>I want to adopt a pet </p>
-                <p>Search the available pets listed on PetRehomer</p>
-                <Link  to="/" className="btn btn-primary ms-1" >Click here</Link>
-
-            </div>
-            </div>
+    <div className="full-screen">
+      <div className="wallpaper">
+        <div className="d-flex align-items-center justify-content-center full-height">
+          <img src={img1} className="img-fluid" alt="" />
+          <div className="card-home position-absolute text-center">
+            <h1>Find the perfect pet for your Home</h1>
+            <p>Search the available pets listed on Pet-Pals</p>
+            <Link to="/homepage" className="btn btn-primary ms-1">Click here</Link>
           </div>
         </div>
-      
       </div>
-    </>
+    </div>
   );
 }

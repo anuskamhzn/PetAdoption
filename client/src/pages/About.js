@@ -23,7 +23,7 @@ const About = () => {
             accusantium atque, excepturi sapiente amet! Tenetur ducimus aut
             commodi illum quidem neque tempora nam.
           </p>
-          <Link to="/" className="pnf-btn">
+          <Link to="/homepage" className="pnf-btn">
           Go Back
         </Link>
         </div>

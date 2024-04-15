@@ -209,6 +209,7 @@ export const productFiltersController = async (req, res) => {
 };
 
 
+
 // product count
 export const productCountController = async (req, res) => {
   try {
