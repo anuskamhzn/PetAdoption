@@ -18,7 +18,7 @@ import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminRoutes from './components/Routes/AdminRoutes';
 import ShelterRoutes from './components/Routes/ShelterRoutes';
 import ShelterDashboard from './pages/Shelter/ShelterDashboard';
-import CreateCategory from './pages/Shelter/CreateCategory';
+import CreateCategory from './pages/Admin/CreateCategory';
 import CreateBreed from './pages/Shelter/CreateBreed';
 import CreateProduct from './pages/Shelter/CreateProduct';
 import Users from './pages/Admin/Users'; // Corrected import
@@ -70,11 +70,12 @@ function App() {
   </Route>
   <Route path="/dashboard" element={<AdminRoutes />}>
     <Route path="admin" element={<AdminDashboard />} />
+    <Route path="admin/create-category" element={<CreateCategory />} />
     <Route path="admin/users" element={<Users />} /> 
   </Route>
   <Route path="/dashboard" element={<ShelterRoutes />}>
     <Route path="shelter" element={<ShelterDashboard />} />
-    <Route path="shelter/create-category" element={<CreateCategory />} />
+    {/* <Route path="shelter/create-category" element={<CreateCategory />} /> */}
     <Route path="shelter/create-breed" element={<CreateBreed />} />
     <Route path="shelter/create-product" element={<CreateProduct />} />
     <Route path="shelter/product/:slug" element={<UpdateProduct />} />
