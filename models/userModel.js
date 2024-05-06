@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    pan: {
+      type: String,
+      require: true,
+    },
     phone: {
       type: String,
       required: true,

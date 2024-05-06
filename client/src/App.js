@@ -7,8 +7,9 @@ import FindAPet from './pages/findAPet';
 import Policy from "./pages/Policy";
 import Pagenotfound from "./pages/Pagenotfound";
 import Register from "./pages/Auth/Register";
+import SRegister from "./pages/Auth/shelterRegister";
 import Login from "./pages/Auth/Login";
-import { Toaster, toast } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './pages/user/Dashboard';
 import PrivateRoutes from './components/Routes/Private';
@@ -21,7 +22,9 @@ import ShelterDashboard from './pages/Shelter/ShelterDashboard';
 import CreateCategory from './pages/Admin/CreateCategory';
 import CreateBreed from './pages/Shelter/CreateBreed';
 import CreateProduct from './pages/Shelter/CreateProduct';
+import Adoption from './pages/Shelter/Adoption';
 import Users from './pages/Admin/Users'; // Corrected import
+import Shelters from './pages/Admin/Shelters';
 import Adopt from './pages/user/Adopt';
 import Profile from './pages/user/Profile';
 import Profiles from './pages/Shelter/Profiles';
@@ -72,6 +75,7 @@ function App() {
     <Route path="admin" element={<AdminDashboard />} />
     <Route path="admin/create-category" element={<CreateCategory />} />
     <Route path="admin/users" element={<Users />} /> 
+    <Route path="admin/shelters" element={<Shelters/>} />
   </Route>
   <Route path="/dashboard" element={<ShelterRoutes />}>
     <Route path="shelter" element={<ShelterDashboard />} />
@@ -81,10 +85,12 @@ function App() {
     <Route path="shelter/product/:slug" element={<UpdateProduct />} />
     <Route path="shelter/products" element={<Products />} />
     <Route path="shelter/profiles" element={<Profiles />} /> 
+    <Route path="shelter/adoption" element={<Adoption />} /> 
   </Route>
   <Route path="/choice-page" element={<ChoicePage />} />
   <Route path="/user-info" element={<UserInfo />} />
   <Route path="/register" element={<Register />} />
+  <Route path="/sregister" element={<SRegister />} />
   <Route path="/forgot-password" element={<ForgotPassword />} />
   <Route path="/login" element={<Login />} />
   <Route path="/about" element={<About />} />

@@ -27,6 +27,10 @@ const AuthProvider = ({ children }) => {
         //eslint-disable-next-line
     },[]);
 
+    useEffect(() => {
+        localStorage.setItem('auth', JSON.stringify(auth)); // Save auth data
+    }, [auth]);
+
     return (
         <AuthContext.Provider value={[auth, setAuth]}>
             {children}

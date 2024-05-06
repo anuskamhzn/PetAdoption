@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
-const Register = () => {
+const SRegister = () => {
     const { search } = useLocation(); // Use useLocation to access query parameters
     const queryParams = new URLSearchParams(search);
     const role = queryParams.get('role'); // Get role parameter from URL
@@ -14,12 +14,13 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
+    const [pan,setpan] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`/api/v1/auth/register`, { name, email, password, phone, address, role }); // Include role in the request body
+            const res = await axios.post(`/api/v1/auth/sregister`, { name, email, password, pan, phone, address, role }); // Include role in the request body
             if (res.data.success) {
                 // Display toast notification upon successful registration
                 toast.success(res.data.message);
@@ -47,6 +48,9 @@ const Register = () => {
                     <div className="mb-3">
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control" id="exampleInputPassword1" placeholder='Enter Password' required />
                     </div>
+                    <div className="mb-3">
+                        <input type="text" value={pan} onChange={(e) => setpan(e.target.value)} className="form-control" id="exampleInputPassword1" placeholder='Enter Pan No' required />
+                    </div>
 
                     <div className="mb-3">
                         <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} className="form-control" id="exampleInputEmail1" placeholder='Enter Phone no.' required />
@@ -61,4 +65,4 @@ const Register = () => {
     )
 }
 
-export default Register;
+export default SRegister;

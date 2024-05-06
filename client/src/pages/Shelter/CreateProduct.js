@@ -6,9 +6,11 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/auth";
 const { Option } = Select;
 
-const CreateProduct = () => {
+const CreateProduct = (user) => {
+    const [auth] = useAuth();
     const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
     const [name, setName] = useState("");
@@ -17,6 +19,7 @@ const CreateProduct = () => {
     const [breed, setBreed] = useState("");// Add age state
     const [category, setCategory] = useState("");
     const [photo, setPhoto] = useState("");
+    const [shelterId, setShelterId] = useState(null);
 
     //get all category
     const getAllCategory = async () => {
@@ -35,6 +38,13 @@ const CreateProduct = () => {
         getAllCategory();
     }, []);
 
+    useEffect(() => {
+        // Assuming `user` has a `shelterId` property.
+        if (auth?.user?.shelterId) {
+            setShelterId(user.shelterId);
+        }
+    }, [user]);
+
     //create product function
     const handleCreate = async (e) => {
         e.preventDefault();
@@ -46,6 +56,7 @@ const CreateProduct = () => {
             productData.append("age", age); 
             productData.append("breed", breed);
             productData.append("category", category);
+            productData.append("shelterId", shelterId); 
             const { data } = await axios.post(
                 "/api/v1/product/create-product",
                 productData

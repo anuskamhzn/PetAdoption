@@ -8,6 +8,8 @@ import cors from 'cors';
 import categoryRouter from './routes/categoryRouter.js';
 import productRoutes from './routes/productRoutes.js';
 import breedRouter from './routes/breedRouter.js';
+import commentRouter from './routes/commentRoutes.js';
+import adoptionRoutes from './routes/adoptionRoutes.js';
 
 
 //configure env
@@ -29,6 +31,8 @@ app.use("/api/v1/auth",authRoutes);
 app.use("/api/v1/category", categoryRouter);
 app.use('/api/v1/product', productRoutes);
 app.use('/api/v1/breed',breedRouter);
+app.use('/api/v1', commentRouter);
+app.use('/api/v1/adoption',adoptionRoutes);
 
 //rest api
 app.get('/', (req,res) => {

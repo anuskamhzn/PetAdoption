@@ -13,7 +13,7 @@ const ChoicePage = () => {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Register as a Shelter</h5>
-              <Link to="/register?role=2" className="btn btn-primary">Register</Link> {/* Set role=2 for Shelter */}
+              <Link to="/sregister?role=2" className="btn btn-primary">Register</Link> {/* Set role=2 for Shelter */}
             </div>
           </div>
         </div>

@@ -1,11 +1,15 @@
 import express from "express";
 import {
     registerController,
+    sregisterController,
     loginController,
     testController,
     forgotPasswordController,
     updateProfileController,
     updateSProfileController,
+    approveShelter,
+    rejectShelter,
+    userController,
   } from "../controllers/authController.js";
   import { isAdminOrShelter,requireSignIn } from "../middlewares/authMiddleware.js";
 
@@ -15,6 +19,11 @@ const router = express.Router();
 //routing
 //REGISTER || METHOD POST
 router.post("/register", registerController);
+router.post("/sregister", sregisterController);
+
+// Admin Routes
+router.put('/admin/approve-shelter/:shelterId', requireSignIn, isAdminOrShelter, approveShelter);
+router.put('/admin/reject-shelter/:shelterId', requireSignIn, isAdminOrShelter, rejectShelter);
 
 //LOGIN || POST
 router.post('/login',loginController);
@@ -42,6 +51,9 @@ router.get("/shelter-auth", requireSignIn,isAdminOrShelter, (req,res) => {
 router.put('/profile',requireSignIn, updateProfileController);
 
 router.put('/profiles',requireSignIn, updateSProfileController);
+
+//getALl users
+router.get("/get-users", userController);
 
 
 export default router;

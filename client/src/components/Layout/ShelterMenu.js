@@ -13,6 +13,7 @@ const ShterMenu = () => {
                     <NavLink to="/dashboard/shelter/create-product" className="list-group-item list-group-item-action">Pet Info</NavLink>
                     <NavLink to="/dashboard/shelter/products" className="list-group-item list-group-item-action">Edit Pet Info</NavLink>
                     <NavLink to="/dashboard/shelter/profiles" className="list-group-item list-group-item-action">Shelter Profile</NavLink>
+                    <NavLink to="/dashboard/shelter/adoption" className="list-group-item list-group-item-action">Adoption Request</NavLink>
                 </div>
             </div>
     );

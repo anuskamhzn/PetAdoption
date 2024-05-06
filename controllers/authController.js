@@ -4,7 +4,7 @@ import JWT from 'jsonwebtoken';
 
 export const registerController = async (req, res) => {
     try {
-      const { name, email, password, phone, address, answer } = req.body;
+      const { name, email, password, phone, address } = req.body;
       const role = req.body.role; // Extract role from the request body
       // Validations
       if (!name || !email || !password || !phone || !address || !role) {
@@ -35,6 +35,68 @@ export const registerController = async (req, res) => {
       console.error(error);
       res.status(500).json({ success: false, message: "Error in registration", error });
     }
+};
+
+export const sregisterController = async (req, res) => {
+  try {
+    const { name, email, password, phone, address, pan } = req.body;
+    const role = req.body.role; // Extract role from the request body
+    // Validations
+    if (!name || !email || !password || !phone || !address || !role || !pan) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+    // Check if the user already exists
+    const existingUser = await userModel.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists, please login instead" });
+    }
+    // Hash the password
+    const hashedPassword = await hashPassword(password);
+    // Register the user
+    const user = await new userModel({
+      name,
+      email,
+      phone,
+      address,
+      password: hashedPassword,
+      role,
+      pan,
+    }).save();
+    res.status(201).json({
+      success: true,
+      message: "User registered successfully",
+      user,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Error in registration", error });
+  }
+};
+
+export const approveShelter = async (req, res) => {
+  try {
+    const { shelterId } = req.params;
+    // Find shelter by ID
+    // Update shelter status to 'approved'
+    const shelter = await userModel.findByIdAndUpdate(shelterId, { status: 'approved' }, { new: true });
+    res.status(200).json({ success: true, message: 'Shelter approved successfully', shelter });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Error in approving shelter', error });
+  }
+};
+
+export const rejectShelter = async (req, res) => {
+  try {
+    const { shelterId } = req.params;
+    // Find shelter by ID
+    // Update shelter status to 'rejected'
+    const shelter = await userModel.findByIdAndUpdate(shelterId, { status: 'rejected' }, { new: true });
+    res.status(200).json({ success: true, message: 'Shelter rejected successfully', shelter });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Error in rejecting shelter', error });
+  }
 };
 
 //POST LOGIN
@@ -205,6 +267,25 @@ export const updateSProfileController = async (req, res) => {
       success: false,
       message: "Error WHile Update profile",
       error,
+    });
+  }
+};
+
+// get all users
+export const userController = async (req, res) => {
+  try {
+    const user = await userModel.find({});
+    res.status(200).send({
+      success: true,
+      message: "All User List",
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error while getting all categories",
     });
   }
 };

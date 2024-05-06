@@ -70,16 +70,16 @@ import {
             </div>
             <div className="col-lg-3 col-md-6">
               <h3 className="text-white mb-4">Quick Links</h3>
-              <Link to="/Aboutus" className="btn  text-white-50">
+              <Link to="/about" className="btn  text-white-50">
                 About Us
               </Link>
-              <Link to="/Contactus" className="btn text-white-50">
+              <Link to="/contact" className="btn text-white-50">
                 Contact Us
               </Link>
               <Link to="/Ourmissions" className="btn text-white-50">
                 Our Services
               </Link>
-              <Link to="/" className="btn text-white-50">
+              <Link to="/policy" className="btn text-white-50">
                 Privacy Policy
               </Link>
               <Link to="/" className="btn text-white-50">

@@ -5,6 +5,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  /* background-image: url("../src/imag/pet1.jpg");  */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Ensures the background image stays fixed as the content scrolls */
+}
 .navbar {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -275,3 +281,73 @@ li {
 .btn-login {
   width: 6rem;
 }
+
+/* ========================================= */
+/* =========Comment-Reply ========= */
+.comment-list {
+  margin: 20px 0; /* Add some space above and below the comment list */
+}
+
+.comment {
+  padding: 10px; /* Add padding for a clear visual structure */
+  border-bottom: 1px solid #ddd; /* Separate comments with a border */
+}
+
+.reply-list {
+  padding-left: 20px; /* Indent replies for visual distinction */
+  border-left: 2px solid #ddd; /* Add a vertical line to separate replies */
+  margin-top: 10px; /* Space between the comment and its replies */
+}
+
+.reply {
+  padding: 5px 10px; /* Add padding to replies */
+  background-color: #f9f9f9; /* Use a light background for replies */
+}
+
+.reply-button {
+  margin-left: 10px; /* Space between the comment and the reply button */
+  color: #007bff; /* Blue text for the reply button */
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.reply-input {
+  width: 80%; /* Control the width of the input box */
+  margin-top: 10px; /* Space above the input box */
+}
+
+.reply-submit {
+  margin-top: 10px; /* Space between the input box and the submit button */
+  color: white;
+  background-color: #007bff; /* Blue background for the submit button */
+  border: none;
+  padding: 5px 10px; /* Add padding to the submit button */
+  cursor: pointer;
+}
+
+/* ========================================= */
+/* =========Adoption-Pending ========= */
+.adoption-table {
+  width: 95%;
+  border-collapse: collapse;
+}
+
+.adoption-table th, .adoption-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.adoption-table th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.adoption-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.adoption-table tbody tr:hover {
+  background-color: #ddd;
+}
+

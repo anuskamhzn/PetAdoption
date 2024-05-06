@@ -5,7 +5,7 @@ import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Age } from "../components/Age";
 import { Breeds } from "../components/breeds";
-import wallpaper from "../imag/img.jpg";
+import wallpaper from "../imag/pic.jpg";
 import wallp1 from "../imag/first.png";
 import wallp2 from "../imag/second.png";
 import wallp3 from "../imag/third.png";
@@ -118,7 +118,7 @@ const HomePage = () => {
     return (
         <Layout>
             <img src={img} className="img-fluid" alt="" />
-            <div className="bg-color">
+            {/* <div className="bg-color"> */}
             <div className="text-center pt-5" style={{ backgroundColor: "#fffff" }}>
             <h1>Why Choose PetPals ?</h1>
             <h6>Because we enable direct pet adoption, from one good home to another.</h6>
@@ -208,7 +208,7 @@ const HomePage = () => {
 </div>
 
             </div>
-            </div>
+            {/* </div> */}
             </Layout>
     );
 };
