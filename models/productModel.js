@@ -31,6 +31,11 @@ const productSchema = new mongoose.Schema(
       data: Buffer,
       contentType: String,
     },
+    postedBy: {
+      type: mongoose.Schema.Types.ObjectId, // New field
+      ref: "users", // Reference to User or Shelter collection
+      required: true,
+    },
   },
   { timestamps: true }
 );

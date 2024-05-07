@@ -10,6 +10,7 @@ const Register = () => {
     const queryParams = new URLSearchParams(search);
     const role = queryParams.get('role'); // Get role parameter from URL
     const [name, setName] = useState("");
+    const [username, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
@@ -19,7 +20,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`/api/v1/auth/register`, { name, email, password, phone, address, role }); // Include role in the request body
+            const res = await axios.post(`/api/v1/auth/register`, { name, username,email, password, phone, address, role }); // Include role in the request body
             if (res.data.success) {
                 // Display toast notification upon successful registration
                 toast.success(res.data.message);
@@ -40,6 +41,9 @@ const Register = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="form-control" id="exampleInputEmail1" placeholder='Enter Name' required />
+                    </div>
+                    <div className="mb-3">
+                        <input type="text" value={username} onChange={(e) => setUserName(e.target.value)} className="form-control" id="exampleInputEmail1" placeholder='Enter User Name' required />
                     </div>
                     <div className="mb-3">
                         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" id="exampleInputEmail1" placeholder='Enter Email' required />

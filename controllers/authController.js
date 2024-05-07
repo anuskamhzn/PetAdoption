@@ -3,46 +3,11 @@ import {comparePassword, hashPassword} from "./../utils/authHelper.js"
 import JWT from 'jsonwebtoken';
 
 export const registerController = async (req, res) => {
-    try {
-      const { name, email, password, phone, address } = req.body;
-      const role = req.body.role; // Extract role from the request body
-      // Validations
-      if (!name || !email || !password || !phone || !address || !role) {
-        return res.status(400).json({ message: "All fields are required" });
-      }
-      // Check if the user already exists
-      const existingUser = await userModel.findOne({ email });
-      if (existingUser) {
-        return res.status(400).json({ message: "User already exists, please login instead" });
-      }
-      // Hash the password
-      const hashedPassword = await hashPassword(password);
-      // Register the user
-      const user = await new userModel({
-        name,
-        email,
-        phone,
-        address,
-        password: hashedPassword,
-        role,
-      }).save();
-      res.status(201).json({
-        success: true,
-        message: "User registered successfully",
-        user,
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ success: false, message: "Error in registration", error });
-    }
-};
-
-export const sregisterController = async (req, res) => {
   try {
-    const { name, email, password, phone, address, pan } = req.body;
+    const { name, username, email, password, phone, address } = req.body;
     const role = req.body.role; // Extract role from the request body
     // Validations
-    if (!name || !email || !password || !phone || !address || !role || !pan) {
+    if (!name || !username || !email || !password || !phone || !address) {
       return res.status(400).json({ message: "All fields are required" });
     }
     // Check if the user already exists
@@ -55,11 +20,48 @@ export const sregisterController = async (req, res) => {
     // Register the user
     const user = await new userModel({
       name,
+      username,
       email,
       phone,
       address,
       password: hashedPassword,
-      role,
+      role, // include the role as it's automatically filled by middleware
+    }).save();
+    res.status(201).json({
+      success: true,
+      message: "User registered successfully",
+      user,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Error in registration", error });
+  }
+};
+
+export const sregisterController = async (req, res) => {
+  try {
+    const { name, username, email, password, phone, address, pan } = req.body;
+    const role = req.body.role; // Extract role from the request body
+    // Validations
+    if (!name || !username || !email || !password || !phone || !address || !pan) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+    // Check if the user already exists
+    const existingUser = await userModel.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists, please login instead" });
+    }
+    // Hash the password
+    const hashedPassword = await hashPassword(password);
+    // Register the user
+    const user = await new userModel({
+      name,
+      username,
+      email,
+      phone,
+      address,
+      password: hashedPassword,
+      role, // include the role as it's automatically filled by middleware
       pan,
     }).save();
     res.status(201).json({
@@ -72,6 +74,7 @@ export const sregisterController = async (req, res) => {
     res.status(500).json({ success: false, message: "Error in registration", error });
   }
 };
+
 
 export const approveShelter = async (req, res) => {
   try {
@@ -135,9 +138,10 @@ export const loginController = async (req, res) => {
       user: {
         _id: user._id,
         name: user.name,
+        username: user.username,
         email: user.email,
         phone: user.phone,
-        adddress: user.address,
+        address: user.address,
         role: user.role,
       },
       token,
@@ -204,7 +208,7 @@ export const testController = (req, res) => {
 //update profile
 export const updateProfileController = async (req, res) => {
   try {
-    const { name, email, password, address, phone } = req.body;
+    const { name, username, email, password, address, phone } = req.body;
     const user = await userModel.findById(req.user._id);
     //password
     if (password && password.length < 6) {
@@ -215,6 +219,7 @@ export const updateProfileController = async (req, res) => {
       req.user._id,
       {
         name: name || user.name,
+        username: username || user.username,
         password: hashedPassword || user.password,
         phone: phone || user.phone,
         address: address || user.address,
@@ -239,7 +244,7 @@ export const updateProfileController = async (req, res) => {
 //update shelter prfile
 export const updateSProfileController = async (req, res) => {
   try {
-    const { name, email, password, address, phone } = req.body;
+    const { name,username, email, password, address, phone } = req.body;
     const user = await userModel.findById(req.user._id);
     //password
     if (password && password.length < 6) {
@@ -250,6 +255,7 @@ export const updateSProfileController = async (req, res) => {
       req.user._id,
       {
         name: name || user.name,
+        username: username || user.username,
         password: hashedPassword || user.password,
         phone: phone || user.phone,
         address: address || user.address,

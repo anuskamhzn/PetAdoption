@@ -11,6 +11,10 @@ const adoptionSchema = new mongoose.Schema({
     ref: "users", // Assuming there's a User model
     required: true,
   },
+  shelterId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users", // Assuming there's a Shelter model
+  },
   status: {
     type: String,
     enum: ["pending", "approved", "rejected"],

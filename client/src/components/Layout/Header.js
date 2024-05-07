@@ -47,7 +47,7 @@ const Header = () => {
                             {auth.user ? (
                                 <li className="nav-item dropdown">
                                     <NavLink className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        {auth?.user?.name}
+                                        {auth?.user?.username}
                                     </NavLink>
                                     <ul className="dropdown-menu">
                                     <li>

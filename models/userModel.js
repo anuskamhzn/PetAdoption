@@ -7,6 +7,11 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     email: {
       type: String,
       required: true,
@@ -31,6 +36,10 @@ const userSchema = new mongoose.Schema(
     role: {
       type: Number,
       default: 0,
+    },
+    photo: {
+      data: Buffer,
+      contentType: String,
     },
   },
   { timestamps: true }

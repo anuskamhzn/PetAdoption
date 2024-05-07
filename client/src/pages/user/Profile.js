@@ -9,6 +9,7 @@ const Profile = () => {
   const [auth, setAuth] = useAuth();
   //state
   const [name, setName] = useState("");
+  const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
@@ -16,8 +17,9 @@ const Profile = () => {
 
   //get user data
   useEffect(() => {
-    const { email, name, phone, address } = auth?.user;
+    const { email, name, username,phone, address } = auth?.user;
     setName(name);
+    setUserName(username);
     setPhone(phone);
     setEmail(email);
     setAddress(address);
@@ -29,6 +31,7 @@ const Profile = () => {
     try {
       const { data } = await axios.put("/api/v1/auth/profile", {
         name,
+        username,
         email,
         password,
         phone,
@@ -68,6 +71,17 @@ const Profile = () => {
                     className="form-control"
                     id="exampleInputEmail1"
                     placeholder="Enter Your Name"
+                    autoFocus
+                  />
+                </div>
+                <div className="mb-3">
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUserName(e.target.value)}
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    placeholder="Enter User Name"
                     autoFocus
                   />
                 </div>

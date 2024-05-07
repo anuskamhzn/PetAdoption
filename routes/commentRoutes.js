@@ -163,6 +163,77 @@ router.delete('/comments/replies/delete/:commentId/:replyId', requireSignIn, asy
   }
 });
 
+// Edit comment
+router.put('/comments/edit/:commentId', requireSignIn, async (req, res) => {
+  const { commentId } = req.params;
+  const { content } = req.body; // Assume the field being updated is 'content'
+  const user = req.user;
+
+  try {
+    const comment = await Comment.findById(commentId);
+
+    if (!comment) {
+      return res.status(404).json({ error: 'Comment not found' });
+    }
+
+    if (comment.userId.toString() !== user._id.toString()) {
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
+
+    comment.text = content; // Ensure the correct field is updated
+    await comment.save(); // Save the updated comment
+
+    // Fetch the updated comment to ensure the latest data is returned
+    const updatedComment = await Comment.findById(commentId)
+      .populate('userId', 'name') // Optionally, populate user info
+      .populate('replies.userId', 'name'); // If needed, populate reply info
+
+    res.json({ message: 'Comment updated successfully', comment: updatedComment });
+  } catch (error) {
+    console.error('Error editing comment:', error);
+    res.status(500).json({ error: 'Error editing comment' });
+  }
+});
+
+// Edit reply
+router.put('/comments/replies/edit/:commentId/:replyId', requireSignIn, async (req, res) => {
+  const { commentId, replyId } = req.params;
+  const { content } = req.body; // The new content for the reply
+  const user = req.user;
+
+  try {
+    const comment = await Comment.findById(commentId);
+
+    if (!comment) {
+      return res.status(404).json({ error: 'Comment not found' });
+    }
+
+    const replyIndex = comment.replies.findIndex(reply => reply._id.toString() === replyId);
+
+    if (replyIndex === -1) {
+      return res.status(404).json({ error: 'Reply not found' });
+    }
+
+    const reply = comment.replies[replyIndex];
+
+    if (reply.userId.toString() !== user._id.toString()) {
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
+
+    // Update the content of the reply
+    reply.text = content; // Ensure you're updating the correct field
+    await comment.save(); // Save the updated comment with the edited reply
+
+    // Fetch the updated reply with user information for the response
+    const updatedReply = comment.replies[replyIndex];
+    res.json({ message: 'Reply updated successfully', reply: updatedReply });
+  } catch (error) {
+    console.error('Error editing reply:', error);
+    res.status(500).json({ error: 'Error editing reply' });
+  }
+});
+
+
 
 
 export default router;

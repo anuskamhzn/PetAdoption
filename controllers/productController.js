@@ -1,48 +1,61 @@
 import productModel from "../models/productModel.js";
+import categoryModel from '../models/categoryModel.js';
+import userModel from "../models/userModel.js";
 import fs from "fs";
 import slugify from "slugify";
 
 
 export const createProductController = async (req, res) => {
   try {
-    const { name, description, age, breed, category} =
-      req.fields;
+    const { name, description, age, breed, category } = req.fields;
     const { photo } = req.files;
-    //alidation
+
+    // Validation
     switch (true) {
       case !name:
-        return res.status(500).send({ error: "Name is Required" });
+        return res.status(400).send({ error: "Name is required." });
       case !description:
-        return res.status(500).send({ error: "Description is Required" });
-        case !age:
-        return res.status(500).send({ error: "Age is Required" });
-        case !breed:
-        return res.status(500).send({ error: "Breed is Required" });
+        return res.status(400).send({ error: "Description is required." });
+      case !age:
+        return res.status(400).send({ error: "Age is required." });
+      case !breed:
+        return res.status(400).send({ error: "Breed is required." });
       case !category:
-        return res.status(500).send({ error: "Category is Required" });
+        return res.status(400).send({ error: "Category is required." });
       case photo && photo.size > 1000000:
-        return res
-          .status(500)
-          .send({ error: "photo is Required and should be less then 1mb" });
+        return res.status(400).send({ error: "Photo should be less than 1 MB." });
     }
 
-    const products = new productModel({ ...req.fields, slug: slugify(name) });
+    // Ensure user information is available
+    if (!req.user || !req.user._id) {
+      return res.status(401).send({ error: "Unauthorized: User information is missing." });
+    }
+
+    // Create new product with the logged-in user as the poster
+    const products = new productModel({
+      ...req.fields,
+      slug: slugify(name),
+      postedBy: req.user._id, // Set to the current logged-in user's ID
+    });
+
     if (photo) {
       products.photo.data = fs.readFileSync(photo.path);
       products.photo.contentType = photo.type;
     }
+
     await products.save();
+
     res.status(201).send({
       success: true,
-      message: "Product Created Successfully",
-      products,
+      message: "Product created successfully.",
+      product: products, // Corrected key to be 'product'
     });
   } catch (error) {
-    console.log(error);
+    console.error("Error creating product:", error);
     res.status(500).send({
       success: false,
       error,
-      message: "Error in crearing product",
+      message: "Error in creating product.",
     });
   }
 };
@@ -50,27 +63,41 @@ export const createProductController = async (req, res) => {
 //get all products
 export const getProductController = async (req, res) => {
   try {
+    if (!req.user || !req.user._id) {
+      return res.status(401).send({
+        success: false,
+        message: "Unauthorized: User not authenticated.",
+      });
+    }
+
+    const userId = req.user._id;
+
     const products = await productModel
-      .find({})
-      .populate("category")
-      .select("-photo")
-      .limit(12)
+      .find({ postedBy: userId })
+      .populate("category", "name")
       .sort({ createdAt: -1 });
+
+    // Transform products to include a URL for the photo
+    const productsWithPhotoURL = products.map(product => ({
+      ...product._doc,
+      photoURL: `/api/v1/product/photo/${product._id}`, // URL to fetch the photo
+    }));
+
     res.status(200).send({
       success: true,
-      counTotal: products.length,
-      message: "ALlProducts ",
-      products,
+      message: "Products retrieved successfully",
+      products: productsWithPhotoURL,
     });
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching products by user:", error);
     res.status(500).send({
       success: false,
-      message: "Erorr in getting products",
-      error: error.message,
+      message: "Internal server error",
     });
   }
 };
+
+
 // get single product
 export const getSingleProductController = async (req, res) => {
   try {
@@ -257,20 +284,33 @@ export const productListController = async (req, res) => {
 export const searchProductController = async (req, res) => {
   try {
     const { keyword } = req.params;
+
+    // Find the category by its name (case-insensitive)
+    const category = await categoryModel.findOne({
+      name: { $regex: keyword, $options: 'i' },
+    });
+
+    // If category not found, return an empty array
+    if (!category) {
+      return res.json([]);
+    }
+
+    // Find products that match the given category or name
     const results = await productModel
       .find({
         $or: [
-          { name: { $regex: keyword, $options: "i" } }, // Search by name
-          { category: keyword } // Search by category name
+          { name: { $regex: keyword, $options: 'i' } },
+          { category: category._id }, // Use the found category ID
         ],
       })
-      .select("-photo");
+      .select('-photo'); // Exclude the photo field from the result
+
     res.json(results);
   } catch (error) {
-    console.log(error);
-    res.status(400).send({
+    console.error(error);
+    res.status(400).json({
       success: false,
-      message: "Error In Search Pet API",
+      message: 'Error in Search Product API',
       error,
     });
   }

@@ -9,6 +9,7 @@ const Profiles = () => {
   const [auth, setAuth] = useAuth();
   //state
   const [name, setName] = useState("");
+  const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
@@ -16,8 +17,9 @@ const Profiles = () => {
 
   //get user data
   useEffect(() => {
-    const { email, name, phone, address } = auth?.user;
+    const { email, name, username, phone, address } = auth?.user;
     setName(name);
+    setUserName(username);
     setPhone(phone);
     setEmail(email);
     setAddress(address);
@@ -29,6 +31,7 @@ const Profiles = () => {
     try {
       const { data } = await axios.put("/api/v1/auth/profiles", {
         name,
+        username,
         email,
         password,
         phone,
@@ -59,7 +62,7 @@ const Profiles = () => {
           <div className="col-md-9">
             <div className="form-container ">
               <form onSubmit={handleSubmit}>
-                <h4 className="title">USER PROFILE</h4>
+                <h4 className="title">Update USER PROFILE</h4>
                 <div className="mb-3">
                   <input
                     type="text"
@@ -68,6 +71,17 @@ const Profiles = () => {
                     className="form-control"
                     id="exampleInputEmail1"
                     placeholder="Enter Your Name"
+                    autoFocus
+                  />
+                </div>
+                <div className="mb-3">
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUserName(e.target.value)}
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    placeholder="Enter User Name"
                     autoFocus
                   />
                 </div>

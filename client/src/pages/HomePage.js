@@ -5,7 +5,7 @@ import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Age } from "../components/Age";
 import { Breeds } from "../components/breeds";
-import wallpaper from "../imag/pic.jpg";
+import wallpaper from "../imag/img.png";
 import wallp1 from "../imag/first.png";
 import wallp2 from "../imag/second.png";
 import wallp3 from "../imag/third.png";

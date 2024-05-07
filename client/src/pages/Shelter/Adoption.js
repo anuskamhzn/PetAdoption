@@ -27,14 +27,14 @@ const Adoption = () => {
   const Approve = async (requestId) => {
     try {
       await axios.patch(`/api/v1/adoption/${requestId}/approve`, {
-        status: "approved", // Update status to approved
+        status: "approved",
       });
-
+  
       toast.success("Adoption request approved!");
-
+  
       // Refresh adoption requests after approval
       const { data } = await axios.get("/api/v1/adoption");
-      setAdoptionRequests(data);
+      setAdoptionRequests(data); // Update state to trigger re-render
     } catch (error) {
       console.error("Error approving adoption request:", error);
       toast.error("Failed to approve adoption request.");
@@ -44,14 +44,14 @@ const Adoption = () => {
   const Reject = async (requestId) => {
     try {
       await axios.patch(`/api/v1/adoption/${requestId}/reject`, {
-        status: "rejected", // Update status to rejected
+        status: "rejected",
       });
-
+  
       toast.success("Adoption request rejected!");
-
+  
       // Refresh adoption requests after rejection
       const { data } = await axios.get("/api/v1/adoption");
-      setAdoptionRequests(data);
+      setAdoptionRequests(data); // Update state to trigger re-render
     } catch (error) {
       console.error("Error rejecting adoption request:", error);
       toast.error("Failed to reject adoption request.");

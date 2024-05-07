@@ -20,7 +20,7 @@ const Search = () => {
                 <div className="card-body">
                   <h5 className="card-title">{p.name}</h5>
                   <p className="card-text">{p.description.substring(0, 30)}...</p>
-                  <p className="card-text"> $ {p.age}</p>
+                  <p className="card-text"> Age {p.age}</p>
                   <button class="btn btn-primary ms-1" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
                   <button className="btn btn-secondary ms-1">Adopt</button>
                 </div>

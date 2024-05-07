@@ -34,7 +34,7 @@ router.put(
 );
 
 //get products
-router.get("/get-product", getProductController);
+router.get("/get-product", requireSignIn, getProductController);
 
 //single product
 router.get("/get-product/:slug", getSingleProductController);
