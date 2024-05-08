@@ -10,6 +10,7 @@ const UserMenu = () => {
                 </NavLink>
                     <NavLink to="/dashboard/user/profile" className="list-group-item list-group-item-action">Profile</NavLink>
                     <NavLink to="/dashboard/user/adopt" className="list-group-item list-group-item-action">Adopt Pet</NavLink>
+                    <NavLink to="/dashboard/user/shelter-list" className="list-group-item list-group-item-action">Shelters</NavLink>
                     {/* <NavLink to="/dashboard/admin/users" className="list-group-item list-group-item-action">All Users</NavLink> */}
                 </div>
             </div>

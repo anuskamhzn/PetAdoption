@@ -24,7 +24,7 @@ import CreateBreed from './pages/Shelter/CreateBreed';
 import CreateProduct from './pages/Shelter/CreateProduct';
 import Adoption from './pages/Shelter/Adoption';
 import Users from './pages/Admin/Users'; // Corrected import
-import Shelters from './pages/Admin/Shelters';
+import ShelterS from './pages/user/ShelterS';
 import Adopt from './pages/user/Adopt';
 import Profile from './pages/user/Profile';
 import Profiles from './pages/Shelter/Profiles';
@@ -61,44 +61,44 @@ function App() {
     <>
       <Toaster />
       <Routes>
-  <Route path="/" element={<Firstpage />} />
-  <Route path="/homepage" element={<HomePage />} />
+        <Route path="/" element={<Firstpage />} />
+        <Route path="/homepage" element={<HomePage />} />
 
-  <Route path="/product/:slug" element={<ProductDetails />} />
-  <Route path="/search" element={<Search />} />
-  <Route path="/dashboard" element={<PrivateRoutes />}>
-    <Route path="user" element={<Dashboard />} />
-    <Route path="user/adopt" element={<Adopt />} />
-    <Route path="user/profile" element={<Profile />} />
-  </Route>
-  <Route path="/dashboard" element={<AdminRoutes />}>
-    <Route path="admin" element={<AdminDashboard />} />
-    <Route path="admin/create-category" element={<CreateCategory />} />
-    <Route path="admin/users" element={<Users />} /> 
-    <Route path="admin/shelters" element={<Shelters/>} />
-  </Route>
-  <Route path="/dashboard" element={<ShelterRoutes />}>
-    <Route path="shelter" element={<ShelterDashboard />} />
-    {/* <Route path="shelter/create-category" element={<CreateCategory />} /> */}
-    <Route path="shelter/create-breed" element={<CreateBreed />} />
-    <Route path="shelter/create-product" element={<CreateProduct />} />
-    <Route path="shelter/product/:slug" element={<UpdateProduct />} />
-    <Route path="shelter/products" element={<Products />} />
-    <Route path="shelter/profiles" element={<Profiles />} /> 
-    <Route path="shelter/adoption" element={<Adoption />} /> 
-  </Route>
-  <Route path="/choice-page" element={<ChoicePage />} />
-  <Route path="/user-info" element={<UserInfo />} />
-  <Route path="/register" element={<Register />} />
-  <Route path="/sregister" element={<SRegister />} />
-  <Route path="/forgot-password" element={<ForgotPassword />} />
-  <Route path="/login" element={<Login />} />
-  <Route path="/about" element={<About />} />
-  <Route path="/contact" element={<Contact />} />
-  <Route path="/policy" element={<Policy />} />
-  <Route path="/pet" element={<FindAPet/>}/>
-  <Route path="*" element={<Pagenotfound />} />
-</Routes>
+        <Route path="/product/:slug" element={<ProductDetails />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/dashboard" element={<PrivateRoutes />}>
+          <Route path="user" element={<Dashboard />} />
+          <Route path="user/adopt" element={<Adopt />} />
+          <Route path="user/profile" element={<Profile />} />
+          <Route path="user/shelter-list" element={<ShelterS />} />
+        </Route>
+        <Route path="/dashboard" element={<AdminRoutes />}>
+          <Route path="admin" element={<AdminDashboard />} />
+          <Route path="admin/create-category" element={<CreateCategory />} />
+          <Route path="admin/users" element={<Users />} />
+        </Route>
+        <Route path="/dashboard" element={<ShelterRoutes />}>
+          <Route path="shelter" element={<ShelterDashboard />} />
+          {/* <Route path="shelter/create-category" element={<CreateCategory />} /> */}
+          <Route path="shelter/create-breed" element={<CreateBreed />} />
+          <Route path="shelter/create-product" element={<CreateProduct />} />
+          <Route path="shelter/product/:slug" element={<UpdateProduct />} />
+          <Route path="shelter/products" element={<Products />} />
+          <Route path="shelter/profiles" element={<Profiles />} />
+          <Route path="shelter/adoption" element={<Adoption />} />
+        </Route>
+        <Route path="/choice-page" element={<ChoicePage />} />
+        <Route path="/user-info" element={<UserInfo />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/sregister" element={<SRegister />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/policy" element={<Policy />} />
+        <Route path="/pet" element={<FindAPet />} />
+        <Route path="*" element={<Pagenotfound />} />
+      </Routes>
 
     </>
   );

@@ -3,7 +3,7 @@ import Layout from "./../components/Layout/Layout";
 import axios from "axios";
 import { useAuth } from "../context/auth";
 import { useParams, useNavigate } from "react-router-dom";
-import  toast  from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Style.css";
 import { Modal, Button } from 'react-bootstrap';
@@ -81,6 +81,7 @@ const ProductDetails = () => {
       };
 
       setComments((prevComments) => [...prevComments, newCommentWithUser]);
+      window.location.reload();
       setNewComment(''); // Clear the new comment input
     } catch (error) {
       console.error("Error submitting comment:", error);
@@ -133,6 +134,7 @@ const ProductDetails = () => {
         ...prev,
         [commentId]: '',
       }));
+      window.location.reload();
     } catch (error) {
       console.error("Error submitting reply:", error);
     }
@@ -149,11 +151,11 @@ const ProductDetails = () => {
       // Send adoption request to the server
       await axios.post("/api/v1/adoption", {
         productId: product._id, // Product being adopted
-        userId: auth.user._id,  // User making the request
+        userId: auth.user._id, // User making the request
       });
 
       toast.success("Adoption request sent!"); // Success feedback
-      setRequestSent(true); 
+      setRequestSent(true);
       setShowModal(false); // Close the modal after request
     } catch (error) {
       console.error("Error creating adoption request:", error);
@@ -165,6 +167,75 @@ const ProductDetails = () => {
     setShowModal(true); // Open the confirmation modal
   };
 
+  const handleDeleteComment = async (commentId) => {
+    try {
+      await axios.delete(`/api/v1/comments/delete/${commentId}`);
+      setComments((prevComments) => prevComments.filter(comment => comment._id !== commentId));
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+      toast.error("Error deleting comment");
+    }
+  };
+  const handleDeleteReply = async (commentId, replyId) => {
+    try {
+      await axios.delete(`/api/v1/comments/replies/delete/${commentId}/${replyId}`);
+      setComments((prevComments) => {
+        return prevComments.map(comment => {
+          if (comment._id === commentId) {
+            comment.replies = comment.replies.filter(reply => reply._id !== replyId);
+          }
+          return comment;
+        });
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting reply:", error);
+      toast.error("Error deleting reply");
+    }
+  };
+  const handleEditComment = async (comment) => {
+    const editedText = prompt("Edit your comment:", comment.text); // Prompt the user to edit the comment text
+    if (editedText === null) return; // If the user cancels editing, do nothing
+    try {
+      await axios.put(`/api/v1/comments/edit/${comment._id}`, { content: editedText }); // Pass edited text in the request body
+      // Update the comment in the UI
+      setComments((prevComments) =>
+        prevComments.map((prevComment) =>
+          prevComment._id === comment._id ? { ...prevComment, text: editedText } : prevComment
+        )
+      );
+      window.location.reload();
+    } catch (error) {
+      console.error("Error editing comment:", error);
+      toast.error("Error editing comment");
+    }
+  };
+
+  const handleEditReply = async (comment, reply) => {
+    const editedText = prompt("Edit your reply:", reply.text); // Prompt the user to edit the reply text
+    if (editedText === null) return; // If the user cancels editing, do nothing
+    try {
+      await axios.put(`/api/v1/comments/replies/edit/${comment._id}/${reply._id}`, { content: editedText }); // Pass edited text in the request body
+      // Update the reply in the UI
+      setComments((prevComments) =>
+        prevComments.map((prevComment) =>
+          prevComment._id === comment._id
+            ? {
+              ...prevComment,
+              replies: prevComment.replies.map((prevReply) =>
+                prevReply._id === reply._id ? { ...prevReply, text: editedText } : prevReply
+              ),
+            }
+            : prevComment
+        )
+      );
+      window.location.reload();
+    } catch (error) {
+      console.error("Error editing reply:", error);
+      toast.error("Error editing reply");
+    }
+  };
 
   return (
     <Layout>
@@ -231,7 +302,18 @@ const ProductDetails = () => {
               <div className="comment-list">
                 {comments.map((comment, index) => (
                   <div key={index} className="comment">
-                    <strong>{comment.userId?.name || "Anonymous"}:</strong> {comment.text}
+                    <strong className="comment-author">{comment.userId?.name || "Anonymous"}:</strong>
+                    <p className="comment-text">{comment.text}</p>
+                    {comment.userId?._id === auth.user?._id && (
+                      <div className="comment-actions">
+                        <button onClick={() => handleEditComment(comment)} className="edit-comment">
+                          Edit
+                        </button>
+                        <button onClick={() => handleDeleteComment(comment._id)} className="delete-comment">
+                          Delete
+                        </button>
+                      </div>
+                    )}
                     <div className="reply-section">
                       <textarea
                         value={newReplies[comment._id] || ''}
@@ -248,11 +330,23 @@ const ProductDetails = () => {
                     </div>
                     {comment.replies && comment.replies.map((reply, index) => (
                       <div key={index} className="reply">
-                        <strong>{reply.userId?.name || "Anonymous"}:</strong> {reply.text}
+                        <strong className="reply-author">{reply.userId?.name || "Anonymous"}:</strong>
+                        <p className="reply-text">{reply.text}</p>
+                        {reply.userId?._id === auth.user?._id && (
+                          <div className="reply-actions">
+                            <button onClick={() => handleEditReply(comment, reply)} className="edit-reply">
+                              Edit
+                            </button>
+                            <button onClick={() => handleDeleteReply(comment._id, reply._id)} className="delete-reply">
+                              Delete
+                            </button>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
                 ))}
+
               </div>
             ) : (
               <p>No comments yet. Be the first to comment!</p>
