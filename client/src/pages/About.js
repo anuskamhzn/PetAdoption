@@ -1,10 +1,19 @@
 import React from "react";
-import Layout from "./../components/Layout/Layout";
 import { Link } from "react-router-dom";
+import bg from "../imag/Aboutus.jpg";
+import Layout from "./../components/Layout/Layout";
+
+import SubBanner from "./SubBanner";
+import Footer from "../components/Layout/Footer.js";
+import Top from "./AboutUs/Top";
+import Middle from "./AboutUs/Middle";
+import Choosing from "./ChoosingUs";
+// import Card from "./CaseStudy";
 
 const About = () => {
   return (
     <Layout>
+<<<<<<< HEAD
       <div className="row contactus ">
         <div className="col-md-6 ">
           <img
@@ -25,6 +34,34 @@ const About = () => {
         </Link>
         </div>
       </div>
+=======
+      {/* Banner Section  */}
+      <section>
+        <SubBanner heading="About Us" subHeading="Home /About Us" img={bg} />
+      </section>
+
+      {/* Top Section  */}
+      <section>
+        <Top />
+      </section>
+      <section>
+        <Choosing />
+      </section>
+      {/* Middle Section  */}
+      <section>
+        <Middle />
+      </section>
+
+      {/* Bottom Section  */}
+      {/* <section>
+        <Card />
+      </section> */}
+
+      {/* Footer Section  */}
+      <section>
+        <Footer />
+      </section>
+>>>>>>> ecc9a4699cd1e5850ac248502695eb1944024d65
     </Layout>
   );
 };
