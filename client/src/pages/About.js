@@ -23,7 +23,13 @@ const About = () => {
         <Top />
       </section>
       <section>
-        <Choosing />
+        <div
+          className="text-center pt-5 pb-5 pl-5 container "
+          data-aos="slide-up"
+          data-aos-offset="100"
+        >
+          <Choosing />
+        </div>
       </section>
       {/* Middle Section  */}
 

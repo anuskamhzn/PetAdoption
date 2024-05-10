@@ -6,11 +6,14 @@ import comfort from "../../imag/comfort.png";
 
 const ChoosingUs = () => {
   return (
-    <div style={{ backgroundColor: "#CCE9F1" }}>
-      <div className="container overflow-hidden text-center">
+    <div
+      className="mb-4"
+      style={{ backgroundColor: "#CCE9F1", borderRadius: "3rem" }}
+    >
+      <div className="container overflow-hidden text-center mb-4">
         <p
           data-aos="slide-right"
-          data-aos-offset="220"
+          data-aos-offset="50"
           className={styles.heading}
         >
           Why Choose PetPals?
@@ -21,7 +24,7 @@ const ChoosingUs = () => {
         <div
           className={`row ${styles.sub} align-items-center justify-content-center`}
         >
-          <div data-aos="fade-right" className="col-md-4 ">
+          <div data-aos="fade-right" className="col-md-5">
             <img src={experience} alt="experience" />
             <p className={styles.logo_head}>Compassionate Care</p>
             <p className={styles.logo_text}>
@@ -29,7 +32,7 @@ const ChoosingUs = () => {
             </p>
           </div>
 
-          <div data-aos="fade" className="col-md-4">
+          <div data-aos="fade" className="col-md-5">
             <img src={communication} alt="experience" />
             <p className={styles.logo_head}>Community Engagement</p>
             <p className={styles.logo_text}>
@@ -37,7 +40,7 @@ const ChoosingUs = () => {
             </p>
           </div>
 
-          <div data-aos="fade-left" className="col-md-4">
+          <div data-aos="fade-left" className="col-md-5">
             <img src={comfort} alt="experience" />
             <p className={styles.logo_head}>Lifelong Support</p>
             <p className={styles.logo_text}>

@@ -12,6 +12,7 @@ import wallp3 from "../imag/third.png";
 import Hero from "./Hero.jsx";
 import ChoosingUs from "./ChoosingUs/ChoosingUs.js";
 import Real from "./Real";
+import Straight from "./Straighome";
 import "./Style.css";
 
 const img = wallpaper;
@@ -125,71 +126,50 @@ const HomePage = () => {
       {/* <div className="bg-color"> */}
 
       <div
-        className="text-center pt-5 pb-5 pl-5 pr-5 container p-4"
+        className="text-center pt-5 pb-5 pl-5 container "
         data-aos="slide-up"
-        data-aos-offset="400"
+        data-aos-offset="100"
       >
-        <ChoosingUs></ChoosingUs>{" "}
+        <ChoosingUs></ChoosingUs> <Straight></Straight>
         {/* Adding pt-5, pb-5, pl-5, pr-5 for padding on all sides */}
-        <h1>Straightforward Pet Rehoming And Adoption</h1>
-        <p className="px-4 mx-5 ">
-          PetPals is a new digital platform with real people behind the scenes.
-          Our platform connects potential adopters with people who need to
-          rehome their pets. This makes it easier for good people to adopt the
-          right pet whilst maximising the chance of pets finding their forever
-          home.
-        </p>
-        <p className="px-4 mx-5 ">
-          We offer a non-judgmental service to rehomers and give them full
-          control of the process.
-        </p>
-        <p className="px-4 mx-5 ">
-          We're also helping to reduce the number of animals going into
-          shelters. This frees up space and resources for the pets who have been
-          abandoned, need immediate help or specialist care.
-        </p>
       </div>
-      <div className="row mt-3">
-        <div className="align-items-center justify-content-center">
-          <div className=" ">
-            <h1 className="text-center">Featured Pets</h1>
-            <div className="container">
-              <div className="d-flex justify-content-center flex-wrap">
-                {products?.slice(0, 6).map((p) => (
-                  <div
-                    className="card m-2"
-                    style={{ width: "18rem" }}
-                    key={p._id}
-                  >
-                    <img
-                      src={`/api/v1/product/product-photo/${p._id}`}
-                      className="card-img-top"
-                      alt={p.name}
-                      style={{ height: "200px" }} // Adjust the height as needed
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{p.name}</h5>
-                      <p className="card-text">
-                        {p.description.substring(0, 30)}
-                      </p>
-                      <p className="card-text">Age: {p.age}</p>
-                      <div className="d-flex justify-content-between">
-                        <button
-                          className="btn btn-primary"
-                          onClick={() => navigate(`/product/${p.slug}`)}
-                        >
-                          More Details
-                        </button>
-                        <button className="btn btn-secondary">Adopt</button>
-                      </div>
+
+      <div className="mt-3">
+        <div className="Featured">
+          <h1 className="text-center">Featured Pets</h1>
+          <div className="container">
+            <div className="row justify-content-center flex-wrap">
+              {products?.slice(0, 6).map((p) => (
+                <div className="card col-3 m-2 pt-2" key={p._id}>
+                  <img
+                    src={`/api/v1/product/product-photo/${p._id}`}
+                    className="card-img-top"
+                    alt={p.name}
+                    style={{ height: "200px" }} // Adjust the height as needed
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{p.name}</h5>
+                    <p className="card-text">
+                      {p.description.substring(0, 30)}
+                    </p>
+                    <p className="card-text">Age: {p.age}</p>
+                    <div className="d-flex justify-content-between">
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => navigate(`/product/${p.slug}`)}
+                      >
+                        More Details
+                      </button>
+                      <button className="btn btn-secondary">Adopt</button>
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
+
       {/* </div> */}
     </Layout>
   );

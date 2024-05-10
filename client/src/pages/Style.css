@@ -1,7 +1,5 @@
 /* Product.css */
-body {
-  font-family: "Poppins", sans-serif !important;
-}
+
 /* Main container */
 .container {
   /* margin-top: 20px; */
@@ -139,4 +137,9 @@ body {
   border-radius: 2rem !important;
   width: 5rem;
   padding-left: 0.5rem;
+}
+.Featured {
+  background-color: #f8fafd;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
