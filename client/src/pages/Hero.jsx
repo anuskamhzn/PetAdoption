@@ -50,7 +50,7 @@ const Header = () => {
                         <Link
                           to="/Aboutus"
                           id="gold"
-                          class="btn btn-hero text-white rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft"
+                          class="btn btn-purple text-white rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft"
                         >
                           Learn More
                         </Link>
@@ -83,7 +83,7 @@ const Header = () => {
                         <Link
                           to="/Aboutus"
                           id="gold"
-                          class="btn btn-hero text-white rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft"
+                          class="btn btn-purple text-white rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft"
                         >
                           Learn More
                         </Link>

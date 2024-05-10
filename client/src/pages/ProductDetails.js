@@ -274,40 +274,55 @@ const ProductDetails = () => {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <div className="bgColor">
-          <div className="row container mt-2">
-            <div className="col-md-6" style={{ paddingLeft: "100px" }}>
-              <img
-                src={`/api/v1/product/product-photo/${product._id}`}
-                className="card-img-top"
-                alt={product.name}
-                height="365px"
-                style={{ width: "300px" }}
-              />
+        <div className="Details container mt-5 pt-5 ">
+          <div className="row  mt-2 mb-4">
+            <div className="col-md-6 ">
+              <div className="detail-card ">
+                <div className="grey">
+                  <img
+                    src={`/api/v1/product/product-photo/${product._id}`}
+                    className=" position-relative bg-image"
+                    alt={product.name}
+                    style={{ width: "400px" }}
+                  />
+
+                  <img
+                    src={`/api/v1/product/product-photo/${product._id}`}
+                    className=" img-detail position-absolute"
+                    alt={product.name}
+                    style={{ width: "250px" }}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="col-md-6">
-              <h1 className="text-center">Pet Details</h1>
-              <h6>Name : {product.name}</h6>
-              <h6>Age : {product.age}</h6>
-              <h6>Breed : {product?.breed}</h6>
-              <h6>Category : {product?.category?.name}</h6>
-              {(isAdopter || nonLog) && (
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={handleAdoptionRequest}
-                  disabled={requestSent} // Disable if request was sent
-                >
-                  {requestSent ? "Request Sent" : "Adopt"}
-                </button>
-              )}
+            <div className="col-md-5">
+              <div className="grey py-4 px-5">
+                <h1 className="t">Pet Details</h1>
+                <h6 className="py-2 card-text">Name : {product.name}</h6>
+                <h6 className="py-2 card-text">Age : {product.age}</h6>
+                <h6 className="py-2 card-text">Breed : {product?.breed}</h6>
+                <h6 className="py-2 card-text">
+                  Category : {product?.category?.name}
+                </h6>
+                {(isAdopter || nonLog) && (
+                  <button
+                    type="button"
+                    className=" btn-more px-4 py-2"
+                    onClick={handleAdoptionRequest}
+                    disabled={requestSent} // Disable if request was sent
+                  >
+                    {requestSent ? "Request Sent" : "Adopt"}
+                  </button>
+                )}
+              </div>
             </div>
           </div>
 
-          <h1>Shelter Name: {product?.postedBy?.name || "Unknown"}</h1>
           <div className="product-description">
+            <h1>Shelter Name: {product?.postedBy?.name || "Unknown"}</h1>
+
             <h1 className="description-title">Description</h1>
-            <p className="description-text">{product.description}</p>
+            <p className="card-text">{product.description}</p>
           </div>
 
           <div className="comment-section">
@@ -363,7 +378,7 @@ const ProductDetails = () => {
                             <div className="reply-actions">
                               <button
                                 onClick={() => handleEditReply(comment, reply)}
-                                className="edit-reply"
+                                className="edit-reply btn-more"
                               >
                                 Edit
                               </button>
@@ -371,7 +386,7 @@ const ProductDetails = () => {
                                 onClick={() =>
                                   handleDeleteReply(comment._id, reply._id)
                                 }
-                                className="delete-reply"
+                                className="delete-reply btn-more"
                               >
                                 Delete
                               </button>
@@ -391,7 +406,10 @@ const ProductDetails = () => {
               placeholder="Write your comment..."
               className="comment-input"
             />
-            <button onClick={handleCommentSubmit} className="comment-submit">
+            <button
+              onClick={handleCommentSubmit}
+              className="comment-submit btn-more"
+            >
               Submit
             </button>
           </div>

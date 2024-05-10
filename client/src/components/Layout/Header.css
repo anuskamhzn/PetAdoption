@@ -1,10 +1,5 @@
-.nav_text {
-  /* font-size: 13px; */
-  color: black;
-  /* font-weight: lighter; */
-}
 .nav_text:hover {
-  color: #424a82 !important;
+  color: black !important;
 }
 /* .nav_text:hover {
   font-size: 16px;
@@ -13,7 +8,7 @@
 } */
 .active {
   /* font-size: 13px; */
-  color: #424a82 !important;
+  color: white !important;
 }
 
 .drop {

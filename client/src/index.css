@@ -11,14 +11,27 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed; /* Ensures the background image stays fixed as the content scrolls */
 }
+
+.nav-link {
+  color: white !important;
+}
+.dark-font {
+  color: black !important;
+}
 .navbar {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   font-size: 17px;
   line-height: 26px;
+  background-color: #4e2d69;
   /* text-transform: uppercase; */
+  border-radius: 3rem; /* Set border radius for all corners */
+  border-top-left-radius: 0; /* Set border radius for top left corner to 0 */
+  border-top-right-radius: 0;
   font-weight: 100 !important;
+  margin-bottom: -2.5rem;
   box-shadow: 0 5px 4px -6px;
+  z-index: 99;
 }
 
 .navbar-brand {
@@ -31,7 +44,8 @@ body {
 .footer {
   color: white;
   padding: 25px;
-  background-color: rgb(111, 110, 113);
+  background-color: #4e2d69 !important;
+  border-radius: 3rem 3rem 0 0; /* top-left, top-right, bottom-right, bottom-left */
 }
 .footer a {
   text-decoration: none;

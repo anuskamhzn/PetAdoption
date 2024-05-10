@@ -1,10 +1,11 @@
 /* Product.css */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-/* Main container */
-.container {
-  /* margin-top: 20px; */
+a {
+  text-decoration: none;
+  color: white;
 }
+/* Main container */
 
 /* Image container */
 .product-image {
@@ -39,10 +40,9 @@
 /* Description container */
 .product-description {
   background-color: #eff4f4; /* Light gray background */
-  border-radius: 8px;
+  border-radius: 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding-top: 20px;
-  padding-left: 100px;
+  padding: 2rem;
 }
 
 .description-title {
@@ -54,8 +54,16 @@
   font-size: 16px; /* Description font size */
   line-height: 1.6; /* Increase line height for readability */
 }
+.img-detail {
+  transform: translate(-130%, 30%);
+}
+.bg-image {
+  filter: blur(2px) !important;
+  padding: 1rem;
+}
 
-/* Style.css */
+/* Sty
+le.css */
 .comment-section {
   margin-top: 20px;
 }
@@ -134,10 +142,15 @@
   }
 }
 .loginbtn {
-  background-color: #cce9f1 !important;
+  background-color: #ffffff !important;
   border-radius: 2rem !important;
   width: 5rem;
   padding-left: 0.5rem;
+}
+
+.grey {
+  background-color: #eeeff0;
+  border-radius: 2rem;
 }
 .Featured {
   background-color: #eeeff0;
@@ -154,22 +167,51 @@
   border-radius: 1.8rem;
   height: 200px;
 }
+
+.btn-purple {
+  background-color: #4e2d69 !important;
+}
 .btn-more {
-  background-color: #cce9f1;
+  font-size: 15px;
+  background-color: #4e2d69;
   border-radius: 2rem;
   padding-left: 15px;
   padding-right: 15px;
+  color: white;
   border: none;
 }
+.btn-more:hover {
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
 .card-text {
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 400;
   color: #929292;
 }
 .all-pets {
-  background-color: #eeeff0;
+  padding-top: 3rem;
   align-items: center;
   justify-content: center;
   font-family: "Poppins" !important ;
+}
+
+.filter {
+  background-color: white;
+  color: #424a82;
+  margin-top: 3rem;
+  font-family: "Poppins" !important ;
   border-radius: 2rem;
+  padding: 2rem;
+  text-align: start;
+}
+.Details {
+  font-family: "Poppins" !important ;
+}
+.detail-card {
+  text-align: center;
 }

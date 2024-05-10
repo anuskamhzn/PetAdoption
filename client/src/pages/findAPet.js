@@ -106,48 +106,54 @@ const FindAPet = () => {
   return (
     <Layout>
       <div className="container">
-        <div className="d-flex mt-3">
-          <div className="col-md-3 ps-md-4">
-            <h4 className="text-center mb-3">Filter By Category</h4>
-            <div className="row flex-column">
-              {categories?.map((c) => (
-                <Checkbox
-                  key={c._id}
-                  onChange={(e) => handleFilter(e.target.checked, c._id)}
-                >
-                  {c.name}
-                </Checkbox>
-              ))}
-            </div>
-            <h6 className="mt-3">Filter by Breed</h6>
-            <div className="d-flex flex-column">
-              {breeds.map((breed) => (
-                <Checkbox
-                  key={breed}
-                  onChange={(e) => handleFilter(e.target.checked, breed)}
-                  className="mb-2"
-                >
-                  {breed}
-                </Checkbox>
-              ))}
-            </div>
-            <h4 className="text-center mt-3">Filter By Age</h4>
-            <div className="d-flex flex-column">
-              <Radio.Group onChange={(e) => setRadio(e.target.value)}>
-                {Age?.map((p) => (
-                  <div key={p._id}>
-                    <Radio value={p.array}>{p.name}</Radio>
-                  </div>
+        <div className="d-flex mt-3 grey">
+          <div className="col-md-3 ps-md-4 ">
+            <div className="filter">
+              <h4 className="mb-3">Filter By Category</h4>
+              <div className="row flex-column">
+                {categories?.map((c) => (
+                  <Checkbox
+                    key={c._id}
+                    onChange={(e) => handleFilter(e.target.checked, c._id)}
+                  >
+                    {c.name}
+                  </Checkbox>
                 ))}
-              </Radio.Group>
+              </div>
             </div>
-            <div className="d-flex flex-column mt-3">
-              <button
-                className="btn btn-warning"
-                onClick={() => window.location.reload()}
-              >
-                RESET FILTERS
-              </button>
+            <div className="filter">
+              <h4 className="mt-3">Filter by Breed</h4>
+              <div className="d-flex flex-column">
+                {breeds.map((breed) => (
+                  <Checkbox
+                    key={breed}
+                    onChange={(e) => handleFilter(e.target.checked, breed)}
+                    className="mb-2"
+                  >
+                    {breed}
+                  </Checkbox>
+                ))}
+              </div>
+            </div>
+            <div className="filter">
+              <h4 className=" mt-3">Filter By Age</h4>
+              <div className="d-flex flex-column">
+                <Radio.Group onChange={(e) => setRadio(e.target.value)}>
+                  {Age?.map((p) => (
+                    <div key={p._id}>
+                      <Radio value={p.array}>{p.name}</Radio>
+                    </div>
+                  ))}
+                </Radio.Group>
+              </div>
+              <div className="d-flex flex-column mt-3">
+                <button
+                  className="btn btn-more"
+                  onClick={() => window.location.reload()}
+                >
+                  RESET FILTERS
+                </button>
+              </div>
             </div>
           </div>
           <div className="col-md-9">
