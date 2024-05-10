@@ -140,27 +140,25 @@ const HomePage = () => {
           <div className="container">
             <div className="row justify-content-center flex-wrap">
               {products?.slice(0, 6).map((p) => (
-                <div className="card col-3 m-2 pt-2" key={p._id}>
+                <div className="pet-card col-3 m-2 pt-3" key={p._id}>
                   <img
                     src={`/api/v1/product/product-photo/${p._id}`}
-                    className="card-img-top"
+                    className="pet-image img-fluid"
                     alt={p.name}
-                    style={{ height: "200px" }} // Adjust the height as needed
                   />
-                  <div className="card-body">
+                  <div className="card-body py-4 px-3">
                     <h5 className="card-title">{p.name}</h5>
                     <p className="card-text">
                       {p.description.substring(0, 30)}
-                    </p>
-                    <p className="card-text">Age: {p.age}</p>
+                    </p>{" "}
                     <div className="d-flex justify-content-between">
+                      <p className="card-text">Age: {p.age}</p>
                       <button
-                        className="btn btn-primary"
+                        className="btn-more "
                         onClick={() => navigate(`/product/${p.slug}`)}
                       >
                         More Details
                       </button>
-                      <button className="btn btn-secondary">Adopt</button>
                     </div>
                   </div>
                 </div>
