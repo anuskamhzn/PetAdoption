@@ -3,10 +3,9 @@ import Layout from "./../components/Layout/Layout";
 import axios from "axios";
 import { useAuth } from "../context/auth";
 import { useParams, useNavigate } from "react-router-dom";
-import toast from 'react-hot-toast';
-import 'react-toastify/dist/ReactToastify.css';
+import toast from "react-hot-toast";
+import "react-toastify/dist/ReactToastify.css";
 import "./Style.css";
-import { Modal, Button } from 'react-bootstrap';
 
 const ProductDetails = () => {
   const [auth] = useAuth();
@@ -14,11 +13,9 @@ const ProductDetails = () => {
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
   const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState('');
+  const [newComment, setNewComment] = useState("");
   const [newReplies, setNewReplies] = useState({}); // Store new replies here
-  const [showModal, setShowModal] = useState(false);
   const [requestSent, setRequestSent] = useState(false); // New state variable
-
 
   const isAdopter = auth?.user?.role === 0;
   const nonLog = !auth?.user;
@@ -35,7 +32,9 @@ const ProductDetails = () => {
 
   const getProduct = useCallback(async () => {
     try {
-      const { data } = await axios.get(`/api/v1/product/get-product/${params.slug}`);
+      const { data } = await axios.get(
+        `/api/v1/product/get-product/${params.slug}`
+      );
       setProduct(data.product);
 
       if (data.product && data.product._id) {
@@ -49,26 +48,41 @@ const ProductDetails = () => {
     }
   }, [params.slug, getComments]);
 
+  const checkAdoptionRequest = useCallback(async () => {
+    try {
+      const { data } = await axios.get(`/api/v1/adoption/check/${product._id}`);
+      setRequestSent(data.requestSent);
+    } catch (error) {
+      console.error("Error checking adoption request:", error);
+    }
+  }, [product._id]);
+
   useEffect(() => {
     if (params.slug) {
       getProduct();
     }
   }, [params.slug, getProduct]);
 
+  useEffect(() => {
+    if (product._id && auth?.user) {
+      checkAdoptionRequest();
+    }
+  }, [product._id, auth.user, checkAdoptionRequest]);
+
   const handleCommentSubmit = async () => {
     if (!auth?.user) {
-      toast.error('Please log in to comment.');
-      navigate('/login');
+      toast.error("Please log in to comment.");
+      navigate("/login");
       return;
     }
 
-    if (newComment.trim() === '') {
+    if (newComment.trim() === "") {
       toast.warn("Comment cannot be empty.");
       return;
     }
 
     try {
-      const { data } = await axios.post('/api/v1/comments', {
+      const { data } = await axios.post("/api/v1/comments", {
         productId: product._id,
         text: newComment,
         userId: auth.user._id, // Include the user ID
@@ -82,7 +96,7 @@ const ProductDetails = () => {
 
       setComments((prevComments) => [...prevComments, newCommentWithUser]);
       window.location.reload();
-      setNewComment(''); // Clear the new comment input
+      setNewComment(""); // Clear the new comment input
     } catch (error) {
       console.error("Error submitting comment:", error);
     }
@@ -97,12 +111,12 @@ const ProductDetails = () => {
 
   const handleReplySubmit = async (commentId) => {
     if (!auth?.user) {
-      toast.error('Please log in to reply.');
-      navigate('/login');
+      toast.error("Please log in to reply.");
+      navigate("/login");
       return;
     }
 
-    if (!newReplies[commentId] || newReplies[commentId].trim() === '') {
+    if (!newReplies[commentId] || newReplies[commentId].trim() === "") {
       toast.warn("Reply cannot be empty.");
       return;
     }
@@ -123,7 +137,9 @@ const ProductDetails = () => {
       setComments((prevComments) => {
         return prevComments.map((comment) => {
           if (comment._id === commentId) {
-            comment.replies = comment.replies ? [...comment.replies, newReply] : [newReply];
+            comment.replies = comment.replies
+              ? [...comment.replies, newReply]
+              : [newReply];
           }
           return comment;
         });
@@ -132,7 +148,7 @@ const ProductDetails = () => {
       // Clear the reply input
       setNewReplies((prev) => ({
         ...prev,
-        [commentId]: '',
+        [commentId]: "",
       }));
       window.location.reload();
     } catch (error) {
@@ -147,6 +163,12 @@ const ProductDetails = () => {
       return;
     }
 
+    // Confirm adoption request
+    const confirmed = window.confirm(
+      "Are you sure you want to send an adoption request?"
+    );
+    if (!confirmed) return;
+
     try {
       // Send adoption request to the server
       await axios.post("/api/v1/adoption", {
@@ -156,21 +178,18 @@ const ProductDetails = () => {
 
       toast.success("Adoption request sent!"); // Success feedback
       setRequestSent(true);
-      setShowModal(false); // Close the modal after request
     } catch (error) {
       console.error("Error creating adoption request:", error);
       toast.error("Failed to send adoption request.");
     }
   };
 
-  const handleAdoptClick = () => {
-    setShowModal(true); // Open the confirmation modal
-  };
-
   const handleDeleteComment = async (commentId) => {
     try {
       await axios.delete(`/api/v1/comments/delete/${commentId}`);
-      setComments((prevComments) => prevComments.filter(comment => comment._id !== commentId));
+      setComments((prevComments) =>
+        prevComments.filter((comment) => comment._id !== commentId)
+      );
       window.location.reload();
     } catch (error) {
       console.error("Error deleting comment:", error);
@@ -179,11 +198,15 @@ const ProductDetails = () => {
   };
   const handleDeleteReply = async (commentId, replyId) => {
     try {
-      await axios.delete(`/api/v1/comments/replies/delete/${commentId}/${replyId}`);
+      await axios.delete(
+        `/api/v1/comments/replies/delete/${commentId}/${replyId}`
+      );
       setComments((prevComments) => {
-        return prevComments.map(comment => {
+        return prevComments.map((comment) => {
           if (comment._id === commentId) {
-            comment.replies = comment.replies.filter(reply => reply._id !== replyId);
+            comment.replies = comment.replies.filter(
+              (reply) => reply._id !== replyId
+            );
           }
           return comment;
         });
@@ -198,11 +221,15 @@ const ProductDetails = () => {
     const editedText = prompt("Edit your comment:", comment.text); // Prompt the user to edit the comment text
     if (editedText === null) return; // If the user cancels editing, do nothing
     try {
-      await axios.put(`/api/v1/comments/edit/${comment._id}`, { content: editedText }); // Pass edited text in the request body
+      await axios.put(`/api/v1/comments/edit/${comment._id}`, {
+        content: editedText,
+      }); // Pass edited text in the request body
       // Update the comment in the UI
       setComments((prevComments) =>
         prevComments.map((prevComment) =>
-          prevComment._id === comment._id ? { ...prevComment, text: editedText } : prevComment
+          prevComment._id === comment._id
+            ? { ...prevComment, text: editedText }
+            : prevComment
         )
       );
       window.location.reload();
@@ -216,17 +243,22 @@ const ProductDetails = () => {
     const editedText = prompt("Edit your reply:", reply.text); // Prompt the user to edit the reply text
     if (editedText === null) return; // If the user cancels editing, do nothing
     try {
-      await axios.put(`/api/v1/comments/replies/edit/${comment._id}/${reply._id}`, { content: editedText }); // Pass edited text in the request body
+      await axios.put(
+        `/api/v1/comments/replies/edit/${comment._id}/${reply._id}`,
+        { content: editedText }
+      ); // Pass edited text in the request body
       // Update the reply in the UI
       setComments((prevComments) =>
         prevComments.map((prevComment) =>
           prevComment._id === comment._id
             ? {
-              ...prevComment,
-              replies: prevComment.replies.map((prevReply) =>
-                prevReply._id === reply._id ? { ...prevReply, text: editedText } : prevReply
-              ),
-            }
+                ...prevComment,
+                replies: prevComment.replies.map((prevReply) =>
+                  prevReply._id === reply._id
+                    ? { ...prevReply, text: editedText }
+                    : prevReply
+                ),
+              }
             : prevComment
         )
       );
@@ -244,7 +276,7 @@ const ProductDetails = () => {
       ) : (
         <div className="bgColor">
           <div className="row container mt-2">
-            <div className="col-md-6" style={{ paddingLeft: '100px' }}>
+            <div className="col-md-6" style={{ paddingLeft: "100px" }}>
               <img
                 src={`/api/v1/product/product-photo/${product._id}`}
                 className="card-img-top"
@@ -259,38 +291,20 @@ const ProductDetails = () => {
               <h6>Age : {product.age}</h6>
               <h6>Breed : {product?.breed}</h6>
               <h6>Category : {product?.category?.name}</h6>
-              <div>
-                {/* Change button text depending on if the request was sent */}
-                {(isAdopter || nonLog) && (
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={handleAdoptClick}
-                    disabled={requestSent} // Disable if request was sent
-                  >
-                    {requestSent ? "Request Sent" : "Adopt"}
-                  </button>
-                )}
-
-                {/* Confirmation Modal */}
-                <Modal show={showModal} onHide={() => setShowModal(false)}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Confirm Adoption Request</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>Are you sure you want to send an adoption request for {product.name}?</Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowModal(false)}>
-                      Cancel
-                    </Button>
-                    <Button variant="primary" onClick={handleAdoptionRequest}>
-                      Send Request
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
-              </div>
+              {(isAdopter || nonLog) && (
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handleAdoptionRequest}
+                  disabled={requestSent} // Disable if request was sent
+                >
+                  {requestSent ? "Request Sent" : "Adopt"}
+                </button>
+              )}
             </div>
           </div>
 
+          <h1>Shelter Name: {product?.postedBy?.name || "Unknown"}</h1>
           <div className="product-description">
             <h1 className="description-title">Description</h1>
             <p className="description-text">{product.description}</p>
@@ -302,22 +316,32 @@ const ProductDetails = () => {
               <div className="comment-list">
                 {comments.map((comment, index) => (
                   <div key={index} className="comment">
-                    <strong className="comment-author">{comment.userId?.name || "Anonymous"}:</strong>
+                    <strong className="comment-author">
+                      {comment.userId?.name || "Anonymous"}:
+                    </strong>
                     <p className="comment-text">{comment.text}</p>
                     {comment.userId?._id === auth.user?._id && (
                       <div className="comment-actions">
-                        <button onClick={() => handleEditComment(comment)} className="edit-comment">
+                        <button
+                          onClick={() => handleEditComment(comment)}
+                          className="edit-comment"
+                        >
                           Edit
                         </button>
-                        <button onClick={() => handleDeleteComment(comment._id)} className="delete-comment">
+                        <button
+                          onClick={() => handleDeleteComment(comment._id)}
+                          className="delete-comment"
+                        >
                           Delete
                         </button>
                       </div>
                     )}
                     <div className="reply-section">
                       <textarea
-                        value={newReplies[comment._id] || ''}
-                        onChange={(e) => handleReplyChange(comment._id, e.target.value)}
+                        value={newReplies[comment._id] || ""}
+                        onChange={(e) =>
+                          handleReplyChange(comment._id, e.target.value)
+                        }
                         placeholder="Write your reply..."
                         className="reply-input"
                       />
@@ -328,25 +352,35 @@ const ProductDetails = () => {
                         Submit
                       </button>
                     </div>
-                    {comment.replies && comment.replies.map((reply, index) => (
-                      <div key={index} className="reply">
-                        <strong className="reply-author">{reply.userId?.name || "Anonymous"}:</strong>
-                        <p className="reply-text">{reply.text}</p>
-                        {reply.userId?._id === auth.user?._id && (
-                          <div className="reply-actions">
-                            <button onClick={() => handleEditReply(comment, reply)} className="edit-reply">
-                              Edit
-                            </button>
-                            <button onClick={() => handleDeleteReply(comment._id, reply._id)} className="delete-reply">
-                              Delete
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    ))}
+                    {comment.replies &&
+                      comment.replies.map((reply, index) => (
+                        <div key={index} className="reply">
+                          <strong className="reply-author">
+                            {reply.userId?.name || "Anonymous"}:
+                          </strong>
+                          <p className="reply-text">{reply.text}</p>
+                          {reply.userId?._id === auth.user?._id && (
+                            <div className="reply-actions">
+                              <button
+                                onClick={() => handleEditReply(comment, reply)}
+                                className="edit-reply"
+                              >
+                                Edit
+                              </button>
+                              <button
+                                onClick={() =>
+                                  handleDeleteReply(comment._id, reply._id)
+                                }
+                                className="delete-reply"
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      ))}
                   </div>
                 ))}
-
               </div>
             ) : (
               <p>No comments yet. Be the first to comment!</p>

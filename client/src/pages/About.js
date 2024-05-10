@@ -6,7 +6,7 @@ import Layout from "./../components/Layout/Layout";
 import SubBanner from "./SubBanner";
 import Footer from "../components/Layout/Footer.js";
 import Top from "./AboutUs/Top";
-import Middle from "./AboutUs/Middle";
+import Testimonials from "./Testimonial";
 import Choosing from "./ChoosingUs";
 // import Card from "./CaseStudy";
 
@@ -26,19 +26,16 @@ const About = () => {
         <Choosing />
       </section>
       {/* Middle Section  */}
-      <section>
-        <Middle />
-      </section>
 
+      <section>
+        <Testimonials />
+      </section>
       {/* Bottom Section  */}
       {/* <section>
         <Card />
       </section> */}
 
       {/* Footer Section  */}
-      <section>
-        <Footer />
-      </section>
     </Layout>
   );
 };

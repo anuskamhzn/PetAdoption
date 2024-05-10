@@ -13,10 +13,10 @@ const ChoosingUs = () => {
           data-aos-offset="220"
           className={styles.heading}
         >
-          Why choosing A-minute snooker?
+          Why Choose PetPals?
         </p>
         <p data-aos="slide-left" className={styles.sub_text}>
-          Elevate your snooker experience!{" "}
+          Because we enable direct pet adoption, from one good home to another.{" "}
         </p>
         <div
           className={`row ${styles.sub} align-items-center justify-content-center`}
