@@ -15,7 +15,7 @@ const CreateProduct = (user) => {
     const [categories, setCategories] = useState([]);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [age, setAge] = useState(""); 
+    const [age, setAge] = useState("");
     const [breed, setBreed] = useState("");// Add age state
     const [category, setCategory] = useState("");
     const [photo, setPhoto] = useState("");
@@ -53,10 +53,10 @@ const CreateProduct = (user) => {
             productData.append("name", name);
             productData.append("description", description);
             productData.append("photo", photo);
-            productData.append("age", age); 
+            productData.append("age", age);
             productData.append("breed", breed);
             productData.append("category", category);
-            productData.append("shelterId", shelterId); 
+            productData.append("shelterId", shelterId);
             const { data } = await axios.post(
                 "/api/v1/product/create-product",
                 productData
@@ -144,15 +144,15 @@ const CreateProduct = (user) => {
                                 />
                             </div>
                             <div className="mb-3">
-                              <input
-                          type="number"
-                          value={age}
-                          placeholder="Enter age"
-                          className="form-control"
-                          onChange={(e) => setAge(e.target.value)}
-                        />
-                        </div>
-                        <div className="mb-3">
+                                <input
+                                    type="number"
+                                    value={age}
+                                    placeholder="Enter age"
+                                    className="form-control"
+                                    onChange={(e) => setAge(e.target.value)}
+                                />
+                            </div>
+                            <div className="mb-3">
                                 <input
                                     type="text"
                                     value={breed}

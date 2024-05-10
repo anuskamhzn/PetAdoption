@@ -10,6 +10,7 @@ import {
   productCountController,
   productListController,
   searchProductController,
+  getProductsByShelterController,
 } from "../controllers/productController.js";
 import { isAdminOrShelter, requireSignIn } from "../middlewares/authMiddleware.js";
 import formidable from "express-formidable";
@@ -56,6 +57,8 @@ router.get('/product-list/:page', productListController);
 
 //search product
 router.get('/search/:keyword', searchProductController);
+
+router.get("/shelter/:shelterId", getProductsByShelterController);
 
 
 export default router;

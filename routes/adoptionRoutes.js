@@ -4,6 +4,7 @@ import Adoption from '../models/adoptionModel.js';
 import Product from '../models/productModel.js';
 import Notification from '../models/Notification.js';
 import { requireSignIn, isAdminOrShelter } from '../middlewares/authMiddleware.js';
+import productModel from '../models/productModel.js';
 
 const router = express.Router();
 
@@ -188,6 +189,32 @@ router.get("/notifications", requireSignIn, async (req, res) => {
   }
 });
 
+// New endpoint to check if an adoption request exists for a specific user and product
+router.get("/check/:productId", requireSignIn, async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const userId = req.user._id; // Current logged-in user
+
+    // Ensure the IDs are valid
+    if (!mongoose.Types.ObjectId.isValid(productId) || !mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid Product ID or User ID." });
+    }
+
+    // Check if an adoption request exists
+    const adoptionRequest = await Adoption.findOne({
+      productId,
+      userId,
+      status: 'pending', // Check for 'pending' status (you can adjust this as needed)
+    });
+
+    const requestExists = !!adoptionRequest; // Convert to boolean (true if request found)
+
+    res.status(200).json({ requestSent: requestExists });
+  } catch (error) {
+    console.error("Error checking adoption request:", error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+});
 
 
 export default router;

@@ -16,12 +16,9 @@ const About = () => {
         <div className="col-md-4">
         <h1 className="bg-dark p-2 text-white text-center">About US</h1>
           <p className="text-justify mt-2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-            officiis obcaecati esse tempore unde ratione, eveniet mollitia,
-            perferendis eius temporibus dicta blanditiis doloremque explicabo
-            quasi sunt vero optio cum aperiam vel consectetur! Laborum enim
-            accusantium atque, excepturi sapiente amet! Tenetur ducimus aut
-            commodi illum quidem neque tempora nam.
+          Welcome to PetPals, where hearts meet paws. We're dedicated to connecting loving homes with furry companions in need. 
+          Our mission is simple: to make the adoption process as seamless and joyful as possible for both pets and their new families. 
+          At PetPals, we believe every animal deserves a forever home filled with love and care. Join us in our mission to create happy tails and lifelong friendships.
           </p>
           <Link to="/homepage" className="pnf-btn">
           Go Back

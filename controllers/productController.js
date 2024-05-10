@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import productModel from "../models/productModel.js";
 import categoryModel from '../models/categoryModel.js';
 import userModel from "../models/userModel.js";
@@ -75,6 +76,7 @@ export const getProductController = async (req, res) => {
     const products = await productModel
       .find({ postedBy: userId })
       .populate("category", "name")
+      .populate("postedBy","name")
       .sort({ createdAt: -1 });
 
     // Transform products to include a URL for the photo
@@ -104,7 +106,8 @@ export const getSingleProductController = async (req, res) => {
     const product = await productModel
       .findOne({ slug: req.params.slug })
       .select("-photo")
-      .populate("category");
+      .populate("category")
+      .populate("postedBy", "name");
     res.status(200).send({
       success: true,
       message: "Single Product Fetched",
@@ -315,5 +318,60 @@ export const searchProductController = async (req, res) => {
     });
   }
 };
+
+// Get products by shelter ID
+export const getProductsByShelterController = async (req, res) => {
+  try {
+    const { shelterId } = req.params;
+
+    if (!shelterId || !mongoose.Types.ObjectId.isValid(shelterId)) {
+      return res.status(400).send({
+        success: false,
+        message: 'Invalid or missing shelter ID.',
+      });
+    }
+
+    const shelter = await userModel.findById(shelterId); // Find the shelter by ID
+    if (!shelter) {
+      return res.status(404).send({
+        success: false,
+        message: 'Shelter not found.',
+      });
+    }
+
+    const products = await productModel     
+     .find({ postedBy: shelterId }) // Retrieve products by shelter
+    .populate('category', 'name') // Populate category with only the 'name' field
+    .populate('postedBy', 'name')
+    .sort({ createdAt: -1 });
+
+    if (products.length === 0) {
+      return res.status(404).send({
+        success: false,
+        message: 'No products found for the specified shelter.',
+      });
+    }
+
+    const productsWithPhotoURL = products.map((product) => ({
+      ...product._doc,
+      photoURL: `/api/v1/product/photo/${product._id}`,
+    }));
+
+    res.status(200).send({
+      success: true,
+      message: 'Products retrieved successfully.',
+      products: productsWithPhotoURL,
+      shelterName: shelter.name,
+    });
+  } catch (error) {
+    console.error('Error fetching products by shelter:', error);
+    res.status(500).send({
+      success: false,
+      message: 'Internal server error.',
+      error: error.toString(), // Log the error as a string
+    });
+  }
+};
+
 
 

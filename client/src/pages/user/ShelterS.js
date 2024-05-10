@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
-import AdminMenu from "../../components/Layout/AdminMenu";
+import UserMenu from "../../components/Layout/UserMenu";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const ShelterS = () => {
   const [users, setUsers] = useState([]);
@@ -46,7 +47,7 @@ const ShelterS = () => {
       <div className='container-fluid m-3 p-3'>
         <div className='row'>
           <div className='col-md-3'>
-            <AdminMenu />
+            <UserMenu />
           </div>
           <div className='col-md-9'>
             <h1>All Users</h1>
@@ -61,7 +62,9 @@ const ShelterS = () => {
                 <tbody>
                   {filteredUsers.map((user) => (
                     <tr key={user._id}>
-                      <td>{user.name}</td>
+                      <td>
+                        <Link to={`/shelter/${user._id}`}>{user.name}</Link>
+                      </td>
                       <td>{user.email}</td>
                     </tr>
                   ))}

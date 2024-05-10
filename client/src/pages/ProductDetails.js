@@ -49,11 +49,26 @@ const ProductDetails = () => {
     }
   }, [params.slug, getComments]);
 
+  const checkAdoptionRequest = useCallback(async () => {
+    try {
+      const { data } = await axios.get(`/api/v1/adoption/check/${product._id}`);
+      setRequestSent(data.requestSent);
+    } catch (error) {
+      console.error("Error checking adoption request:", error);
+    }
+  }, [product._id]);
+
   useEffect(() => {
     if (params.slug) {
       getProduct();
     }
   }, [params.slug, getProduct]);
+
+  useEffect(() => {
+    if (product._id && auth?.user) {
+      checkAdoptionRequest();
+    }
+  }, [product._id, auth.user, checkAdoptionRequest]);
 
   const handleCommentSubmit = async () => {
     if (!auth?.user) {
@@ -259,6 +274,7 @@ const ProductDetails = () => {
               <h6>Age : {product.age}</h6>
               <h6>Breed : {product?.breed}</h6>
               <h6>Category : {product?.category?.name}</h6>
+            
               <div>
                 {/* Change button text depending on if the request was sent */}
                 {(isAdopter || nonLog) && (
@@ -291,6 +307,7 @@ const ProductDetails = () => {
             </div>
           </div>
 
+          <h1>Shelter Name: {product?.postedBy?.name || "Unknown"}</h1>
           <div className="product-description">
             <h1 className="description-title">Description</h1>
             <p className="description-text">{product.description}</p>

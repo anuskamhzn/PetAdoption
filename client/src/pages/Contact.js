@@ -20,7 +20,7 @@ const Contact = () => {
             vaialible
           </p>
           <p className="mt-3">
-            <BiMailSend /> : www.help@petpal.com
+            <BiMailSend /> : petpals@gmail.com
           </p>
           <p className="mt-3">
             <BiPhoneCall /> : 01-4456780

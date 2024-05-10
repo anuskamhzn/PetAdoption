@@ -24,7 +24,8 @@ import CreateBreed from './pages/Shelter/CreateBreed';
 import CreateProduct from './pages/Shelter/CreateProduct';
 import Adoption from './pages/Shelter/Adoption';
 import Users from './pages/Admin/Users'; // Corrected import
-import ShelterS from './pages/user/ShelterS';
+import ShelterS from './pages/user/shelters';
+import ShelterPet from './pages/ShelterPet';
 import Adopt from './pages/user/Adopt';
 import Profile from './pages/user/Profile';
 import Profiles from './pages/Shelter/Profiles';
@@ -88,6 +89,7 @@ function App() {
           <Route path="shelter/adoption" element={<Adoption />} />
         </Route>
         <Route path="/choice-page" element={<ChoicePage />} />
+        <Route path="/shelter/:shelterId" element={<ShelterPet />} />
         <Route path="/user-info" element={<UserInfo />} />
         <Route path="/register" element={<Register />} />
         <Route path="/sregister" element={<SRegister />} />
