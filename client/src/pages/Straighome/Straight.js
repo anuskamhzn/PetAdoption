@@ -13,7 +13,7 @@ const Real = () => {
               data-aos-offset="150"
               className={styles.subHeading}
             >
-              Straightforward Pet Rehoming And Adoption{" "}
+              Straight forward Pet Rehoming And Adoption{" "}
             </p>
             <p
               data-aos="zoom-in"

@@ -171,6 +171,13 @@ le.css */
 .btn-purple {
   background-color: #4e2d69 !important;
 }
+.btn-outline-more {
+  color: black;
+  border: 1px solid #4e2d69;
+  border-radius: 2rem;
+  padding-left: 15px;
+  padding-right: 15px;
+}
 .btn-more {
   font-size: 15px;
   background-color: #4e2d69;
@@ -181,9 +188,9 @@ le.css */
   border: none;
 }
 .btn-more:hover {
-  cursor: pointer;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
+  cursor: pointer !important;
+  -webkit-transition-duration: 0.4s !important; /* Safari */
+  transition-duration: 0.4s !important;
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
     0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
@@ -214,4 +221,30 @@ le.css */
 }
 .detail-card {
   text-align: center;
+}
+
+.input {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: solid 1px #e8e8e8;
+  height: 60px;
+  margin: 9px 0px 5px;
+  padding-left: 15px;
+}
+.Menucard {
+  background: linear-gradient(to top, #4e2d69, #656ebb) !important;
+  padding-bottom: 1px;
+  border-radius: 2rem;
+}
+
+.Menucard img {
+  width: auto;
+  height: 50vh;
+}
+
+@media screen and (max-width: 500px) {
+  .Menucard img {
+    height: 30vh;
+  }
 }

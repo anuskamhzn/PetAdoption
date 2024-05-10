@@ -100,7 +100,7 @@ const Header = () => {
             </p>{" "}
             <p className="nav-item p-2 pt-3 px-4">
               <NavLink
-                to="/homepage"
+                to="/helpadvice"
                 className={`${styles.nav_text} nav-link ${
                   activeNav[0] ? styles.active : ""
                 }`}

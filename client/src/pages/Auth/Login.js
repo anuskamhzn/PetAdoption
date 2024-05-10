@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/auth";
-import pethouse from "../../imag/pethouse.png";
+import pethouse from "../../imag/petpalslogo (2).png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -37,20 +37,27 @@ const Login = () => {
 
   return (
     <Layout>
-      <div className=" container">
-        <div className="container">
-          <div className="register container">
-            <h1 data-aos="fade" data-aos-offset="200">
-              Login To PetPals
-            </h1>
-            <img src={pethouse} data-aos="fade" data-aos-offset="100"></img>
+      <div className="container">
+        <div className="register row">
+          <div className="col-5">
+            {" "}
+            <img
+              src={pethouse}
+              className=""
+              data-aos="fade"
+              data-aos-offset="100"
+            ></img>
+          </div>
+          <div className="col-5">
+            <h1>Welcome</h1>
+            <p>Login to your Account</p>
             <form onSubmit={handleSubmit}>
               <div className="mb-3" data-aos="slide-up" data-aos-offset="100">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="form-control"
+                  className="input"
                   id="exampleInputEmail1"
                   placeholder="Enter Email"
                   required
@@ -61,20 +68,20 @@ const Login = () => {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="form-control"
+                  className="input"
                   id="exampleInputPassword1"
                   placeholder="Enter Password"
                   required
                 />
               </div>
               <div className="mb-3" data-aos="slide-up" data-aos-offset="100">
-                <NavLink to="/forgot-password" className="btn btn-link">
+                <NavLink to="/forgot-password" className="btn ">
                   Forgot Password?
                 </NavLink>
               </div>
               <button
                 type="submit"
-                className="btn btn-primary btn-login mx-1 "
+                className="btn-more px-5 py-3 btn-login mx-1 "
                 data-aos="slide-up"
                 data-aos-offset="100"
               >
@@ -82,7 +89,7 @@ const Login = () => {
               </button>
               <NavLink
                 to="/choice-page"
-                className="btn btn-secondary btn-login mx-1"
+                className=" btn-outline-more px-5 py-3 btn-login mx-1"
                 data-aos="slide-up"
                 data-aos-offset="100"
               >

@@ -1,6 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import React, { useState, useEffect, useCallback } from "react";
 import HomePage from "./pages/HomePage";
+import Helpadvice from "./pages/HelpAdvice";
+
 import UserInfo from "./pages/userInfo";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -64,6 +66,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Firstpage />} />
         <Route path="/homepage" element={<HomePage />} />
+        <Route path="/helpadvice" element={<Helpadvice />} />
 
         <Route path="/product/:slug" element={<ProductDetails />} />
         <Route path="/search" element={<Search />} />

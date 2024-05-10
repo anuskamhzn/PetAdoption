@@ -104,13 +104,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* height: 70vh; */
+  height: none !important;
   padding-top: 4rem;
+  margin-top: 5rem;
   padding-bottom: 4rem;
 
   background-color: aliceblue;
   border-radius: 2rem;
-  flex-direction: column;
 }
 
 /* ========================================= */
@@ -281,15 +281,6 @@ li {
   font-family: "Nunito Sans", sans-serif !important;
 }
 
-.register img {
-  max-width: 100%;
-  height: 300px;
-}
-
-.btn-login {
-  width: 6rem;
-}
-
 /* ========================================= */
 /* =========Comment-Reply ========= */
 .comment-list {
@@ -417,4 +408,13 @@ li {
 .edit-comment:hover,
 .edit-reply:hover {
   background-color: #d6342d;
+}
+.input {
+  width: 100%;
+  background-color: #f7f7f7;
+  border-radius: 6px;
+  border: solid 1px #e8e8e8;
+  height: 60px;
+  margin: 9px 0px 20px;
+  padding-left: 15px;
 }
