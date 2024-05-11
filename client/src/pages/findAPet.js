@@ -156,14 +156,17 @@ const FindAPet = () => {
               </div>
             </div>
           </div>
-          <div className="col-md-9">
+          <div className="col-lg-9 col-md-9 col-sm-5 col-sms-5 ">
             <div className="row all-pets">
               <h1 className="text-center">All Pets</h1>
               {products?.length === 0 ? (
                 <p className="text-center">Not found</p>
               ) : (
                 products?.map((p) => (
-                  <div className="pet-card col-3 col-md-3 m-2 pt-2" key={p._id}>
+                  <div
+                    className="pet-card  col-lg-3 col-md-5 col-sm-5 col-sms-5  m-2 pt-2"
+                    key={p._id}
+                  >
                     <img
                       src={`/api/v1/product/product-photo/${p._id}`}
                       className="pet-image img-fluid"

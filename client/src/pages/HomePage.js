@@ -140,7 +140,10 @@ const HomePage = () => {
           <div className="container">
             <div className="row justify-content-center flex-wrap">
               {products?.slice(0, 6).map((p) => (
-                <div className="pet-card col-3 m-2 pt-3" key={p._id}>
+                <div
+                  className="pet-card col-lg-3 col-md-5 col-sm-5 col-sms-5 m-2 pt-3"
+                  key={p._id}
+                >
                   <img
                     src={`/api/v1/product/product-photo/${p._id}`}
                     className="pet-image img-fluid"

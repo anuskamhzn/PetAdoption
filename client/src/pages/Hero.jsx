@@ -1,5 +1,5 @@
 import caro1 from "../imag/img.jpg";
-import caro2 from "../imag/img.png";
+import caro2 from "../imag/Frame 1.jpg";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom";

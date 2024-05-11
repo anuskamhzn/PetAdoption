@@ -144,51 +144,57 @@ const Header = () => {
               </NavLink>
             </p>
             <ul className="navbar-nav">
-              <SearchInput />
+              <div className="d-flex right-nav">
+                <SearchInput />
 
-              {auth.user ? (
-                <li className="nav-item dropdown loginbtn">
-                  <NavLink
-                    className="nav-link dropdown-toggle"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {auth?.user?.username}
-                  </NavLink>
-                  <ul className="dropdown-menu loginbtn">
-                    <li>
-                      <NavLink
-                        to={`/dashboard/${
-                          auth?.user?.role === 1
-                            ? "admin"
-                            : auth?.user?.role === 2
-                            ? "shelter"
-                            : "user"
-                        }`}
-                        className="dropdown-item"
-                      >
-                        Dashboard
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        onClick={handleLogout}
-                        to="/login"
-                        className="dropdown-item "
-                      >
-                        Logout
-                      </NavLink>
-                    </li>
-                  </ul>
-                </li>
-              ) : (
-                <li className="nav-item mx-2 loginbtn ">
-                  <Link to="/login" className=" dark-font nav-link">
-                    Login
-                  </Link>
-                </li>
-              )}
+                {auth.user ? (
+                  <li className="dark-font nav-item dropdown loginbtn pt-1">
+                    <NavLink
+                      className="dark-font text-dark dropdown-toggle px-3"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <span className="username ">
+                        {auth?.user?.username.length > 5
+                          ? auth?.user?.username.slice(0, 5) + ".."
+                          : auth?.user?.username}
+                      </span>
+                    </NavLink>
+                    <ul className="dropdown-menu loginbtn">
+                      <li>
+                        <NavLink
+                          to={`/dashboard/${
+                            auth?.user?.role === 1
+                              ? "admin"
+                              : auth?.user?.role === 2
+                              ? "shelter"
+                              : "user"
+                          }`}
+                          className="dropdown-item"
+                        >
+                          Dashboard
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          onClick={handleLogout}
+                          to="/login"
+                          className="dropdown-item "
+                        >
+                          Logout
+                        </NavLink>
+                      </li>
+                    </ul>
+                  </li>
+                ) : (
+                  <li className="nav-item mx-2 loginbtn ">
+                    <Link to="/login" className=" dark-font nav-link">
+                      Login
+                    </Link>
+                  </li>
+                )}
+              </div>
             </ul>
           </div>
         </div>
