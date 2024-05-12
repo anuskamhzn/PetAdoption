@@ -10,8 +10,12 @@ import {
     approveShelter,
     rejectShelter,
     userController,
+    getUserByIdController,
+    userPhotoController,
+    deleteUserController,
   } from "../controllers/authController.js";
   import { isAdminOrShelter,requireSignIn } from "../middlewares/authMiddleware.js";
+  import formidable from "express-formidable";
 
 //router object
 const router = express.Router();
@@ -48,12 +52,19 @@ router.get("/shelter-auth", requireSignIn,isAdminOrShelter, (req,res) => {
   res.status(200).send({ok:true});
 });
 
-router.put('/profile',requireSignIn, updateProfileController);
+router.put('/profile', formidable(),requireSignIn, updateProfileController);
 
-router.put('/profiles',requireSignIn, updateSProfileController);
+router.put('/profiles', formidable(), requireSignIn, updateSProfileController);
 
 //getALl users
 router.get("/get-users", userController);
 
+//get user info
+router.get("/user-info/:userId",getUserByIdController);
 
+//get photo
+router.get("/user-photo/:userId", userPhotoController);
+
+//delete product
+router.delete("/delete-user/:userId", deleteUserController);
 export default router;

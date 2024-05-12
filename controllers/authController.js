@@ -1,6 +1,7 @@
 import userModel from "../models/userModel.js";
 import {comparePassword, hashPassword} from "./../utils/authHelper.js"
 import JWT from 'jsonwebtoken';
+import fs from "fs";
 
 export const registerController = async (req, res) => {
   try {
@@ -208,35 +209,54 @@ export const testController = (req, res) => {
 //update profile
 export const updateProfileController = async (req, res) => {
   try {
-    const { name, username, email, password, address, phone } = req.body;
+    const { name, username, email, password, address, phone } = req.fields;
     const user = await userModel.findById(req.user._id);
-    //password
-    if (password && password.length < 6) {
-      return res.json({ error: "Passsword is required and 6 character long" });
+
+    // Check if a photo was uploaded
+    const photo = req.files ? req.files.photo : undefined;
+
+    // password
+    let hashedPassword = user.password;
+    if (password && password.length >= 6) {
+      hashedPassword = await hashPassword(password);
+    } else if (password) {
+      return res.status(400).json({ error: "Password must be at least 6 characters long" });
     }
-    const hashedPassword = password ? await hashPassword(password) : undefined;
+
+    // Update user information
+    const updatedFields = {
+      name: name || user.name,
+      username: username || user.username,
+      password: hashedPassword,
+      phone: phone || user.phone,
+      address: address || user.address,
+    };
+
+    // If a photo is uploaded, update user's photo
+    if (photo) {
+      updatedFields.photo = {
+        data: fs.readFileSync(photo.path),
+        contentType: photo.type,
+      };
+    }
+
     const updatedUser = await userModel.findByIdAndUpdate(
       req.user._id,
-      {
-        name: name || user.name,
-        username: username || user.username,
-        password: hashedPassword || user.password,
-        phone: phone || user.phone,
-        address: address || user.address,
-      },
+      updatedFields,
       { new: true }
     );
-    res.status(200).send({
+
+    res.status(200).json({
       success: true,
-      message: "Profile Updated SUccessfully",
+      message: "Profile updated successfully",
       updatedUser,
     });
   } catch (error) {
-    console.log(error);
-    res.status(400).send({
+    console.error(error);
+    res.status(500).json({
       success: false,
-      message: "Error WHile Update profile",
-      error,
+      message: "Error while updating profile",
+      error: error.message,
     });
   }
 };
@@ -244,30 +264,49 @@ export const updateProfileController = async (req, res) => {
 //update shelter prfile
 export const updateSProfileController = async (req, res) => {
   try {
-    const { name,username, email, password, address, phone } = req.body;
+    const { name, username, email, password, address, phone } = req.fields;
     const user = await userModel.findById(req.user._id);
-    //password
-    if (password && password.length < 6) {
-      return res.json({ error: "Passsword is required and 6 character long" });
+
+    // Check if a photo was uploaded
+    const photo = req.files ? req.files.photo : undefined;
+
+    // password
+    let hashedPassword = user.password;
+    if (password && password.length >= 6) {
+      hashedPassword = await hashPassword(password);
+    } else if (password) {
+      return res.status(400).json({ error: "Password must be at least 6 characters long" });
     }
-    const hashedPassword = password ? await hashPassword(password) : undefined;
+
+    // Update user information
+    const updatedFields = {
+      name: name || user.name,
+      username: username || user.username,
+      password: hashedPassword,
+      phone: phone || user.phone,
+      address: address || user.address,
+    };
+
+    // If a photo is uploaded, update user's photo
+    if (photo) {
+      updatedFields.photo = {
+        data: fs.readFileSync(photo.path),
+        contentType: photo.type,
+      };
+    }
+
     const updatedUser = await userModel.findByIdAndUpdate(
       req.user._id,
-      {
-        name: name || user.name,
-        username: username || user.username,
-        password: hashedPassword || user.password,
-        phone: phone || user.phone,
-        address: address || user.address,
-      },
+      updatedFields,
       { new: true }
     );
-    res.status(200).send({
+
+    res.status(200).json({
       success: true,
-      message: "Profile Updated SUccessfully",
+      message: "Profile updated successfully",
       updatedUser,
     });
-  } catch (error) {
+  }  catch (error) {
     console.log(error);
     res.status(400).send({
       success: false,
@@ -292,6 +331,65 @@ export const userController = async (req, res) => {
       success: false,
       error,
       message: "Error while getting all categories",
+    });
+  }
+};
+
+// get user photo
+export const userPhotoController = async (req, res) => {
+  try {
+    const user = await userModel.findById(req.params.userId).select("photo");
+
+    // Check if user or photo doesn't exist
+    if (!user || !user.photo) {
+      return res.status(404).send({ success: false, message: "User photo not found" });
+    }
+
+    // If photo exists, send it in the response
+    res.set("Content-type", user.photo.contentType);
+    return res.status(200).send(user.photo.data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error while getting user photo",
+      error,
+    });
+  }
+};
+
+
+
+// Get user by ID
+export const getUserByIdController = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    // Find user by ID
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+    res.status(200).json({ success: true, message: "User found", user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Error in fetching user", error });
+  }
+};
+
+//delete controller
+export const deleteUserController = async (req, res) => {
+  try {
+    await userModel.findByIdAndDelete(req.params.userId);
+    res.status(200).send({
+      success: true,
+      message: "Product Deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error while deleting product",
+      error,
     });
   }
 };

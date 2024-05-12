@@ -16,6 +16,12 @@ const ShelterDashboard = () => {
                     <div className='col-md-9'>
                         <h1>Profile</h1>
                         <div className='card w-75 p-3'>
+                        <img
+                                src={`/api/v1/auth/user-photo/${auth?.user?._id}`}
+                                className="card-img-top"
+                                alt={auth?.user?.name}
+                                style={{ height: "200px", width: "200px" }} // Adjust the height and width as needed
+                            />
                             <h4>Name: {auth?.user?.name}</h4>
                             <h4>Email: {auth?.user?.email}</h4>
                             <h4>Address: {auth?.user?.address}</h4>

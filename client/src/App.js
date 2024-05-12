@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import HomePage from "./pages/HomePage";
-import UserInfo from "./pages/userInfo";
+import UserInfo from "./pages//Admin/userInfo";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import FindAPet from './pages/findAPet';
@@ -24,7 +24,8 @@ import CreateBreed from './pages/Shelter/CreateBreed';
 import CreateProduct from './pages/Shelter/CreateProduct';
 import Adoption from './pages/Shelter/Adoption';
 import Users from './pages/Admin/Users'; // Corrected import
-import ShelterS from './pages/user/shelters';
+import EditUser from './pages/Admin/editUser'; 
+import Shelters from './pages/user/Shelters';
 import ShelterPet from './pages/ShelterPet';
 import Adopt from './pages/user/Adopt';
 import Profile from './pages/user/Profile';
@@ -64,19 +65,19 @@ function App() {
       <Routes>
         <Route path="/" element={<Firstpage />} />
         <Route path="/homepage" element={<HomePage />} />
-
         <Route path="/product/:slug" element={<ProductDetails />} />
         <Route path="/search" element={<Search />} />
         <Route path="/dashboard" element={<PrivateRoutes />}>
           <Route path="user" element={<Dashboard />} />
           <Route path="user/adopt" element={<Adopt />} />
           <Route path="user/profile" element={<Profile />} />
-          <Route path="user/shelter-list" element={<ShelterS />} />
+          <Route path="user/shelter-list" element={<Shelters />} />
         </Route>
         <Route path="/dashboard" element={<AdminRoutes />}>
           <Route path="admin" element={<AdminDashboard />} />
           <Route path="admin/create-category" element={<CreateCategory />} />
           <Route path="admin/users" element={<Users />} />
+          <Route path="admin/edituser/:userId" element={<EditUser />} />
         </Route>
         <Route path="/dashboard" element={<ShelterRoutes />}>
           <Route path="shelter" element={<ShelterDashboard />} />
@@ -90,7 +91,7 @@ function App() {
         </Route>
         <Route path="/choice-page" element={<ChoicePage />} />
         <Route path="/shelter/:shelterId" element={<ShelterPet />} />
-        <Route path="/user-info" element={<UserInfo />} />
+        <Route path="/user-info/:userId" element={<UserInfo />} />
         <Route path="/register" element={<Register />} />
         <Route path="/sregister" element={<SRegister />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

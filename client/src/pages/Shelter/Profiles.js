@@ -14,8 +14,8 @@ const Profiles = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [photo, setPhoto] = useState(null); // New state for storing the selected photo
 
-  //get user data
   useEffect(() => {
     const { email, name, username, phone, address } = auth?.user;
     setName(name);
@@ -25,18 +25,20 @@ const Profiles = () => {
     setAddress(address);
   }, [auth?.user]);
 
-  // form function
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.put("/api/v1/auth/profiles", {
-        name,
-        username,
-        email,
-        password,
-        phone,
-        address,
-      });
+      const formData = new FormData(); // Create a FormData object to send file data
+      formData.append("name", name);
+      formData.append("username", username);
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("phone", phone);
+      formData.append("address", address);
+      formData.append("photo", photo); // Append the selected photo to the form data
+
+      const { data } = await axios.put("/api/v1/auth/profile", formData);
+
       if (data?.errro) {
         toast.error(data?.error);
       } else {
@@ -52,6 +54,11 @@ const Profiles = () => {
       toast.error("Something went wrong");
     }
   };
+
+  // Function to handle file input change
+  const handlePhotoChange = (e) => {
+    setPhoto(e.target.files[0]); // Set the selected photo to the state
+  };
   return (
     <Layout title={"Your Profile"}>
       <div className="container-fluid m-3 p-3">
@@ -62,7 +69,17 @@ const Profiles = () => {
           <div className="col-md-9">
             <div className="form-container ">
               <form onSubmit={handleSubmit}>
-                <h4 className="title">Update USER PROFILE</h4>
+                <h4 className="title">USER PROFILE</h4>
+                 {/* Add file input for photo */}
+                 <div className="mb-3">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoChange}
+                    className="form-control"
+                    id="photoInput"
+                  />
+                </div>
                 <div className="mb-3">
                   <input
                     type="text"

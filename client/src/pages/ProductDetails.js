@@ -6,7 +6,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Style.css";
-import { Modal, Button } from 'react-bootstrap';
 
 const ProductDetails = () => {
   const [auth] = useAuth();
@@ -16,7 +15,6 @@ const ProductDetails = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [newReplies, setNewReplies] = useState({}); // Store new replies here
-  const [showModal, setShowModal] = useState(false);
   const [requestSent, setRequestSent] = useState(false); // New state variable
 
 
@@ -155,32 +153,34 @@ const ProductDetails = () => {
     }
   };
 
+
   const handleAdoptionRequest = async () => {
     if (!auth?.user) {
       toast.error("Please log in to adopt.");
       navigate("/login");
       return;
     }
-
+  
+    // Confirm adoption request
+    const confirmed = window.confirm("Are you sure you want to send an adoption request?");
+    if (!confirmed) return;
+  
     try {
       // Send adoption request to the server
       await axios.post("/api/v1/adoption", {
         productId: product._id, // Product being adopted
         userId: auth.user._id, // User making the request
       });
-
+  
       toast.success("Adoption request sent!"); // Success feedback
       setRequestSent(true);
-      setShowModal(false); // Close the modal after request
     } catch (error) {
       console.error("Error creating adoption request:", error);
       toast.error("Failed to send adoption request.");
     }
   };
+  
 
-  const handleAdoptClick = () => {
-    setShowModal(true); // Open the confirmation modal
-  };
 
   const handleDeleteComment = async (commentId) => {
     try {
@@ -274,36 +274,17 @@ const ProductDetails = () => {
               <h6>Age : {product.age}</h6>
               <h6>Breed : {product?.breed}</h6>
               <h6>Category : {product?.category?.name}</h6>
-            
-              <div>
-                {/* Change button text depending on if the request was sent */}
-                {(isAdopter || nonLog) && (
+              {(isAdopter || nonLog) && (
                   <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={handleAdoptClick}
+                    onClick={handleAdoptionRequest}
                     disabled={requestSent} // Disable if request was sent
                   >
                     {requestSent ? "Request Sent" : "Adopt"}
                   </button>
                 )}
 
-                {/* Confirmation Modal */}
-                <Modal show={showModal} onHide={() => setShowModal(false)}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Confirm Adoption Request</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>Are you sure you want to send an adoption request for {product.name}?</Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowModal(false)}>
-                      Cancel
-                    </Button>
-                    <Button variant="primary" onClick={handleAdoptionRequest}>
-                      Send Request
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
-              </div>
             </div>
           </div>
 

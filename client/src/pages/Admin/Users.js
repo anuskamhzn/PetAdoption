@@ -3,6 +3,7 @@ import Layout from "../../components/Layout/Layout";
 import AdminMenu from "../../components/Layout/AdminMenu";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -43,35 +44,53 @@ const Users = () => {
 
   return (
     <Layout>
-      <div className='container-fluid m-3 p-3'>
-        <div className='row'>
-          <div className='col-md-3'>
+      <div className="container-fluid mt-3">
+        <div className="row">
+          <div className="col-md-3">
             <AdminMenu />
           </div>
-          <div className='col-md-9'>
+          <div className="col-md-9">
             <h1>All Users</h1>
             <div className="w-75">
-              <div>
-              <button className="btn btn-primary me-2" onClick={() => setFilter(2)}>Show Shelters</button>
-    <button className="btn btn-primary me-2" onClick={() => setFilter(0)}>Show Adopters</button>
-    <button className="btn btn-primary" onClick={() => setFilter(null)}>Show All</button>
+              <div className="btn-group mb-3">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => setFilter(2)}
+                >
+                  Show Shelters
+                </button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => setFilter(0)}
+                >
+                  Show Adopters
+                </button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => setFilter(null)}
+                >
+                  Show All
+                </button>
               </div>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredUsers.map((user) => (
-                    <tr key={user._id}>
-                      <td>{user.name}</td>
-                      <td>{user.email}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <div className="row">
+                {filteredUsers.map((user) => (
+                  <div className="col-md-4 mb-3" key={user._id}>
+                    <div className="card">
+                      <img
+                        src={`/api/v1/auth/user-photo/${user?._id}`}
+                        className="card-img-top"
+                        alt={user?.name}
+                        style={{ height: "200px", width: "100%", objectFit: "cover" }}
+                      />
+                      <div className="card-body">
+                        <h5 className="card-title">
+                          <Link to={`/user-info/${user._id}`}>{user.name}</Link>
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

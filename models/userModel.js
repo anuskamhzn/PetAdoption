@@ -23,7 +23,6 @@ const userSchema = new mongoose.Schema(
     },
     pan: {
       type: String,
-      require: true,
     },
     phone: {
       type: String,
@@ -38,8 +37,8 @@ const userSchema = new mongoose.Schema(
       default: 0,
     },
     photo: {
-      data: Buffer,
-      contentType: String,
+      data: Buffer, // Storing binary data
+      contentType: String, // Storing content type of the image
     },
   },
   { timestamps: true }

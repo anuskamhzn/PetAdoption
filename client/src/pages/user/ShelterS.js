@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const ShelterS = () => {
+const Shelters = () => {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [filter, setFilter] = useState(null);
@@ -31,45 +31,34 @@ const ShelterS = () => {
     getAllUsers();
   }, []);
 
-  // Filter users based on the selected role
-  useEffect(() => {
-    if (filter !== null) {
-      const filtered = users.filter((user) => user.role === 2);
-      setFilteredUsers(filtered);
-    } else {
-      // If no filter is selected, show all users
-      setFilteredUsers(users);
-    }
-  }, [filter, users]);
 
   return (
     <Layout>
-      <div className='container-fluid m-3 p-3'>
-        <div className='row'>
-          <div className='col-md-3'>
+      <div className="container-fluid m-3 p-3">
+        <div className="row">
+          <div className="col-md-3">
             <UserMenu />
           </div>
-          <div className='col-md-9'>
-            <h1>All Users</h1>
-            <div className="w-75">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredUsers.map((user) => (
-                    <tr key={user._id}>
-                      <td>
+          <div className="col-md-9">
+            <h1>All Shelters</h1>
+            <div className="row">
+              {filteredUsers.map((user) => (
+                <div className="col-md-4 mb-3" key={user._id}>
+                  <div className="card">
+                    <div className="card-body">
+                      <h5 className="card-title">
+                      <img
+                        src={`/api/v1/auth/user-photo/${user?._id}`}
+                        className="card-img-top"
+                        alt={user?.name}
+                        style={{ height: "200px", width: "100%", objectFit: "cover" }}
+                      />
                         <Link to={`/shelter/${user._id}`}>{user.name}</Link>
-                      </td>
-                      <td>{user.email}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -78,4 +67,4 @@ const ShelterS = () => {
   );
 };
 
-export default ShelterS;
+export default Shelters;
