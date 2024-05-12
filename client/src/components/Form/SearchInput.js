@@ -32,12 +32,12 @@ const SearchInput = () => {
       <form className="form-search form-inline" onSubmit={handleSubmit}>
         <div style={{ position: "relative" }}>
           <input
-            className="search-query form-control"
+            className="search-query search-input"
             type="text"
             placeholder="Search..."
             value={inputValue}
             onChange={handleChange}
-            style={{ paddingLeft: "26px" }}
+            style={{ paddingLeft: "26px", borderRadius: "3rem" }}
           />
           <div
             style={{
@@ -45,11 +45,13 @@ const SearchInput = () => {
               display: "block",
               width: "14px",
               height: "14px",
-              backgroundImage: "url(http://getbootstrap.com/2.3.2/assets/img/glyphicons-halflings.png)",
+
+              backgroundImage:
+                "url(http://getbootstrap.com/2.3.2/assets/img/glyphicons-halflings.png)",
               backgroundPosition: "-48px 0",
               position: "absolute",
-              top: "8px",
-              left: "8px",
+              top: "11px",
+              left: "12px",
               opacity: "0.5",
               zIndex: "1000",
             }}

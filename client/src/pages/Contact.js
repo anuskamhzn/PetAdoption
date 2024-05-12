@@ -2,9 +2,11 @@ import React from "react";
 import Layout from "./../components/Layout/Layout";
 import { Link } from "react-router-dom";
 import { BiMailSend, BiPhoneCall, BiSupport } from "react-icons/bi";
+import Contactus from "./ContactUsForm";
 const Contact = () => {
   return (
     <Layout>
+<<<<<<< HEAD
       <div className="row contactus ">
         <div className="col-md-6 ">
           <img
@@ -33,6 +35,9 @@ const Contact = () => {
         </Link>
         </div>
       </div>
+=======
+      <Contactus></Contactus>
+>>>>>>> frontend
     </Layout>
   );
 };

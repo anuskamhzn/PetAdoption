@@ -1,14 +1,22 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
 import HomePage from "./pages/HomePage";
+<<<<<<< HEAD
 import UserInfo from "./pages//Admin/userInfo";
+=======
+import Helpadvice from "./pages/HelpAdvice";
+
+import UserInfo from "./pages/userInfo";
+>>>>>>> frontend
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import FindAPet from './pages/findAPet';
+import FindAPet from "./pages/findAPet";
 import Policy from "./pages/Policy";
 import Pagenotfound from "./pages/Pagenotfound";
 import Register from "./pages/Auth/Register";
 import SRegister from "./pages/Auth/shelterRegister";
 import Login from "./pages/Auth/Login";
+<<<<<<< HEAD
 import { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './pages/user/Dashboard';
@@ -35,6 +43,32 @@ import UpdateProduct from './pages/Shelter/UpdateProduct';
 import Search from './pages/Search';
 import ProductDetails from './pages/ProductDetails';
 import Firstpage from './pages/firstPage';
+=======
+import { Toaster } from "react-hot-toast";
+import "react-toastify/dist/ReactToastify.css";
+import Dashboard from "./pages/user/Dashboard";
+import PrivateRoutes from "./components/Routes/Private";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import ChoicePage from "./pages/Auth/ChoicePage";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AdminRoutes from "./components/Routes/AdminRoutes";
+import ShelterRoutes from "./components/Routes/ShelterRoutes";
+import ShelterDashboard from "./pages/Shelter/ShelterDashboard";
+import CreateCategory from "./pages/Admin/CreateCategory";
+import CreateBreed from "./pages/Shelter/CreateBreed";
+import CreateProduct from "./pages/Shelter/CreateProduct";
+import Adoption from "./pages/Shelter/Adoption";
+import Users from "./pages/Admin/Users"; // Corrected import
+import ShelterS from "./pages/user/ShelterS";
+import Adopt from "./pages/user/Adopt";
+import Profile from "./pages/user/Profile";
+import Profiles from "./pages/Shelter/Profiles";
+import Products from "./pages/Products";
+import UpdateProduct from "./pages/Shelter/UpdateProduct";
+import Search from "./pages/Search";
+import ProductDetails from "./pages/ProductDetails";
+import Firstpage from "./pages/firstPage";
+>>>>>>> frontend
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -65,6 +99,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Firstpage />} />
         <Route path="/homepage" element={<HomePage />} />
+<<<<<<< HEAD
+=======
+        <Route path="/helpadvice" element={<Helpadvice />} />
+
+>>>>>>> frontend
         <Route path="/product/:slug" element={<ProductDetails />} />
         <Route path="/search" element={<Search />} />
         <Route path="/dashboard" element={<PrivateRoutes />}>
@@ -102,7 +141,6 @@ function App() {
         <Route path="/pet" element={<FindAPet />} />
         <Route path="*" element={<Pagenotfound />} />
       </Routes>
-
     </>
   );
 }
