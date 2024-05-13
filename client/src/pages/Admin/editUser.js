@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 const EditUser = () => {
     
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   const { userId } = useParams(); // Retrieve user ID from URL
   const [user, setUser] = useState(null); // State to store user data
   const [name, setName] = useState("");
@@ -59,11 +59,7 @@ const EditUser = () => {
       if (data?.error) {
         toast.error(data.error);
       } else {
-        setAuth({ ...auth, user: data.updatedUser });
-        let ls = localStorage.getItem("auth");
-        ls = JSON.parse(ls);
-        ls.user = data.updatedUser;
-        localStorage.setItem("auth", JSON.stringify(ls));
+        setUser(data.updatedUser);
         toast.success("Profile Updated Successfully");
       }
     } catch (error) {
@@ -107,13 +103,23 @@ const EditUser = () => {
                 </div>
                 <div className="mb-3">
                   <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUserName(e.target.value)}
+                    className="form-control"
+                    placeholder="Enter Your Username"
+                    disabled={!auth.isAdmin && userId !== auth.user.id}
+                  />
+                </div>
+                <div className="mb-3">
+                  <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="form-control"
                     id="exampleInputEmail1"
-                    placeholder="Enter Your Email "
-                    disabled
+                    placeholder="Enter Your Email"
+                    disabled={!auth.isAdmin}
                   />
                 </div>
                 <div className="mb-3">
@@ -124,6 +130,7 @@ const EditUser = () => {
                     className="form-control"
                     id="exampleInputPassword1"
                     placeholder="Enter Your Password"
+                    disabled={!auth.isAdmin}
                   />
                 </div>
                 <div className="mb-3">
@@ -134,6 +141,7 @@ const EditUser = () => {
                     className="form-control"
                     id="exampleInputEmail1"
                     placeholder="Enter Your Phone"
+                    disabled={!auth.isAdmin}
                   />
                 </div>
                 <div className="mb-3">
@@ -144,6 +152,7 @@ const EditUser = () => {
                     className="form-control"
                     id="exampleInputEmail1"
                     placeholder="Enter Your Address"
+                    disabled={!auth.isAdmin}
                   />
                 </div>
                 <button type="submit" className="btn btn-primary">

@@ -76,7 +76,6 @@ export const sregisterController = async (req, res) => {
   }
 };
 
-
 export const approveShelter = async (req, res) => {
   try {
     const { shelterId } = req.params;
@@ -89,7 +88,6 @@ export const approveShelter = async (req, res) => {
     res.status(500).json({ success: false, message: 'Error in approving shelter', error });
   }
 };
-
 export const rejectShelter = async (req, res) => {
   try {
     const { shelterId } = req.params;
@@ -393,3 +391,4 @@ export const deleteUserController = async (req, res) => {
     });
   }
 };
+

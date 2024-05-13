@@ -78,7 +78,7 @@ const Footer = () => {
               <i className="fa fa-map-marker-alt me-3">
                 <FaMapMarker />
               </i>
-              Chakrapath, Kathmandu, Nepal
+              Imadol, Lalitpur, Nepal
             </p>
             <p className="mb-2">
               <i className="fa fa-phone-alt me-3">

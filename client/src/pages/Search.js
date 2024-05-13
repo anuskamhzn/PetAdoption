@@ -13,22 +13,32 @@ const Search = () => {
         <div className="text-center">
           <h1>Search Results</h1>
           <h6>{values?.results.length < 1 ? "No Pets Found" : `Found ${values?.results.length}`}</h6>
-          <div className="d-flex flex-wrap mt-4">
+          <div className="row justify-content-center flex-wrap">
             {values?.results.map((p, index) => ( // Adding "key" prop here
-              <div key={index} className="card m-2" style={{ width: "18rem" }}>
-                <img src={`/api/v1/product/product-photo/${p._id}`} className="card-img-top" alt={p.name} />
-                <div className="card-body">
+              <div key={index} 
+                  className="pet-card col-lg-3 col-md-5 col-sm-5 col-sms-5 m-2 pt-3" style={{ width: "18rem" }}>
+                <img 
+                  src={`/api/v1/product/product-photo/${p._id}`} 
+                  className="pet-image img-fluid" 
+                  alt={p.name} 
+                  />
+                <div className="card-body py-4 px-3">
                   <h5 className="card-title">{p.name}</h5>
                   <p className="card-text">{p.description.substring(0, 30)}...</p>
-                  <p className="card-text"> Age {p.age}</p>
-                  <button class="btn btn-primary ms-1" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
-                  <button className="btn btn-secondary ms-1">Adopt</button>
+                  <p className="d-flex justify-content-between"> Age {p.age}</p>
+                  <button
+                        className="btn-more "
+                        onClick={() => navigate(`/product/${p.slug}`)}
+                      >
+                        More Details
+                      </button>
                 </div>
               </div>
             ))}
           </div>
+          </div>
+
         </div>
-      </div>
     </Layout>
   );
 };

@@ -24,10 +24,5 @@ export const Age = [
       name: "10 to 15 years",
       array: [10, 15],
     },
-    {
-      _id: 5,
-      name: "15 years or more",
-      array: [15, 20],
-    },
   ];
   

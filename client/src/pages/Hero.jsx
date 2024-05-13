@@ -81,7 +81,7 @@ const Header = () => {
                           Find Your Fur-ever Friend at PetPals.
                         </p>
                         <Link
-                          to="/Aboutus"
+                          to="/about"
                           id="gold"
                           class="btn btn-purple text-white rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft"
                         >

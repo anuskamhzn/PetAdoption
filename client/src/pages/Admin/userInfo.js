@@ -65,7 +65,7 @@ const Userinfo = () => {
                   <p className="card-text">Address: {userInfo.address}</p>
                   <p className="card-text">Phone: {userInfo.phone}</p>
                 </div>
-                <button onClick={edit} className="btn btn-primary">Edit</button>
+                {/* <button onClick={edit} className="btn btn-primary">Edit</button> */}
                 <button onClick={handleDelete} className="btn btn-danger">Delete</button>
               </div>
             </div>

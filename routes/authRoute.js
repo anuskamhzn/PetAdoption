@@ -67,4 +67,5 @@ router.get("/user-photo/:userId", userPhotoController);
 
 //delete product
 router.delete("/delete-user/:userId", deleteUserController);
+
 export default router;

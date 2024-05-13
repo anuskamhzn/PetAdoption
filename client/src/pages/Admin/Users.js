@@ -72,21 +72,24 @@ const Users = () => {
                   Show All
                 </button>
               </div>
-              <div className="row">
+              <div className="row justify-content-center flex-wrap">
                 {filteredUsers.map((user) => (
-                  <div className="col-md-4 mb-3" key={user._id}>
+                  <div className="pet-card col-lg-3 col-md-5 col-sm-5 col-sms-5 m-2 pt-3" key={user._id}>
                     <div className="card">
-                      <img
+                    <div className="card-body py-4 px-3">
+                    <img
                         src={`/api/v1/auth/user-photo/${user?._id}`}
-                        className="card-img-top"
+                        className="pet-image img-fluid"
                         alt={user?.name}
                         style={{ height: "200px", width: "100%", objectFit: "cover" }}
                       />
                       <div className="card-body">
                         <h5 className="card-title">
-                          <Link to={`/user-info/${user._id}`}>{user.name}</Link>
+                          <Link to={`/user-info/${user._id}`} className="link">{user.name}</Link>
+                          <h6>{user.address}</h6>
                         </h5>
                       </div>
+                    </div>
                     </div>
                   </div>
                 ))}

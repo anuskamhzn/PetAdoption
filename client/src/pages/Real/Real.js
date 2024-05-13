@@ -48,7 +48,7 @@ const Real = () => {
             </p>
             <div data-aos="zoom-in" style={{ textAlign: "left" }}>
               <button className={`btn custom_btn ${styles.btn}`}>
-                <Link to="/pet">LET&apos;S TALK</Link>
+                <Link to="/contact">LET&apos;S TALK</Link>
               </button>
             </div>
           </div>

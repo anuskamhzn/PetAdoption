@@ -39,13 +39,15 @@ const Adopt = () => {
             ) : (
               <div>
                 {notifications.length > 0 ? (
-                  <ul>
+                  <div className="card-list">
                     {notifications.map((notification) => (
-                      <li key={notification._id}>
-                        {notification.message} {/* Display the message */}
-                      </li>
+                      <div key={notification._id} className="card">
+                        <div className="card-body">
+                          <p className="card-text">{notification.message}</p> {/* Display the message */}
+                        </div>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 ) : (
                   <p>No notifications found.</p>
                 )}

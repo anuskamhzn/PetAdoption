@@ -216,5 +216,34 @@ router.get("/check/:productId", requireSignIn, async (req, res) => {
   }
 });
 
+// GET adoption status by product ID
+router.get('/status/:productId', async (req, res) => {
+  try {
+    const { productId } = req.params;
+    
+    // Find all adoption requests for the given product ID
+    const adoptionRequests = await Adoption.find({ productId });
+
+    if (adoptionRequests.length === 0) {
+      // If no adoption requests found, return status as "pending"
+      return res.json({ status: "pending" });
+    }
+
+    // Check if any adoption request is approved
+    const hasApprovedRequest = adoptionRequests.some(request => request.status === "approved");
+    if (hasApprovedRequest) {
+      // If there's an approved request, return status as "approved"
+      return res.json({ status: "approved" });
+    }
+
+    // If there's no approved request but there are pending requests, return status as "pending"
+    return res.json({ status: "pending" });
+  } catch (error) {
+    console.error("Error fetching adoption status:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
 
 export default router;

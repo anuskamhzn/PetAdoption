@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Layout from "../components/Layout/Layout";
 
 const ShelterPet = () => {
+  const navigate = useNavigate();
   const { shelterId } = useParams(); // Retrieve shelter ID from URL
   const [products, setProducts] = useState([]);
   const [shelterName, setShelterName] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchProductsByShelter = async () => {
@@ -26,6 +32,47 @@ const ShelterPet = () => {
     fetchProductsByShelter(); // Fetch products when the component mounts
   }, [shelterId]);
 
+  // Fetch all categories
+  const getAllCategories = async () => {
+    try {
+      const { data } = await axios.get("/api/v1/category/get-category");
+      if (data.success) {
+        setCategories(data.category);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Fetch total count of products
+  const getTotal = async () => {
+    try {
+      const { data } = await axios.get("/api/v1/product/product-count");
+      setTotal(data?.total);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Fetch products
+  const getAllProducts = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
+      setLoading(false);
+      setProducts(data.products);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllCategories();
+    getTotal();
+    getAllProducts();
+  }, [page]); // Ensure useEffect runs on page change
+
   return (
     <Layout>
       <div>
@@ -44,6 +91,12 @@ const ShelterPet = () => {
                   <h5 className="card-title">{p.name}</h5>
                   <p className="card-text">{p.description.substring(0, 30)}</p>
                   <p className="card-text">Age: {p.age}</p>
+                  <button
+                    className="btn-more"
+                    onClick={() => navigate(`/product/${p.slug}`)}
+                  >
+                    More Details
+                  </button>
                 </div>
               </div>
             ))}

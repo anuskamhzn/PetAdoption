@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Real.module.css";
 import improveImg from "../../imag/straight.jpg";
+import { Link } from "react-router-dom";
 
 const Real = () => {
   return (
@@ -29,9 +30,11 @@ const Real = () => {
               control of the process.
             </p>
             <div data-aos="zoom-in" style={{ textAlign: "left" }}>
+              <Link to="/contact">
               <button className={`btn custom_btn ${styles.btn}`}>
                 LET&apos;S TALK
               </button>
+              </Link>
             </div>
           </div>
         </div>
