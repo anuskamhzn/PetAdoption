@@ -19,7 +19,7 @@ const AdminDashboard = () => {
                             <h4>Email: {auth?.user?.email}</h4>
                             <h4>Address: {auth?.user?.address}</h4>
                             <h4>Phone: {auth?.user?.phone}</h4>
-                        </div>
+                        </div>a
                     </div>
                 </div>
             </div>
