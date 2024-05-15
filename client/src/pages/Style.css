@@ -151,9 +151,9 @@ le.css */
 }
 .loginbtn {
   background-color: #ffffff !important;
-  border-radius: 1rem !important;
+  border-radius: 2rem !important;
   margin-left: 1rem;
-  width: 7rem;
+  max-width: 100%;
 }
 @media screen and (max-width: 991px) {
   .right-nav {
@@ -295,7 +295,18 @@ le.css */
   background-color: #4e2d69;
   border-radius: 0.8rem;
 }
-
+@media screen and (max-width: 767px) {
+  .col-sms-10 {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 576px) {
+  .col-sms-9 {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
 @media screen and (max-width: 576px) {
   .col-sms-5 {
     flex: 0 0 auto;
@@ -314,4 +325,19 @@ le.css */
   .filter {
     padding: 1rem;
   }
+}
+
+.card {
+  border-radius: 2rem !important;
+}
+
+.card img {
+  border-radius: 2rem;
+}
+
+.card-body p {
+  font-size: 14px;
+}
+.dashboard {
+  font-family: "Poppins" !important ;
 }

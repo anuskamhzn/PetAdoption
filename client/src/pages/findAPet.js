@@ -10,15 +10,15 @@ import wallpaper from "../imag/img.jpg";
 const img = wallpaper;
 
 const FindAPet = () => {
-    const navigate = useNavigate();
-    const [products, setProducts] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [checked, setChecked] = useState([]);
-    const [radio, setRadio] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [breeds, setBreeds] = useState([]);
-    const [total, setTotal] = useState(0);
-    const [page, setPage] = useState(1);
+  const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [checked, setChecked] = useState([]);
+  const [radio, setRadio] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [breeds, setBreeds] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
 
   // Fetch all categories
   const getAllCategories = async () => {
@@ -106,8 +106,8 @@ const FindAPet = () => {
   return (
     <Layout>
       <div className="container">
-        <div className="d-flex mt-3 grey">
-          <div className="col-md-3 ps-md-4 ">
+        <div className="row mt-3 grey">
+          <div className="col-md-3 col-sm-5 col-sms-9 ps-md-4 ">
             <div className="filter">
               <h4 className="mb-3">Filter By Category</h4>
               <div className="row flex-column">
@@ -156,7 +156,7 @@ const FindAPet = () => {
               </div>
             </div>
           </div>
-          <div className="col-lg-9 col-md-9 col-sm-5 col-sms-5 ">
+          <div className="col-lg-9 col-md-9 col-sm-7 col-sms-9  ">
             <div className="row all-pets">
               <h1 className="text-center">All Pets</h1>
               {products?.length === 0 ? (
@@ -164,7 +164,7 @@ const FindAPet = () => {
               ) : (
                 products?.map((p) => (
                   <div
-                    className="pet-card  col-lg-3 col-md-5 col-sm-5 col-sms-5  m-2 pt-2"
+                    className="pet-card  col-lg-3 col-md-5 col-sm-5 col-sms-5 col-sms-10  m-2 pt-2"
                     key={p._id}
                   >
                     <img

@@ -8,6 +8,8 @@ import About from "../../pages/About";
 import styles from "./Header.css";
 import logo from "../../imag/Petlogowhite.png";
 
+import { FaLongArrowAltRight } from "react-icons/fa";
+
 const Header = () => {
   const [show, setShow] = useState(false);
   const [activeNav, setActiveNav] = useState([true, false, false, false]);
@@ -189,7 +191,7 @@ const Header = () => {
                   </li>
                 ) : (
                   <li className="nav-item mx-2 loginbtn ">
-                    <Link to="/login" className=" dark-font nav-link">
+                    <Link to="/login" className=" dark-font nav-link px-2">
                       Login
                     </Link>
                   </li>
