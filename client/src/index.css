@@ -16,7 +16,8 @@ body {
   color: white !important;
 }
 .dark-font {
-  color: black !important;
+  color: #777777 !important;
+  font-size: 17px;
 }
 .navbar {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
@@ -419,6 +420,6 @@ li {
   padding-left: 15px;
 }
 
-.link{
+.link {
   color: black;
 }

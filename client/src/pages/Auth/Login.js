@@ -39,16 +39,16 @@ const Login = () => {
     <Layout>
       <div className="container">
         <div className="register row">
-          <div className="col-5">
+          <div className="col-md-5">
             {" "}
             <img
               src={pethouse}
-              className=""
+              className="img-fluid"
               data-aos="fade"
               data-aos-offset="100"
             ></img>
           </div>
-          <div className="col-5">
+          <div className="col-md-5">
             <h1>Welcome</h1>
             <p>Login to your Account</p>
             <form onSubmit={handleSubmit}>
@@ -74,27 +74,31 @@ const Login = () => {
                   required
                 />
               </div>
+
               <div className="mb-3" data-aos="slide-up" data-aos-offset="100">
                 <NavLink to="/forgot-password" className="btn ">
                   Forgot Password?
                 </NavLink>
               </div>
-              <button
-                type="submit"
-                className="btn-more px-5 py-3 btn-login mx-1 "
-                data-aos="slide-up"
-                data-aos-offset="100"
-              >
-                Login
-              </button>
-              <NavLink
-                to="/choice-page"
-                className=" btn-outline-more px-5 py-3 btn-login mx-1"
-                data-aos="slide-up"
-                data-aos-offset="100"
-              >
-                Register
-              </NavLink>
+              <div className="d-flex">
+                <button
+                  type="submit"
+                  className="btn-more px-5 py-3 btn-login mx-1 "
+                  data-aos="slide-up"
+                  data-aos-offset="100"
+                >
+                  Login
+                </button>
+
+                <NavLink
+                  to="/choice-page"
+                  className=" btn-outline-more px-5 py-3 btn-login mx-1"
+                  data-aos="slide-up"
+                  data-aos-offset="100"
+                >
+                  Register
+                </NavLink>
+              </div>
             </form>
           </div>
         </div>
