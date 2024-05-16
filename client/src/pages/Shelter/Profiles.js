@@ -61,12 +61,12 @@ const Profiles = () => {
   };
   return (
     <Layout title={"Your Profile"}>
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid m-3 p-3 pt-4" >
         <div className="row">
           <div className="col-md-3">
             <ShelterMenu />
           </div>
-          <div className="col-md-9">
+          <div className="col-md-9 pt-4">
             <div className="form-container ">
               <form onSubmit={handleSubmit}>
                 <h4 className="title">USER PROFILE</h4>
@@ -80,6 +80,18 @@ const Profiles = () => {
                     id="photoInput"
                   />
                 </div>
+                <div className="mb-3">
+                {photo && (
+                  <div className="text-center">
+                    <img
+                      src={URL.createObjectURL(photo)}
+                      alt="product_photo"
+                      height={"200px"}
+                      className="img img-responsive"
+                    />
+                  </div>
+                )}
+              </div>
                 <div className="mb-3">
                   <input
                     type="text"

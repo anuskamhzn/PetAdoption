@@ -27,12 +27,12 @@ const Adopt = () => {
 
   return (
     <Layout>
-      <div className="container-fluid p-3 m-3">
+      <div className="container-fluid p-3 m-3 pt-4">
         <div className='row'>
           <div className='col-md-3'>
             <UserMenu />
           </div>
-          <div className='col-md-9'>
+          <div className='col-md-9 pt-4'>
             <h1>Adoption Notifications</h1>
             {loading ? (
               <p>Loading...</p>

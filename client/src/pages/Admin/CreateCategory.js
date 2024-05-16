@@ -91,12 +91,12 @@ const CreateCategory = () => {
 
     return (
         <Layout>
-            <div className='container-fluid m-3 p-3'>
+            <div className='container-fluid m-3 p-3 pt-4'>
                 <div className='row'>
                     <div className='col-md-3'>
                         <AdminMenu />
                     </div>
-                    <div className='col-md-9'>
+                    <div className='col-md-9 pt-4'>
                         <h1>Manage category</h1>
                         <div className="col-md-9">
                             <CategoryForm handleSubmit={handleSubmit} value={name} setValue={setName}/>

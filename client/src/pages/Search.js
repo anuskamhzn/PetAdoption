@@ -25,13 +25,16 @@ const Search = () => {
                 <div className="card-body py-4 px-3">
                   <h5 className="card-title">{p.name}</h5>
                   <p className="card-text">{p.description.substring(0, 30)}...</p>
-                  <p className="d-flex justify-content-between"> Age {p.age}</p>
-                  <button
-                        className="btn-more "
-                        onClick={() => navigate(`/product/${p.slug}`)}
-                      >
-                        More Details
-                      </button>
+                  <div className="d-flex justify-content-between">
+                        <p className="card-text">Age: {p.age}</p>
+
+                        <button
+                          className="btn-more"
+                          onClick={() => navigate(`/product/${p.slug}`)}
+                        >
+                          More Details
+                        </button>
+                      </div>
                 </div>
               </div>
             ))}

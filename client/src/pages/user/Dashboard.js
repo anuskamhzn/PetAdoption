@@ -13,22 +13,34 @@ const Dashboard = () => {
           <div className="col-md-3">
             <UserMenu />
           </div>
-          <div className="col-md-9">
+          <div className="col-md-9 mt-4">
+            <h1>Profile</h1>
+            <div className="row"></div>
             <div className="card w-75 p-3">
-              <img
-                src={`/api/v1/auth/user-photo/${auth?.user?._id}`}
-                className="img-fluid"
-                alt={auth?.user?.name}
-                style={{ width: "200px" }} // Adjust the height and width as needed
-              />
-              <h4>Name: {auth?.user?.name}</h4>
-              <h4>Email: {auth?.user?.email}</h4>
-              <h4>Address: {auth?.user?.address}</h4>
-              <h4>Phone: {auth?.user?.phone}</h4>
+              <div className="row">
+                <div className="col-md-5 d-flex align-items-center justify-content-center">
+                  {" "}
+                  <img
+                    src={`/api/v1/auth/user-photo/${auth?.user?._id}`}
+                    className="img-fluid"
+                    alt={auth?.user?.name}
+                    style={{ width: "100%" }} // Adjust the height and width as needed
+                  />
+                </div>
+                <div className="col-md-5 d-flex flex-column  justify-content-center">
+                  <h5 className="py-3">Name: {auth?.user?.name}</h5>
+                  <h5 className="py-3">Email: {auth?.user?.email}</h5>
+                  <h5 className="py-3">Address: {auth?.user?.address}</h5>
+                  <h5 className="py-3">Phone: {auth?.user?.phone}</h5>
+                  <Link
+                    to="/dashboard/user/profile"
+                    className="px-3 py-3 btn-more"
+                  >
+                    Update Account
+                  </Link>
+                </div>
+              </div>
             </div>
-            <Link to="/dashboard/user/profile" className="btn btn-primary">
-              Update Account
-            </Link>
           </div>
         </div>
       </div>
