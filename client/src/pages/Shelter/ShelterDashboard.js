@@ -34,7 +34,7 @@ const ShelterDashboard = () => {
                   <h5 className="py-3">Phone: {auth?.user?.phone}</h5>
                   <Link
                     to="/dashboard/shelter/profiles"
-                    className="px-3 py-3 btn-more"
+                    className="px-3 py-1 btn-more"
                   >
                     Update Account
                   </Link>

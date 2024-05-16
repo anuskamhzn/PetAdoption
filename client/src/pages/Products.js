@@ -27,30 +27,38 @@ const Products = () => {
 
   return (
     <Layout>
-      <div className="row">
-        <div className="col-md-3">
-          <ShelterMenu />
-        </div>
-        <div className="col-md-9">
-          <h1 className="text-center">All Pets List</h1>
-          <div className="row">
-            {products?.map((p) => (
-              <div key={p._id} className="col-md-4 mb-3">
-                <Link to={`/dashboard/shelter/product/${p.slug}`} className="product-link">
-                  <div className="card">
-                    <img
-                      src={`/api/v1/product/product-photo/${p._id}`}
-                      className="card-img-top"
-                      alt={p.name}
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{p.name}</h5>
-                      <p className="card-text">{p.description.substring(0, 40)}...</p>
+      <div className="container m-3 pt-4 mt-4 ">
+        {" "}
+        <div className="row">
+          <div className="col-md-3">
+            <ShelterMenu />
+          </div>
+          <div className="col-md-9">
+            <h1 className="text-center">All Pets List</h1>
+            <div className="row">
+              {products?.map((p) => (
+                <div key={p._id} className="col-md-4 mb-3">
+                  <Link
+                    to={`/dashboard/shelter/product/${p.slug}`}
+                    className="product-link"
+                  >
+                    <div className="card">
+                      <img
+                        src={`/api/v1/product/product-photo/${p._id}`}
+                        className="card-img-top"
+                        alt={p.name}
+                      />
+                      <div className="card-body">
+                        <h5 className="card-title">{p.name}</h5>
+                        <p className="card-text">
+                          {p.description.substring(0, 40)}...
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              </div>
-            ))}
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

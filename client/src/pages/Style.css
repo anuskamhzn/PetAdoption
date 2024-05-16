@@ -341,3 +341,14 @@ le.css */
 .dashboard {
   font-family: "Poppins" !important ;
 }
+.list-group-item.active {
+  z-index: 2;
+  background-color: #4e2d69 !important;
+}
+.dropdown-item.active,
+.dropdown-item:active {
+  color: var(--bs-dropdown-link-active-color);
+  text-decoration: none;
+  background-color: #4e2d69 !important;
+  border-radius: 2rem;
+}

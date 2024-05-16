@@ -61,7 +61,7 @@ const Profiles = () => {
   };
   return (
     <Layout title={"Your Profile"}>
-      <div className="container-fluid m-3 p-3">
+      <div className="container m-3 p-3 mt-4 pt-5">
         <div className="row">
           <div className="col-md-3">
             <ShelterMenu />
@@ -70,8 +70,8 @@ const Profiles = () => {
             <div className="form-container ">
               <form onSubmit={handleSubmit}>
                 <h4 className="title">USER PROFILE</h4>
-                 {/* Add file input for photo */}
-                 <div className="mb-3">
+                {/* Add file input for photo */}
+                <div className="mb-3">
                   <input
                     type="file"
                     accept="image/*"

@@ -34,8 +34,13 @@ const Adoption = () => {
         toast.success("Adoption request approved!");
 
         // Reject all other requests for the same pet
-        const petId = adoptionRequests.find((request) => request._id === requestId).productId?._id;
-        const otherRequests = adoptionRequests.filter((request) => request.productId?._id === petId && request._id !== requestId);
+        const petId = adoptionRequests.find(
+          (request) => request._id === requestId
+        ).productId?._id;
+        const otherRequests = adoptionRequests.filter(
+          (request) =>
+            request.productId?._id === petId && request._id !== requestId
+        );
 
         await Promise.all(
           otherRequests.map(async (otherRequest) => {
@@ -61,14 +66,23 @@ const Adoption = () => {
         setAdoptionRequests(data); // Update state to trigger re-render
       }
     } catch (error) {
-      console.error(`Error ${action === "approve" ? "approving" : "rejecting"} adoption request:`, error);
-      toast.error(`Failed to ${action === "approve" ? "approve" : "reject"} adoption request.`);
+      console.error(
+        `Error ${
+          action === "approve" ? "approving" : "rejecting"
+        } adoption request:`,
+        error
+      );
+      toast.error(
+        `Failed to ${
+          action === "approve" ? "approve" : "reject"
+        } adoption request.`
+      );
     }
   };
 
   return (
     <Layout>
-      <div className="container-fluid m-3 p-3">
+      <div className="container  p-3 pt-4 mt-4">
         <div className="row">
           <div className="col-md-3">
             <ShelterMenu />
@@ -100,13 +114,17 @@ const Adoption = () => {
                               <>
                                 <button
                                   className="btn btn-primary"
-                                  onClick={() => handleAction(request._id, "approve")}
+                                  onClick={() =>
+                                    handleAction(request._id, "approve")
+                                  }
                                 >
                                   Approve
                                 </button>{" "}
                                 <button
                                   className="btn btn-danger"
-                                  onClick={() => handleAction(request._id, "reject")}
+                                  onClick={() =>
+                                    handleAction(request._id, "reject")
+                                  }
                                 >
                                   Reject
                                 </button>

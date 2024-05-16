@@ -87,26 +87,25 @@ const UpdateProduct = () => {
     }
   };
 
- //delete a product
-const handleDelete = async () => {
+  //delete a product
+  const handleDelete = async () => {
     try {
-        let answer = window.prompt("Are you sure you want to delete this product? ");
-        if (!answer) return;
-        await axios.delete(
-            `/api/v1/product/delete-product/${id}`
-        );
-        toast.success("Product Deleted Successfully");
-        navigate("/dashboard/shelter/products");
+      let answer = window.prompt(
+        "Are you sure you want to delete this product? "
+      );
+      if (!answer) return;
+      await axios.delete(`/api/v1/product/delete-product/${id}`);
+      toast.success("Product Deleted Successfully");
+      navigate("/dashboard/shelter/products");
     } catch (error) {
-        console.log(error);
-        toast.error("Something went wrong");
+      console.log(error);
+      toast.error("Something went wrong");
     }
-};
-
+  };
 
   return (
     <Layout>
-      <div className="container-fluid m-3 p-3">
+      <div className="container m-3 p-3 mt-4 pt-4">
         <div className="row">
           <div className="col-md-3">
             <ShelterMenu />

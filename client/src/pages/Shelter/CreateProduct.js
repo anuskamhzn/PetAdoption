@@ -75,13 +75,13 @@ const CreateProduct = (user) => {
 
   return (
     <Layout>
-      <div className="container-fluid m-3 p-3">
+      <div className="container m-3 p-3 mt-4">
         <div className="row">
           <div className="col-md-3">
             {/* <AdminMenu /> */}
             <ShelterMenu />
           </div>
-          <div className="col-md-9 mt-4 ">
+          <div className="col-md-9  ">
             <h1>Add Pet Info</h1>
             <div className="m-1 w-75">
               <Select

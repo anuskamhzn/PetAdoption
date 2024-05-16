@@ -14,7 +14,9 @@ const Shelters = () => {
     try {
       const { data } = await axios.get("/api/v1/auth/get-users");
       if (data.success) {
-        const filteredUsers = data.user.filter((user) => user.role === 2 && user.name !== "admin");
+        const filteredUsers = data.user.filter(
+          (user) => user.role === 2 && user.name !== "admin"
+        );
         setUsers(filteredUsers);
         // Initially, set filtered users to all users
         setFilteredUsers(filteredUsers);
@@ -31,20 +33,24 @@ const Shelters = () => {
     getAllUsers();
   }, []);
 
-
   return (
     <Layout>
-      <div className="container-fluid m-3 p-3">
-        <div className="row">
+      <div className="container mt-5 pt-3">
+        <div className="row align-item-center justify-content-center">
           <div className="col-md-3">
             <UserMenu />
           </div>
-          <div className="col-md-9">
-            <h1>All Shelters</h1>
-            <div className="container">
-              <div className="row justify-content-center flex-wrap">
+
+          <div className="col-lg-9 col-md-9  mt-4">
+            <div className=" grey">
+              <h1 className="text-center">All Shelters</h1>
+
+              <div className="d-flex justify-content-center flex-wrap">
                 {filteredUsers.map((user) => (
-                  <div className="pet-card col-lg-3 col-md-5 col-sm-5 col-sms-5 m-2 pt-3" key={user._id}>
+                  <div
+                    className="pet-card col-lg-3 col-md-5 col-sm-5 col-sms-5 m-2 text-start "
+                    key={user._id}
+                  >
                     <div className="card">
                       <div className="card-body py-4 px-3">
                         <h5 className="card-title">
@@ -52,14 +58,23 @@ const Shelters = () => {
                             src={`/api/v1/auth/user-photo/${user?._id}`}
                             className="pet-image img-fluid"
                             alt={user?.name}
-                            style={{ height: "200px", width: "100%", objectFit: "cover" }}
+                            style={{
+                              height: "200px",
+                              width: "100%",
+                              objectFit: "cover",
+                            }}
                           />
                           <h6>{user.name}</h6>
                           <h6>{user.address}</h6>
                           <button className="btn-more">
-                            <Link to={`/shelter/${user._id}`} className="link" style={{ color: "white" }}>View Pets</Link>
+                            <Link
+                              to={`/shelter/${user._id}`}
+                              className="link"
+                              style={{ color: "white" }}
+                            >
+                              View Pets
+                            </Link>
                           </button>
-
                         </h5>
                       </div>
                     </div>
@@ -67,7 +82,6 @@ const Shelters = () => {
                 ))}
               </div>
             </div>
-
           </div>
         </div>
       </div>

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import Layout from '../../components/Layout/Layout';
-import UserMenu from '../../components/Layout/UserMenu';
-import axios from 'axios';
-import toast from 'react-hot-toast';
+import React, { useEffect, useState } from "react";
+import Layout from "../../components/Layout/Layout";
+import UserMenu from "../../components/Layout/UserMenu";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Adopt = () => {
   const [notifications, setNotifications] = useState([]);
@@ -11,8 +11,8 @@ const Adopt = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const response = await axios.get('/api/v1/adoption/notifications');
-        console.log('Fetched notifications:', response.data); // Log the fetched data
+        const response = await axios.get("/api/v1/adoption/notifications");
+        console.log("Fetched notifications:", response.data); // Log the fetched data
         setNotifications(response.data); // Update state with fetched data
         setLoading(false);
       } catch (error) {
@@ -20,19 +20,18 @@ const Adopt = () => {
         toast.error("Failed to fetch notifications.");
       }
     };
-  
+
     fetchNotifications(); // Fetch data on component mount
   }, []);
-  
 
   return (
     <Layout>
-      <div className="container-fluid p-3 m-3">
-        <div className='row'>
-          <div className='col-md-3'>
+      <div className="container pt-3 mt-5">
+        <div className="row">
+          <div className="col-md-3">
             <UserMenu />
           </div>
-          <div className='col-md-9'>
+          <div className="col-md-9 mt-4 pt-3">
             <h1>Adoption Notifications</h1>
             {loading ? (
               <p>Loading...</p>
@@ -43,7 +42,8 @@ const Adopt = () => {
                     {notifications.map((notification) => (
                       <div key={notification._id} className="card">
                         <div className="card-body">
-                          <p className="card-text">{notification.message}</p> {/* Display the message */}
+                          <p className="card-text">{notification.message}</p>{" "}
+                          {/* Display the message */}
                         </div>
                       </div>
                     ))}
