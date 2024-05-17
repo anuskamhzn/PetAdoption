@@ -4,27 +4,32 @@ import AdminMenu from '../../components/Layout/AdminMenu';
 import { useAuth } from '../../context/auth';
 
 const AdminDashboard = () => {
-    const [auth] = useAuth();
-    return (
-        <Layout>
-            <div className='container-fluid m-3 p-3'>
-                <div className='row'>
-                    <div className='col-md-3'>
-                        <AdminMenu />
-                    </div>
-                    <div className='col-md-9'>
-                        <h1>Profile</h1>
-                        <div className='card w-75 p-3'>
-                            <h4>Name: {auth?.user?.name}</h4>
-                            <h4>Email: {auth?.user?.email}</h4>
-                            <h4>Address: {auth?.user?.address}</h4>
-                            <h4>Phone: {auth?.user?.phone}</h4>
-                        </div>
-                    </div>
+  const [auth] = useAuth();
+  return (
+    <Layout>
+      <div className='container-fluid m-3 p-3 pt-4'>
+        <div className='row'>
+          <div className='col-md-3'>
+            <AdminMenu />
+          </div>
+          <div className="col-md-9 mt-4">
+            <h1>Profile</h1>
+            <div className="row"></div>
+            <div className="card w-75 p-3">
+              <div className="row">
+                <div className="col-md-6 d-flex flex-column  justify-content-center">
+                  <h5 className="py-3">Name: {auth?.user?.name}</h5>
+                  <h5 className="py-3">Email: {auth?.user?.email}</h5>
+                  <h5 className="py-3">Address: {auth?.user?.address}</h5>
+                  <h5 className="py-3">Phone: {auth?.user?.phone}</h5>
                 </div>
+              </div>
             </div>
-        </Layout>
-    );
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
 };
 
 export default AdminDashboard;

@@ -87,7 +87,7 @@ const Adoption = () => {
           <div className="col-md-3">
             <ShelterMenu />
           </div>
-          <div className="col-md-9">
+          <div className="col-md-9 pt-4">
             <h1>User Adoption Requests</h1>
             {loading ? (
               <p>Loading...</p>

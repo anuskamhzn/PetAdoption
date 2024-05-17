@@ -110,7 +110,7 @@ const UpdateProduct = () => {
           <div className="col-md-3">
             <ShelterMenu />
           </div>
-          <div className="col-md-9">
+          <div className="col-md-9 pt-4">
             <h1>Update Pet</h1>
             <div className="m-1 w-75">
               <Select

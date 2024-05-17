@@ -231,7 +231,7 @@ const Footer = () => {
               <div className="footer-menu">
                 <a href="/">Home</a>
                 <a href="/">Cookies</a>
-                <Link to="/Contactus" href="/">
+                <Link to="/contact" href="/">
                   Help
                 </Link>
                 <a href="/">FQAs</a>

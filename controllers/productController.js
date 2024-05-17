@@ -99,7 +99,6 @@ export const getProductController = async (req, res) => {
   }
 };
 
-
 // get single product
 export const getSingleProductController = async (req, res) => {
   try {
@@ -288,36 +287,35 @@ export const searchProductController = async (req, res) => {
   try {
     const { keyword } = req.params;
 
-    // Find the category by its name (case-insensitive)
-    const category = await categoryModel.findOne({
-      name: { $regex: keyword, $options: 'i' },
-    });
+    // Find products that match the given keyword in name
+    let results = await productModel.find({
+      name: { $regex: keyword, $options: 'i' }
+    }).select('-photo');
 
-    // If category not found, return an empty array
-    if (!category) {
-      return res.json([]);
+    // If no results found by name, try searching by category
+    if (results.length === 0) {
+      const category = await categoryModel.findOne({
+        name: { $regex: keyword, $options: 'i' },
+      });
+
+      if (category) {
+        results = await productModel.find({
+          category: category._id
+        }).select('-photo');
+      }
     }
-
-    // Find products that match the given category or name
-    const results = await productModel
-      .find({
-        $or: [
-          { name: { $regex: keyword, $options: 'i' } },
-          { category: category._id }, // Use the found category ID
-        ],
-      })
-      .select('-photo'); // Exclude the photo field from the result
 
     res.json(results);
   } catch (error) {
     console.error(error);
-    res.status(400).json({
+    res.status(500).json({
       success: false,
       message: 'Error in Search Product API',
-      error,
+      error: error.message
     });
   }
 };
+
 
 // Get products by shelter ID
 export const getProductsByShelterController = async (req, res) => {

@@ -48,7 +48,7 @@ const Header = () => {
                           Get a friendly neighbourhood pet.
                         </p>
                         <Link
-                          to="/Aboutus"
+                          to="/about"
                           id="gold"
                           class="btn btn-purple text-white rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft"
                         >

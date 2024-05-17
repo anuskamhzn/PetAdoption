@@ -49,7 +49,7 @@ const Header = () => {
     <>
       <nav className="navbar navbar-expand-lg ">
         <div className="container-fluid container">
-          <Link to="/homepage" className="navbar-brand">
+          <Link to="/" className="navbar-brand">
             <div className="logoimg">
               <img src={logo} className="img-fluid" alt="My Image" />
             </div>
@@ -72,7 +72,7 @@ const Header = () => {
           >
             <p className="nav-item p-2 pt-3 px-4">
               <NavLink
-                to="/homepage"
+                to="/"
                 className={`${styles.nav_text} nav-link ${
                   activeNav[0] ? styles.active : ""
                 }`}

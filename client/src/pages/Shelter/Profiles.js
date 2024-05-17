@@ -66,7 +66,7 @@ const Profiles = () => {
           <div className="col-md-3">
             <ShelterMenu />
           </div>
-          <div className="col-md-9">
+          <div className="col-md-9 pt-4">
             <div className="form-container ">
               <form onSubmit={handleSubmit}>
                 <h4 className="title">USER PROFILE</h4>
@@ -79,6 +79,18 @@ const Profiles = () => {
                     className="form-control"
                     id="photoInput"
                   />
+                </div>
+                <div className="mb-3">
+                  {photo && (
+                    <div className="text-center">
+                      <img
+                        src={URL.createObjectURL(photo)}
+                        alt="product_photo"
+                        height={"200px"}
+                        className="img img-responsive"
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className="mb-3">
                   <input

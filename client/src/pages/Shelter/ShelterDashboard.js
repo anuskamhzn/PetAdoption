@@ -8,7 +8,7 @@ const ShelterDashboard = () => {
   const [auth] = useAuth();
   return (
     <Layout>
-      <div className="container-flui p-3 m-3 dashboard">
+      <div className="container-flui p-3 m-3 pt-4 dashboard">
         <div className="row ">
           <div className="col-md-3">
             <ShelterMenu />

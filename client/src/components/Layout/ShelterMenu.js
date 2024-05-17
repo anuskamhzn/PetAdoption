@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 
 const ShterMenu = () => {
     return (
-            <div className='text-center'>
+            <div className='text-center'style={{ paddingTop: '20px' }}>
                 <div className="list-group">
-                <NavLink to="/dashboard/shelter" style={{ textDecoration: 'none' }}>
+                <NavLink to="/dashboard/shelter" style={{ color: 'black' }}>
                     <h4>Shelter Panel</h4>
                 </NavLink>
                     {/* <NavLink to="/dashboard/shelter/create-breed" className="list-group-item list-group-item-action">Edit Breeds</NavLink> */}
