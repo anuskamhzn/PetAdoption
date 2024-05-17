@@ -25,7 +25,7 @@ const Login = () => {
           token: res.data.token,
         });
         localStorage.setItem("auth", JSON.stringify(res.data)); // Update localStorage
-        navigate(location.state || "/homepage");
+        navigate(location.state || "/");
       } else {
         toast.error(res.data.message);
       }

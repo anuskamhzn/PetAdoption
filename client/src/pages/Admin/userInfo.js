@@ -47,7 +47,7 @@ const Userinfo = () => {
   return (
     <Layout>
       <div>
-        <h1>User Info</h1>
+        <h1 className="text-center" style= {{paddingTop: "50px" }}>User Info</h1>
         {error && <div>Error: {error}</div>}
         {userInfo && (
           <div className="container">

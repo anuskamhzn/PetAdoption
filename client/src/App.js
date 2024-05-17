@@ -3,8 +3,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import HomePage from "./pages/HomePage";
 import UserInfo from "./pages//Admin/userInfo";
 import Helpadvice from "./pages/HelpAdvice";
-
-
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import FindAPet from "./pages/findAPet";
@@ -67,8 +65,8 @@ function App() {
     <>
       <Toaster />
       <Routes>
-        <Route path="/" element={<Firstpage />} />
-        <Route path="/homepage" element={<HomePage />} />
+        {/* <Route path="/" element={<Firstpage />} /> */}
+        <Route path="/" element={<HomePage />} />
         <Route path="/helpadvice" element={<Helpadvice />} />
         <Route path="/product/:slug" element={<ProductDetails />} />
         <Route path="/search" element={<Search />} />
