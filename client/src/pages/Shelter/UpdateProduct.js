@@ -76,7 +76,7 @@ const UpdateProduct = () => {
       );
 
       if (data?.success) {
-        toast.success("Product Updated Successfully");
+        toast.success("Pet Info Updated Successfully");
         navigate("/dashboard/shelter/products");
       } else {
         toast.error(data?.message);
@@ -90,10 +90,8 @@ const UpdateProduct = () => {
   //delete a product
   const handleDelete = async () => {
     try {
-      let answer = window.prompt(
-        "Are you sure you want to delete this product? "
-      );
-      if (!answer) return;
+      const confirmed = window.confirm("Are you sure you want to send an adoption request?");
+      if (!confirmed) return;
       await axios.delete(`/api/v1/product/delete-product/${id}`);
       toast.success("Product Deleted Successfully");
       navigate("/dashboard/shelter/products");

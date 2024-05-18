@@ -56,8 +56,7 @@ const Register = () => {
           ></img>
         </div>{" "}
         <div className="col-md-5 p-4">
-          <h1>Welcome</h1>
-          <p>Sign Up to your Account</p>
+        <h1>Register As Adopter</h1>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-3">

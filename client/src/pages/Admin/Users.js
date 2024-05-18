@@ -54,19 +54,19 @@ const Users = () => {
             <div className="w-75">
               <div className="btn-group mb-3">
                 <button
-                  className="btn btn-primary"
+                  className="px-3 py-2 mx-1 btn-more"
                   onClick={() => setFilter(2)}
                 >
                   Show Shelters
                 </button>
                 <button
-                  className="btn btn-primary"
+                  className="px-2 py-2 mx-1 btn-more"
                   onClick={() => setFilter(0)}
                 >
                   Show Adopters
                 </button>
                 <button
-                  className="btn btn-primary"
+                  className="px-2 py-2 mx-1 btn-more"
                   onClick={() => setFilter(null)}
                 >
                   Show All

@@ -4,6 +4,8 @@ import Layout from "./../../components/Layout/Layout";
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import pethouse from "../../imag/pethouse.png";
+
 
 const SRegister = () => {
     const { search } = useLocation(); // Use useLocation to access query parameters
@@ -37,8 +39,19 @@ const SRegister = () => {
 
     return (
         <Layout>
-            <div className='register'>
-                <h1>Register</h1>
+            <div className='register row'>
+            <div className="col-md-5">
+          {" "}
+          <img
+            src={pethouse}
+            className="img-fluid"
+            data-aos="fade"
+            data-aos-offset="100"
+          ></img>
+        </div>{" "}
+        <div className="col-md-5 p-4">
+
+                <h1>Register As Shelter</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="form-control" id="exampleInputEmail1" placeholder='Enter Name' required />
@@ -64,6 +77,7 @@ const SRegister = () => {
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
+                </div>
             </div>
         </Layout>
     )

@@ -62,7 +62,7 @@ const CreateProduct = (user) => {
         productData
       );
       if (data?.success) {
-        toast.success("Product Created Successfully");
+        toast.success("Pet Added Successfully");
         navigate("/dashboard/shelter/products");
       } else {
         toast.error(data?.message || "Failed to create product");
@@ -128,7 +128,7 @@ const CreateProduct = (user) => {
                 <input
                   type="text"
                   value={name}
-                  placeholder="write a name"
+                  placeholder="Write a name"
                   className="form-control"
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -137,7 +137,7 @@ const CreateProduct = (user) => {
                 <textarea
                   type="text"
                   value={description}
-                  placeholder="write a description"
+                  placeholder="Write a description"
                   className="form-control"
                   onChange={(e) => setDescription(e.target.value)}
                 />
@@ -155,7 +155,7 @@ const CreateProduct = (user) => {
                 <input
                   type="text"
                   value={breed}
-                  placeholder="write a breed"
+                  placeholder="Write a breed"
                   className="form-control"
                   onChange={(e) => setBreed(e.target.value)}
                 />

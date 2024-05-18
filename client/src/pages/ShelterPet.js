@@ -76,8 +76,8 @@ const ShelterPet = () => {
   return (
     <Layout>
       <div>
-        <h1>Pets of Shelter: {shelterName}</h1>
-        <div className="container">
+        <h1 style={{paddingTop:"50px"}}>Pets of Shelter: {shelterName}</h1>
+        <div className="container-fluid m-3 p-3 pt-4">
           <div className="d-flex justify-content-center flex-wrap"    >
             {products?.slice(0, 4).map((p) => (
               <div className="card m-2" style={{ width: "18rem" }} key={p._id}>
