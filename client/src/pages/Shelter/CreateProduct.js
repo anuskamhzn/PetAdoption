@@ -125,6 +125,7 @@ const CreateProduct = (user) => {
                 )}
               </div>
               <div className="mb-3">
+                <h6>Enter Name:</h6>
                 <input
                   type="text"
                   value={name}
@@ -134,6 +135,7 @@ const CreateProduct = (user) => {
                 />
               </div>
               <div className="mb-3">
+              <h6>Write a Description:</h6>
                 <textarea
                   type="text"
                   value={description}
@@ -143,6 +145,7 @@ const CreateProduct = (user) => {
                 />
               </div>
               <div className="mb-3">
+              <h6>Enter Age:</h6>
                 <input
                   type="number"
                   value={age}
@@ -152,10 +155,11 @@ const CreateProduct = (user) => {
                 />
               </div>
               <div className="mb-3">
+              <h6>Enter Breed:</h6>
                 <input
                   type="text"
                   value={breed}
-                  placeholder="Write a breed"
+                  placeholder="Enter breed"
                   className="form-control"
                   onChange={(e) => setBreed(e.target.value)}
                 />

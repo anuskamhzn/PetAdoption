@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout/Layout";
-// import AdminMenu from "../../components/Layout/AdminMenu";
 import ShelterMenu from "../../components/Layout/ShelterMenu";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
+
 const { Option } = Select;
 
 const UpdateProduct = () => {
@@ -20,12 +20,10 @@ const UpdateProduct = () => {
   const [photo, setPhoto] = useState("");
   const [id, setId] = useState("");
 
-  //get single product
+  // Get single product
   const getSingleProduct = async () => {
     try {
-      const { data } = await axios.get(
-        `/api/v1/product/get-product/${params.slug}`
-      );
+      const { data } = await axios.get(`/api/v1/product/get-product/${params.slug}`);
       setName(data.product.name);
       setId(data.product._id);
       setDescription(data.product.description);
@@ -42,7 +40,7 @@ const UpdateProduct = () => {
     //eslint-disable-next-line
   }, []);
 
-  //get all category
+  // Get all categories
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get("/api/v1/category/get-category");
@@ -59,21 +57,18 @@ const UpdateProduct = () => {
     getAllCategory();
   }, []);
 
-  //create product function
+  // Update product function
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
       const productData = new FormData();
       productData.append("name", name);
       productData.append("description", description);
-      photo && productData.append("photo", photo);
-      productData.append("age", age);
+      if (photo) productData.append("photo", photo);
+      productData.append("age", age ? age : "");
       productData.append("breed", breed);
       productData.append("category", category);
-      const { data } = await axios.put(
-        `/api/v1/product/update-product/${id}`,
-        productData
-      );
+      const { data } = await axios.put(`/api/v1/product/update-product/${id}`, productData);
 
       if (data?.success) {
         toast.success("Pet Info Updated Successfully");
@@ -87,7 +82,7 @@ const UpdateProduct = () => {
     }
   };
 
-  //delete a product
+  // Delete a product
   const handleDelete = async () => {
     try {
       const confirmed = window.confirm("Are you sure you want to send an adoption request?");
@@ -162,6 +157,7 @@ const UpdateProduct = () => {
                 )}
               </div>
               <div className="mb-3">
+                <h6>Enter Name:</h6>
                 <input
                   type="text"
                   value={name}
@@ -171,6 +167,7 @@ const UpdateProduct = () => {
                 />
               </div>
               <div className="mb-3">
+                <h6>Write a Description:</h6>
                 <textarea
                   type="text"
                   value={description}
@@ -180,15 +177,17 @@ const UpdateProduct = () => {
                 />
               </div>
               <div className="mb-3">
+                <h6>Enter Age:</h6>
                 <input
-                  type="number"
+                  type="text"
                   value={age}
-                  placeholder="Write a age"
+                  placeholder="Write an age"
                   className="form-control"
                   onChange={(e) => setAge(e.target.value)}
                 />
               </div>
               <div className="mb-3">
+                <h6>Enter Breed:</h6>
                 <input
                   type="text"
                   value={breed}

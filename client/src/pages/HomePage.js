@@ -58,11 +58,29 @@ const HomePage = () => {
     try {
       setLoading(true);
       const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
+      // Fetch adoption status for each product
+      const productsWithStatus = await Promise.all(
+        data.products.map(async (product) => {
+          const adoptionStatus = await getAdoptionStatus(product._id);
+          return { ...product, adoptionStatus };
+        })
+      );
       setLoading(false);
-      setProducts(data.products);
+      setProducts(productsWithStatus);
     } catch (error) {
       setLoading(false);
       console.log(error);
+    }
+  };
+
+  // Fetch adoption status for a product
+  const getAdoptionStatus = async (productId) => {
+    try {
+      const { data } = await axios.get(`/api/v1/adoption/status/${productId}`);
+      return data.status;
+    } catch (error) {
+      console.error("Error fetching adoption status:", error);
+      return null;
     }
   };
 
@@ -111,8 +129,15 @@ const HomePage = () => {
         radio,
         breeds: breeds.filter((breed) => checked.includes(breed)), // Include selected breeds
       });
+      // Fetch adoption status for filtered products
+      const productsWithStatus = await Promise.all(
+        data.products.map(async (product) => {
+          const adoptionStatus = await getAdoptionStatus(product._id);
+          return { ...product, adoptionStatus };
+        })
+      );
       setLoading(false);
-      setProducts(data?.products);
+      setProducts(productsWithStatus);
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -143,6 +168,20 @@ const HomePage = () => {
                 <div
                   className="pet-card col-lg-3 col-md-5 col-sm-5 col-sms-9 m-2 pt-3"
                   key={p._id}
+                  onMouseEnter={(e) => {
+                    const card = e.currentTarget;
+                    const button = card.querySelector('.btn-more');
+                    if (p.adoptionStatus === "approved") {
+                      button.textContent = "Pet Adopted";
+                      button.disabled = true;
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    const card = e.currentTarget;
+                    const button = card.querySelector('.btn-more');
+                    button.textContent = "More Details";
+                    button.disabled = false;
+                  }}
                 >
                   <img
                     src={`/api/v1/product/product-photo/${p._id}`}
@@ -153,11 +192,11 @@ const HomePage = () => {
                     <h5 className="card-title">{p.name}</h5>
                     <p className="card-text">
                       {p.description.substring(0, 30)}
-                    </p>{" "}
+                    </p>
                     <div className="d-flex justify-content-between">
                       <p className="card-text">Age: {p.age}</p>
                       <button
-                        className="btn-more "
+                        className="btn-more"
                         onClick={() => navigate(`/product/${p.slug}`)}
                       >
                         More Details
@@ -169,7 +208,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>a
 
       {/* </div> */}
     </Layout>

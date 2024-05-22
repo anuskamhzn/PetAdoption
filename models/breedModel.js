@@ -1,10 +1,14 @@
 import mongoose from "mongoose";
 
-const categorySchema = new mongoose.Schema({
+const breedSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
     unique: true,
+  },
+  category: {
+    type: String,
+    ref: "Category",
   },
   slug: {
     type: String,
@@ -12,4 +16,4 @@ const categorySchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("Breed", categorySchema);
+export default mongoose.model("Breed", breedSchema);

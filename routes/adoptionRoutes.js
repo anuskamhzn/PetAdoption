@@ -44,7 +44,7 @@ router.post("/", requireSignIn, async (req, res) => {
   }
 });
 
-// GET /api/v1/adoption - Retrieve all adoption requests
+// GET /api/v1/adoption - Retrieve all adoption requests by specific shelters
 router.get("/", requireSignIn, isAdminOrShelter, async (req, res) => {
   try {
     const { status, userId } = req.query;
