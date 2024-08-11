@@ -23,7 +23,7 @@ router.post("/", requireSignIn, async (req, res) => {
       return res.status(404).json({ message: "Product not found." });
     }
 
-    const shelterId = product.postedBy; // Ensure the shelterId is obtained
+    const shelterId = product.postedBy; 
 
     const newAdoption = new Adoption({
       productId,
@@ -173,11 +173,10 @@ router.get("/notifications", requireSignIn, async (req, res) => {
     const notifications = await Notification.find({ userId: req.user._id })
       .populate("productId");  // This will fetch related product data
 
-    // Construct human-readable messages
     const updatedNotifications = notifications.map((notification) => {
-      let productName = notification.productId?.name || "Unknown"; // Safely get the name
+      let productName = notification.productId?.name || "Unknown";
       return {
-        ...notification.toObject(), // Convert Mongoose document to plain object
+        ...notification.toObject(), 
         message: `Your adoption request for ${productName} has been ${notification.message.includes("approved") ? "approved" : "rejected"}.`,
       };
     });
@@ -204,10 +203,10 @@ router.get("/check/:productId", requireSignIn, async (req, res) => {
     const adoptionRequest = await Adoption.findOne({
       productId,
       userId,
-      status: 'pending', // Check for 'pending' status (you can adjust this as needed)
+      status: 'pending', 
     });
 
-    const requestExists = !!adoptionRequest; // Convert to boolean (true if request found)
+    const requestExists = !!adoptionRequest; //Convert to boolean (true if request found)
 
     res.status(200).json({ requestSent: requestExists });
   } catch (error) {
@@ -216,27 +215,24 @@ router.get("/check/:productId", requireSignIn, async (req, res) => {
   }
 });
 
-// GET adoption status by product ID
+// GET adoption status by pet ID
 router.get('/status/:productId', async (req, res) => {
   try {
     const { productId } = req.params;
     
-    // Find all adoption requests for the given product ID
+    //Find all adoption requests for the given product ID
     const adoptionRequests = await Adoption.find({ productId });
 
     if (adoptionRequests.length === 0) {
-      // If no adoption requests found, return status as "pending"
       return res.json({ status: "pending" });
     }
 
-    // Check if any adoption request is approved
+    //Check if any adoption request is approved
     const hasApprovedRequest = adoptionRequests.some(request => request.status === "approved");
     if (hasApprovedRequest) {
-      // If there's an approved request, return status as "approved"
       return res.json({ status: "approved" });
     }
 
-    // If there's no approved request but there are pending requests, return status as "pending"
     return res.json({ status: "pending" });
   } catch (error) {
     console.error("Error fetching adoption status:", error);

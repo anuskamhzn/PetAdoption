@@ -88,7 +88,7 @@ const HomePage = () => {
     getAllCategories();
     getTotal();
     getAllProducts();
-  }, [page]); // Ensure useEffect runs on page change
+  }, [page]); 
 
   // Load more products
   const loadMore = () => {

@@ -32,7 +32,7 @@ export const createProductController = async (req, res) => {
       return res.status(401).send({ error: "Unauthorized: User information is missing." });
     }
 
-    // Create new product with the logged-in user as the poster
+    // Create new pet with the logged-in user as the poster
     const products = new productModel({
       ...req.fields,
       slug: slugify(name),
@@ -61,7 +61,7 @@ export const createProductController = async (req, res) => {
   }
 };
 
-//get all products
+//get all pets
 export const getProductController = async (req, res) => {
   try {
     if (!req.user || !req.user._id) {
@@ -79,7 +79,7 @@ export const getProductController = async (req, res) => {
       .populate("postedBy","name")
       .sort({ createdAt: -1 });
 
-    // Transform products to include a URL for the photo
+    // Transform pets to include a URL for the photo
     const productsWithPhotoURL = products.map(product => ({
       ...product._doc,
       photoURL: `/api/v1/product/photo/${product._id}`, // URL to fetch the photo
@@ -99,7 +99,7 @@ export const getProductController = async (req, res) => {
   }
 };
 
-// get single product
+// get single pet
 export const getSingleProductController = async (req, res) => {
   try {
     const product = await productModel
@@ -158,7 +158,7 @@ export const deleteProductController = async (req, res) => {
   }
 };
 
-//upate product
+//upate pet
 export const updateProductController = async (req, res) => {
   try {
     const { name, description, age, breed, category } =
@@ -239,7 +239,7 @@ export const productFiltersController = async (req, res) => {
 
 
 
-// product count
+// pet count
 export const productCountController = async (req, res) => {
   try {
     const total = await productModel.find({}).estimatedDocumentCount();
@@ -257,7 +257,7 @@ export const productCountController = async (req, res) => {
   }
 };
 
-// product list base on page
+// pet list base on page
 export const productListController = async (req, res) => {
   try {
     const perPage = 2;
@@ -282,12 +282,12 @@ export const productListController = async (req, res) => {
   }
 };
 
-// search product
+// search pet
 export const searchProductController = async (req, res) => {
   try {
     const { keyword } = req.params;
 
-    // Find products that match the given keyword in name
+    // Find pets that match the given keyword in name
     let results = await productModel.find({
       name: { $regex: keyword, $options: 'i' }
     }).select('-photo');
@@ -317,7 +317,7 @@ export const searchProductController = async (req, res) => {
 };
 
 
-// Get products by shelter ID
+// Get pets by shelter ID
 export const getProductsByShelterController = async (req, res) => {
   try {
     const { shelterId } = req.params;

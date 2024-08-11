@@ -18,6 +18,7 @@ dotenv.config();
 //db config
 connectDB();
 
+
 //rest obj
 const app = express()
 
