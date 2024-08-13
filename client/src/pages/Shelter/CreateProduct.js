@@ -24,7 +24,7 @@ const CreateProduct = (user) => {
   //get all category
   const getAllCategory = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-category");
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/category/get-category`);
       if (data?.success) {
         setCategories(data.category);
       }
@@ -75,8 +75,8 @@ const CreateProduct = (user) => {
 
   return (
     <Layout>
-      <div className="container m-3 p-3 mt-4">
-        <div className="row">
+      <div className='container-fluid m-3 p-3 pt-4'>
+      <div className='row'>
           <div className="col-md-3">
             {/* <AdminMenu /> */}
             <ShelterMenu />

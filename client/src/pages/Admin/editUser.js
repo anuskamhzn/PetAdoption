@@ -21,7 +21,7 @@ const EditUser = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`/api/v1/auth/user-info/${userId}`);
+        const response = await axios.get(`${process.env.REACT_APP_API}/api/v1/auth/user-info/${userId}`);
         setUser(response.data.user);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -54,7 +54,7 @@ const EditUser = () => {
       formData.append("address", address);
       formData.append("photo", photo); // Append the selected photo to the form data
   
-      const { data } = await axios.put(`/api/v1/auth/profile/${userId}`, formData); // Assuming you have an endpoint to update user profile
+      const { data } = await axios.put(`${process.env.REACT_APP_API}/api/v1/auth/profile/${userId}`, formData); // Assuming you have an endpoint to update user profile
   
       if (data?.error) {
         toast.error(data.error);

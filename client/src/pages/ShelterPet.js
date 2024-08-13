@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Layout from "../components/Layout/Layout";
+import { useAuth } from "../context/auth";
 
 const ShelterPet = () => {
   const navigate = useNavigate();
@@ -13,11 +14,12 @@ const ShelterPet = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
+  const [auth] = useAuth();
 
   useEffect(() => {
     const fetchProductsByShelter = async () => {
       try {
-        const { data } = await axios.get(`/api/v1/product/shelter/${shelterId}`);
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/shelter/${shelterId}`);
         if (data.success) {
           setProducts(data.products); // Store fetched products
           setShelterName(data.shelterName);
@@ -35,7 +37,7 @@ const ShelterPet = () => {
   // Fetch all categories
   const getAllCategories = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-category");
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/category/get-category`);
       if (data.success) {
         setCategories(data.category);
       }
@@ -47,7 +49,7 @@ const ShelterPet = () => {
   // Fetch total count of products
   const getTotal = async () => {
     try {
-      const { data } = await axios.get("/api/v1/product/product-count");
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/product-count`);
       setTotal(data?.total);
     } catch (error) {
       console.log(error);
@@ -58,7 +60,7 @@ const ShelterPet = () => {
   const getAllProducts = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`);
       setLoading(false);
       setProducts(data.products);
     } catch (error) {
@@ -82,7 +84,7 @@ const ShelterPet = () => {
             {products?.slice(0, 4).map((p) => (
               <div className="card m-2" style={{ width: "18rem" }} key={p._id}>
                 <img
-                  src={`/api/v1/product/product-photo/${p._id}`}
+                  src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
                   className="card-img-top"
                   alt={p.name}
                   style={{ height: "200px" }} // Adjust the height as needed

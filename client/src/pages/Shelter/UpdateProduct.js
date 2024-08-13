@@ -23,7 +23,7 @@ const UpdateProduct = () => {
   // Get single product
   const getSingleProduct = async () => {
     try {
-      const { data } = await axios.get(`/api/v1/product/get-product/${params.slug}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/get-product/${params.slug}`);
       setName(data.product.name);
       setId(data.product._id);
       setDescription(data.product.description);
@@ -43,7 +43,7 @@ const UpdateProduct = () => {
   // Get all categories
   const getAllCategory = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-category");
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/category/get-category`);
       if (data?.success) {
         setCategories(data?.category);
       }
@@ -68,7 +68,7 @@ const UpdateProduct = () => {
       productData.append("age", age ? age : "");
       productData.append("breed", breed);
       productData.append("category", category);
-      const { data } = await axios.put(`/api/v1/product/update-product/${id}`, productData);
+      const { data } = await axios.put(`${process.env.REACT_APP_API}/api/v1/product/update-product/${id}`, productData);
 
       if (data?.success) {
         toast.success("Pet Info Updated Successfully");
@@ -87,7 +87,7 @@ const UpdateProduct = () => {
     try {
       const confirmed = window.confirm("Are you sure you want to send an adoption request?");
       if (!confirmed) return;
-      await axios.delete(`/api/v1/product/delete-product/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API}/api/v1/product/delete-product/${id}`);
       toast.success("Product Deleted Successfully");
       navigate("/dashboard/shelter/products");
     } catch (error) {
@@ -148,7 +148,7 @@ const UpdateProduct = () => {
                 ) : (
                   <div className="text-center">
                     <img
-                      src={`/api/v1/product/product-photo/${id}`}
+                      src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${id}`}
                       alt="product_photo"
                       height={"200px"}
                       className="img img-responsive"

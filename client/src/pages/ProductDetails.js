@@ -25,7 +25,7 @@ const ProductDetails = () => {
 
   const getComments = useCallback(async (productId) => {
     try {
-      const { data } = await axios.get(`/api/v1/comments/${productId}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/comments/${productId}`);
       setComments(data);
     } catch (error) {
       console.error("Error fetching comments:", error);
@@ -34,7 +34,7 @@ const ProductDetails = () => {
 
   const getProduct = useCallback(async () => {
     try {
-      const { data } = await axios.get(`/api/v1/product/get-product/${params.slug}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/get-product/${params.slug}`);
       setProduct(data.product);
 
       if (data.product && data.product._id) {
@@ -50,7 +50,7 @@ const ProductDetails = () => {
 
   const checkAdoptionRequest = useCallback(async () => {
     try {
-      const { data } = await axios.get(`/api/v1/adoption/check/${product._id}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/adoption/check/${product._id}`);
       setRequestSent(data.requestSent);
     } catch (error) {
       console.error("Error checking adoption request:", error);
@@ -72,7 +72,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchAdoptionStatus = async () => {
       try {
-        const { data } = await axios.get(`/api/v1/adoption/status/${product._id}`);
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/adoption/status/${product._id}`);
         setAdoptionStatus(data.status); // Update adoption status state
       } catch (error) {
         console.error("Error fetching adoption status:", error);
@@ -97,7 +97,7 @@ const ProductDetails = () => {
     }
 
     try {
-      const { data } = await axios.post('/api/v1/comments', {
+      const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/comments`, {
         productId: product._id,
         text: newComment,
         userId: auth.user._id, // Include the user ID
@@ -137,7 +137,7 @@ const ProductDetails = () => {
     }
 
     try {
-      const { data } = await axios.post(`/api/v1/comments/replies`, {
+      const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/comments/replies`, {
         commentId,
         text: newReplies[commentId],
         userId: auth.user._id, // Include the user ID
@@ -182,7 +182,7 @@ const ProductDetails = () => {
 
     try {
       // Send adoption request to the server
-      await axios.post("/api/v1/adoption", {
+      await axios.post(`${process.env.REACT_APP_API}/api/v1/adoption`, {
         productId: product._id, // Product being adopted
         userId: auth.user._id, // User making the request
       });
@@ -197,7 +197,7 @@ const ProductDetails = () => {
 
   const handleDeleteComment = async (commentId) => {
     try {
-      await axios.delete(`/api/v1/comments/delete/${commentId}`);
+      await axios.delete(`${process.env.REACT_APP_API}/api/v1/comments/delete/${commentId}`);
       setComments((prevComments) => prevComments.filter(comment => comment._id !== commentId));
       window.location.reload();
     } catch (error) {
@@ -207,7 +207,7 @@ const ProductDetails = () => {
   };
   const handleDeleteReply = async (commentId, replyId) => {
     try {
-      await axios.delete(`/api/v1/comments/replies/delete/${commentId}/${replyId}`);
+      await axios.delete(`${process.env.REACT_APP_API}/api/v1/comments/replies/delete/${commentId}/${replyId}`);
       setComments((prevComments) => {
         return prevComments.map(comment => {
           if (comment._id === commentId) {
@@ -226,7 +226,7 @@ const ProductDetails = () => {
     const editedText = prompt("Edit your comment:", comment.text); // Prompt the user to edit the comment text
     if (editedText === null) return; // If the user cancels editing, do nothing
     try {
-      await axios.put(`/api/v1/comments/edit/${comment._id}`, { content: editedText }); // Pass edited text in the request body
+      await axios.put(`${process.env.REACT_APP_API}/api/v1/comments/edit/${comment._id}`, { content: editedText }); // Pass edited text in the request body
       // Update the comment in the UI
       setComments((prevComments) =>
         prevComments.map((prevComment) =>
@@ -244,7 +244,7 @@ const ProductDetails = () => {
     const editedText = prompt("Edit your reply:", reply.text); // Prompt the user to edit the reply text
     if (editedText === null) return; // If the user cancels editing, do nothing
     try {
-      await axios.put(`/api/v1/comments/replies/edit/${comment._id}/${reply._id}`, { content: editedText }); // Pass edited text in the request body
+      await axios.put(`${process.env.REACT_APP_API}/api/v1/comments/replies/edit/${comment._id}/${reply._id}`, { content: editedText }); // Pass edited text in the request body
       // Update the reply in the UI
       setComments((prevComments) =>
         prevComments.map((prevComment) =>
@@ -276,14 +276,14 @@ const ProductDetails = () => {
               <div className="detail-card ">
                 <div className="grey">
                   <img
-                    src={`/api/v1/product/product-photo/${product._id}`}
+                    src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product._id}`}
                     className=" position-relative bg-image"
                     alt={product.name}
                     style={{ width: "400px" }}
                   />
 
                   <img
-                    src={`/api/v1/product/product-photo/${product._id}`}
+                    src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product._id}`}
                     className=" img-detail position-absolute"
                     alt={product.name}
                     style={{ width: "250px" }}

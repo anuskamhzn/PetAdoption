@@ -8,8 +8,8 @@ const Dashboard = () => {
   const [auth] = useAuth();
   return (
     <Layout>
-      <div className="container p-3 m-3 dashboard">
-        <div className="row">
+      <div className='container-fluid m-3 p-3 pt-4'>
+      <div className='row'>
           <div className="col-md-3">
             <UserMenu />
           </div>
@@ -18,7 +18,7 @@ const Dashboard = () => {
               <div className="row">
                 <div className="col-md-5 d-flex align-items-center justify-content-center">
                   <img
-                    src={`/api/v1/auth/user-photo/${auth?.user?._id}`}
+                    src={`${process.env.REACT_APP_API}/api/v1/auth/user-photo/${auth?.user?._id}`}
                     className="img-fluid"
                     alt={auth?.user?.name}
                     style={{ width: "200px" }} // Adjust the height and width as needed

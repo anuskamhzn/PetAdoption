@@ -3,30 +3,32 @@ import Layout from "../../components/Layout/Layout";
 import UserMenu from "../../components/Layout/UserMenu";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useAuth } from "../../context/auth";
 
 const Adopt = () => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [auth]= useAuth();
 
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const response = await axios.get("/api/v1/adoption/notifications");
+        const response = await axios.get(`${process.env.REACT_APP_API}/api/v1/adoption/notifications`);
         console.log("Fetched notifications:", response.data); // Log the fetched data
         setNotifications(response.data); // Update state with fetched data
         setLoading(false);
       } catch (error) {
         console.error("Error fetching notifications:", error);
-        toast.error("Failed to fetch notifications.");
+  
       }
     };
 
     fetchNotifications(); // Fetch data on component mount
-  }, []);
+  }, [auth.token]);
 
   return (
     <Layout>
-      <div className="container pt-3 mt-5">
+      <div className="container-fluid m-3 p-3 pt-4">
         <div className="row">
           <div className="col-md-3">
             <UserMenu />

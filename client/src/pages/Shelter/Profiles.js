@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import ShelterMenu from "../../components/Layout/ShelterMenu";
 import Layout from "./../../components/Layout/Layout";
 import { useAuth } from "../../context/auth";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 const Profiles = () => {
   //context
   const [auth, setAuth] = useAuth();
+  const navigate = useNavigate();
   //state
   const [name, setName] = useState("");
   const [username, setUserName] = useState("");
@@ -37,7 +39,7 @@ const Profiles = () => {
       formData.append("address", address);
       formData.append("photo", photo); // Append the selected photo to the form data
 
-      const { data } = await axios.put("/api/v1/auth/profile", formData);
+      const { data } = await axios.put(`${process.env.REACT_APP_API}/api/v1/auth/profile`, formData);
 
       if (data?.errro) {
         toast.error(data?.error);
@@ -48,6 +50,7 @@ const Profiles = () => {
         ls.user = data.updatedUser;
         localStorage.setItem("auth", JSON.stringify(ls));
         toast.success("Profile Updated Successfully");
+        navigate("/dashboard/shelter");
       }
     } catch (error) {
       console.log(error);

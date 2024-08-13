@@ -12,7 +12,7 @@ const Users = () => {
 
   const getAllUsers = async () => {
     try {
-      const { data } = await axios.get("/api/v1/auth/get-users");
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/auth/get-users`);
       if (data.success) {
         const filteredUsers = data.user.filter((user) => user.name !== "admin");
         setUsers(filteredUsers);
@@ -78,7 +78,7 @@ const Users = () => {
                     <div className="card">
                     <div className="card-body py-4 px-3">
                     <img
-                        src={`/api/v1/auth/user-photo/${user?._id}`}
+                        src={`${process.env.REACT_APP_API}/api/v1/auth/user-photo/${user?._id}`}
                         className="pet-image img-fluid"
                         alt={user?.name}
                         style={{ height: "200px", width: "100%", objectFit: "cover" }}

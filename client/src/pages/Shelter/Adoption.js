@@ -8,32 +8,33 @@ import axios from "axios";
 const Adoption = () => {
   const [adoptionRequests, setAdoptionRequests] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [auth] = useAuth();
 
   useEffect(() => {
     const fetchAdoptionRequests = async () => {
       try {
-        const { data } = await axios.get("/api/v1/adoption"); // Fetch all adoption requests
+        // Token is included automatically due to axios defaults
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/adoption`);
+        console.log("Fetched adoption requests:", data); // Debug log
         setAdoptionRequests(data);
-        setLoading(false);
       } catch (error) {
-        console.error("Error fetching adoption requests:", error);
+        console.error("Error fetching adoption requests:", error.response?.data || error.message);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchAdoptionRequests();
-  }, []); // Fetch adoption requests on mount
+  }, [auth.token]); // Refetch if token changes
 
   const handleAction = async (requestId, action) => {
     try {
       if (action === "approve") {
-        // Approve the current request
-        await axios.patch(`/api/v1/adoption/${requestId}/approve`, {
+        await axios.patch(`${process.env.REACT_APP_API}/api/v1/adoption/${requestId}/approve`, {
           status: "approved",
         });
         toast.success("Adoption request approved!");
 
-        // Reject all other requests for the same pet
         const petId = adoptionRequests.find(
           (request) => request._id === requestId
         ).productId?._id;
@@ -44,33 +45,30 @@ const Adoption = () => {
 
         await Promise.all(
           otherRequests.map(async (otherRequest) => {
-            await axios.patch(`/api/v1/adoption/${otherRequest._id}/reject`, {
+            await axios.patch(`${process.env.REACT_APP_API}/api/v1/adoption/${otherRequest._id}/reject`, {
               status: "rejected",
             });
           })
         );
         toast.success("All other adoption requests for this pet are rejected!");
 
-        // Refresh adoption requests after approval and rejection
-        const { data } = await axios.get("/api/v1/adoption");
-        setAdoptionRequests(data); // Update state to trigger re-render
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/adoption`);
+        setAdoptionRequests(data);
       } else if (action === "reject") {
-        // Reject the current request
-        await axios.patch(`/api/v1/adoption/${requestId}/reject`, {
+        await axios.patch(`${process.env.REACT_APP_API}/api/v1/adoption/${requestId}/reject`, {
           status: "rejected",
         });
         toast.success("Adoption request rejected!");
 
-        // Refresh adoption requests after rejection
-        const { data } = await axios.get("/api/v1/adoption");
-        setAdoptionRequests(data); // Update state to trigger re-render
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/adoption`);
+        setAdoptionRequests(data);
       }
     } catch (error) {
       console.error(
         `Error ${
           action === "approve" ? "approving" : "rejecting"
         } adoption request:`,
-        error
+        error.response?.data || error.message
       );
       toast.error(
         `Failed to ${
@@ -82,8 +80,8 @@ const Adoption = () => {
 
   return (
     <Layout>
-      <div className="container  p-3 pt-4 mt-4">
-        <div className="row">
+      <div className='container-fluid m-3 p-3 pt-4'>
+        <div className='row'>
           <div className="col-md-3">
             <ShelterMenu />
           </div>
@@ -92,7 +90,7 @@ const Adoption = () => {
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <div>
+              <>
                 {adoptionRequests.length > 0 ? (
                   <table className="adoption-table">
                     <thead>
@@ -144,7 +142,7 @@ const Adoption = () => {
                 ) : (
                   <p>No pending adoption requests.</p>
                 )}
-              </div>
+              </>
             )}
           </div>
         </div>

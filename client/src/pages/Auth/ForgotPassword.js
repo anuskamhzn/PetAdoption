@@ -16,7 +16,7 @@ const ForgotPassword = () => {
         e.preventDefault();
         try {
 // Ensure axios post request includes correct field names
-        const res = await axios.post(`/api/v1/auth/forgot-password`, { email, newpassword, phone });
+        const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/forgot-password`, { email, newpassword, phone });
         if (res.data && res.data.success) {
             toast.success(res.data.message);
             navigate('/login');

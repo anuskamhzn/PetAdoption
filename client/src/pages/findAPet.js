@@ -23,7 +23,7 @@ const FindAPet = () => {
   // Fetch all categories
   const getAllCategories = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-category");
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/category/get-category`);
       if (data.success) {
         setCategories(data.category);
       }
@@ -35,7 +35,7 @@ const FindAPet = () => {
   // Fetch total count of products
   const getTotal = async () => {
     try {
-      const { data } = await axios.get("/api/v1/product/product-count");
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/product-count`);
       setTotal(data?.total);
     } catch (error) {
       console.log(error);
@@ -46,7 +46,7 @@ const FindAPet = () => {
   const getAllProducts = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`);
       // Fetch adoption status for each product
       const productsWithStatus = await Promise.all(
         data.products.map(async (product) => {
@@ -65,7 +65,7 @@ const FindAPet = () => {
   // Fetch adoption status for a product
   const getAdoptionStatus = async (productId) => {
     try {
-      const { data } = await axios.get(`/api/v1/adoption/status/${productId}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/adoption/status/${productId}`);
       return data.status;
     } catch (error) {
       console.error("Error fetching adoption status:", error);
@@ -77,7 +77,7 @@ const FindAPet = () => {
     getAllCategories();
     getTotal();
     getAllProducts();
-  }, [page]); // Ensure useEffect runs on page change
+  }, [page]);
 
   // Handle category filter
   const handleFilter = (value, id) => {
@@ -108,7 +108,7 @@ const FindAPet = () => {
   const filterProducts = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.post("/api/v1/product/product-filters", {
+      const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/product/product-filters`, {
         checked,
         radio,
         breeds: breeds.filter((breed) => checked.includes(breed)),
@@ -128,11 +128,40 @@ const FindAPet = () => {
     }
   };
 
+  // Inline styles
+  const overlayStyle = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    color: "#fff",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "1.5rem",
+    fontWeight: "bold",
+    textAlign: "center",
+    zIndex: 10,
+  };
+
+  const cardStyle = {
+    position: "relative",
+    width: "18rem",
+    margin: "1rem",
+  };
+
+  const imageStyle = {
+    width: "100%",
+    height: "auto",
+  };
+
   return (
     <Layout>
       <div className="container">
         <div className="row mt-3 grey">
-          <div className="col-md-3 col-sm-5 col-sms-9 ps-md-4 ">
+          <div className="col-md-3 col-sm-5 col-sms-9 ps-md-4">
             <div className="filter">
               <h4 className="mb-3">Filter By Category</h4>
               <div className="row flex-column">
@@ -161,7 +190,7 @@ const FindAPet = () => {
               </div>
             </div>
             <div className="filter">
-              <h4 className=" mt-3">Filter By Age</h4>
+              <h4 className="mt-3">Filter By Age</h4>
               <div className="d-flex flex-column">
                 <Radio.Group onChange={(e) => setRadio(e.target.value)}>
                   {Age?.map((p) => (
@@ -185,12 +214,13 @@ const FindAPet = () => {
             <div className="row all-pets">
               <h1 className="text-center">All Pets</h1>
               {products?.length === 0 ? (
-                <p className="text-center">Not found</p>
+                <p className="text-center">Loading...</p>
               ) : (
                 products?.map((p) => (
                   <div
                     className="pet-card col-lg-3 col-md-5 col-sm-5 col-sms-5 col-sms-10 m-2 pt-2"
                     key={p._id}
+                    style={cardStyle}
                     onMouseEnter={(e) => {
                       const card = e.currentTarget;
                       const button = card.querySelector('.btn-more');
@@ -207,10 +237,14 @@ const FindAPet = () => {
                     }}
                   >
                     <img
-                      src={`/api/v1/product/product-photo/${p._id}`}
+                      src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
                       className="pet-image img-fluid"
                       alt={p.name}
+                      style={imageStyle}
                     />
+                    {p.adoptionStatus === "approved" && (
+                      <div style={overlayStyle}>Pet Adopted</div>
+                    )}
                     <div className="card-body py-4 px-3">
                       <h5 className="card-title">{p.name}</h5>
                       <p className="card-text">
@@ -221,8 +255,9 @@ const FindAPet = () => {
                         <button
                           className="btn-more"
                           onClick={() => navigate(`/product/${p.slug}`)}
+                          disabled={p.adoptionStatus === "approved"}
                         >
-                          More Details
+                          {p.adoptionStatus === "approved" ? "Pet Adopted" : "More Details"}
                         </button>
                       </div>
                     </div>

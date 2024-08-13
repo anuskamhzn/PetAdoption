@@ -21,7 +21,7 @@ const CreateBreed = () => {
         //get all category
         const getAllCategory = async () => {
             try {
-                const { data } = await axios.get("/api/v1/category/get-category");
+                const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/category/get-category`);
                 if (data?.success) {
                     setCategories(data.category);
                 }
@@ -39,7 +39,7 @@ const CreateBreed = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post("/api/v1/breed/create-breed", {
+            const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/breed/create-breed`, {
                 name
             });
             if (data?.success) {
@@ -76,7 +76,7 @@ const CreateBreed = () => {
         e.preventDefault();
         try {
             const { data } = await axios.put(
-                `/api/v1/breed/update-breed/${selected._id}`,
+                `${process.env.REACT_APP_API}/api/v1/breed/update-breed/${selected._id}`,
                 { name: updatedName }
             );
             if (data.success) {
@@ -97,7 +97,7 @@ const CreateBreed = () => {
     const handleDelete = async (pId) => {
         try {
             const { data } = await axios.delete(
-                `/api/v1/breed/delete-breed/${pId}`
+                `${process.env.REACT_APP_API}/api/v1/breed/delete-breed/${pId}`
             );
             if (data.success) {
                 toast.success(`Breed is deleted`);

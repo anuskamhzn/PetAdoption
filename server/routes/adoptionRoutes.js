@@ -44,28 +44,42 @@ router.post("/", requireSignIn, async (req, res) => {
   }
 });
 
-// GET /api/v1/adoption - Retrieve all adoption requests by specific shelters
+// GET /api/v1/adoption - Retrieve adoption requests based on userId or shelterId
 router.get("/", requireSignIn, isAdminOrShelter, async (req, res) => {
   try {
     const { status, userId } = req.query;
+    
+    // Get current user's role and ID from the request object
+    const currentUserId = req.user._id;
+    const currentUserRole = req.user.role;
 
-    // Ensure the user has a shelter ID
-    const shelterId = req.user._id;
-    if (!shelterId) {
-      return res.status(403).json({ message: "Unauthorized: No shelter ID found." });
+    if (!currentUserId) {
+      return res.status(403).json({ message: "Unauthorized: No user ID found." });
     }
 
-    // Build query object with the shelter ID
-    const query = { shelterId };
+    // Initialize query object
+    const query = {};
 
+    // If userId is provided in the query, use it to filter requests
+    if (userId) {
+      // Only allow shelters to query by userId
+      if (currentUserRole !== 2) {
+        return res.status(403).json({ message: "Forbidden: Only shelters can query by userId." });
+      }
+      query.userId = userId;
+    } else {
+      // If no userId, use current user's ID to filter requests (if applicable)
+      if (currentUserRole === 2) {
+        query.shelterId = currentUserId;
+      }
+    }
+
+    // Add status filter if provided
     if (status) {
       query.status = status;
     }
 
-    if (userId) {
-      query.userId = userId;
-    }
-
+    // Fetch adoption requests based on the query
     const adoptionRequests = await Adoption.find(query)
       .populate({
         path: "productId",

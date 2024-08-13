@@ -12,7 +12,7 @@ const Shelters = () => {
 
   const getAllUsers = async () => {
     try {
-      const { data } = await axios.get("/api/v1/auth/get-users");
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/auth/get-users`);
       if (data.success) {
         const filteredUsers = data.user.filter(
           (user) => user.role === 2 && user.name !== "admin"
@@ -35,8 +35,8 @@ const Shelters = () => {
 
   return (
     <Layout>
-      <div className="container mt-5 pt-3">
-        <div className="row align-item-center justify-content-center">
+      <div className='container-fluid m-3 p-3 pt-4'>
+        <div className="row ">
           <div className="col-md-3">
             <UserMenu />
           </div>
@@ -55,7 +55,7 @@ const Shelters = () => {
                       <div className="card-body py-4 px-3">
                         <h5 className="card-title">
                           <img
-                            src={`/api/v1/auth/user-photo/${user?._id}`}
+                            src={`${process.env.REACT_APP_API}/api/v1/auth/user-photo/${user?._id}`}
                             className="pet-image img-fluid"
                             alt={user?.name}
                             style={{

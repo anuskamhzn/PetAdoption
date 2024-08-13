@@ -1,22 +1,17 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/auth";
-import {Outlet} from 'react-router-dom';
+import { Outlet, Navigate } from 'react-router-dom';
 import axios from 'axios';
-import Spinner from './Spinner';
 
-export default function ShelterRoutes() {
+export default function UserRoutes() {
     const [ok, setOk] = useState(false);
     const [auth, setAuth] = useAuth();
 
     useEffect(() => {
         const authCheck = async () => {
             try {
-                const res = await axios.get('/api/v1/auth/shelter-auth')
-                if (res.data.ok) {
-                    setOk(true);
-                } else {
-                    setOk(false);
-                }
+                const res = await axios.get(`${process.env.REACT_APP_API}/api/v1/auth/shelter-auth`);
+                setOk(res.data.ok);
             } catch (error) {
                 console.error("Error occurred while checking authentication:", error);
                 setOk(false);
@@ -28,5 +23,5 @@ export default function ShelterRoutes() {
         }
     }, [auth?.token]);
 
-    return ok ? <Outlet /> : <Spinner path=""/>;
+    return <Outlet />;
 }

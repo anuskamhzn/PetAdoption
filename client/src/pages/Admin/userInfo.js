@@ -15,7 +15,7 @@ const Userinfo = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get(`/api/v1/auth/user-info/${userId}`);
+        const response = await axios.get(`${process.env.REACT_APP_API}/api/v1/auth/user-info/${userId}`);
         setUserInfo(response.data.user);
       } catch (error) {
         setError(error.response.data.message);
@@ -35,7 +35,7 @@ const Userinfo = () => {
       // Confirm deletion request
       const confirmed = window.confirm("Are you sure you want to delete this user?");
       if (!confirmed) return;
-      await axios.delete(`/api/v1/auth/delete-user/${userId}`);
+      await axios.delete(`${process.env.REACT_APP_API}/api/v1/auth/delete-user/${userId}`);
       toast.success("User Deleted Successfully");
       navigate("/dashboard/admin/users");
     } catch (error) {
